@@ -27,6 +27,8 @@ model Resultados {
   puntaje Int[]
   ranking Int
   medalla Medalla
+  pais String
+  numeracion Int
 }
 
 enum Medalla {
@@ -36,3 +38,4 @@ enum Medalla {
   MENCION
   NADA
 }
+
