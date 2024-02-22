@@ -17,6 +17,8 @@ datasource db {
 model Cronologia {
   id          Int      @id @unique
   ciudad      String
+  pais        String
+  participantes Int
   cortes      Int[]
 }
 
