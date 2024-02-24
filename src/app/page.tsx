@@ -1,10 +1,8 @@
-'use client'
-import { Cronologia } from "@/components/Cronologia";
+import { Cronologia } from "@/app/ui/Cronologia";
 
 
 export default function Home() {
   
-
   return (
     <main className="flex min-h-screen flex-col">
       <Cronologia />

@@ -1,5 +1,4 @@
-'use client'
-import { Section } from "@/components/Section";
+import { Section } from "@/app/ui/Section";
 
 
 export default function Page() {
