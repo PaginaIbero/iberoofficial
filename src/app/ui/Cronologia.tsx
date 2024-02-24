@@ -1,7 +1,8 @@
+import { getBaseUrl } from "@/lib/baseUrl";
 import { cronologia } from "@/lib/types";
 
 export async function Cronologia() {
-      const response = await fetch('http://localhost:3000/api/cronologia', {next: { revalidate: 3600 } });
+      const response = await fetch(`${getBaseUrl()}/api/cronologia`, {next: { revalidate: 3600 } });
       const cronologia = await response.json()
     
     return (
