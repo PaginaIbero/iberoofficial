@@ -1,11 +1,10 @@
-'use client';
+'use client'
+import { Section } from "@/components/Section";
 
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { useState } from "react"
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="flex min-h-screen flex-col text-black">
       <h1 className='text-4xl font-semibold text-center'>Reglamento permanente</h1>
       <br />
       <Section title='Aspectos generales'>
@@ -43,7 +42,7 @@ export default function Page() {
       </Section>
       <Section title='Participación'>
         <p className='my-2'>
-          El país organizador deberá invitar a los siguientes países iberoamericanos: Argentina, Bolivia, Brasil, Chile, Colombia, Costa Rica, Cuba, Ecuador, El Salvador, España, Guatemala, Honduras, México, Nicaragua, Panamá, Paraguay, Perú, Portugal, Puerto Rico, República Dominicana, Uruguay y Venezuela. Podrá invitar a otros países de lengua española o portuguesa como Angola, Cabo Verde, Mozambique y Santo Tomé y Príncipe.
+          El país organizador deberá invitar a los siguientes países iberoamericanos: <strong className="opacity-80">Argentina, Bolivia, Brasil, Chile, Colombia, Costa Rica, Cuba, Ecuador, El Salvador, España, Guatemala, Honduras, México, Nicaragua, Panamá, Paraguay, Perú, Portugal, Puerto Rico, República Dominicana, Uruguay y Venezuela.</strong> Podrá invitar a otros países de lengua española o portuguesa como Angola, Cabo Verde, Mozambique y Santo Tomé y Príncipe.
         </p>
         <p className='my-2'>
           Cada país invitado tiene derecho a estar representado por un equipo de hasta cuatro estudiantes, un profesor Jefe de Delegación y un Tutor de los alumnos.
@@ -184,26 +183,3 @@ export default function Page() {
   )
 }
 
-export function Section({ title, children }: {
-  title: string,
-  children: React.ReactNode
-}) {
-  const [open, setOpen] = useState(false)
-  return (
-    <div className='flex flex-col border my-2'>
-      <div
-        className='flex justify-between p-4 bg-blue-50 hover:bg-blue-100 cursor-pointer transition-colors'
-        onClick={() => setOpen(!open)}
-      >
-        <h2 className='font-semibold'>
-          {title}
-        </h2>
-        <ChevronDownIcon
-          className={`w-6 transition-transform transform ${open ? 'rotate-180' : ''}`} />
-      </div>
-      <div className={`px-4 bg-white transition-[max-height] transition-max-height duration-[2s] overflow-hidden ${open ? 'max-h-auto' : 'max-h-0'}`}>
-        {children}
-      </div>
-    </div>
-  )
-}

@@ -26,7 +26,7 @@ export default function Navbar() {
             onMouseOut={(e) => setDropdown(false)
             }
           >
-            <div className='flex gap-1 h-full text-gray-400 hover:text-blue-800 transition-colors'>
+            <div className='flex gap-1 h-full text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer'>
               LA OLIMPIADA
               <ChevronDownIcon className='w-4'/>
             </div>
