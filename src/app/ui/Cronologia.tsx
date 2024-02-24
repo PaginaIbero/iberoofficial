@@ -1,24 +1,12 @@
-'use client'
-import { Cronologia } from "@/lib/types";
-import { PrismaClient } from "@prisma/client/extension";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { cronologia } from "@/lib/types";
 
-export function Cronologia() {
-    const [cronologia, setCronologia] = useState<Cronologia[]>([]);
+export async function Cronologia() {
+      const response = await fetch('http://localhost:3000/api/cronologia', {next: { revalidate: 3600 } });
+      const cronologia = await response.json()
     
-    useEffect(() => {
-      getCronologia();
-    }, []);
-
-    const getCronologia = async () => {
-      const response = await axios.get('/api/cronologia');
-      setCronologia(response.data);
-    }
-
     return (
     <>
-        {cronologia.map((cronologia: Cronologia) => (
+        {cronologia.map((cronologia: cronologia) => (
             <div key={cronologia.id} className="text-black">
             <h1 className='text-4xl font-semibold text-center'>{cronologia.id}</h1>
             <p className='text-center'>{cronologia.ciudad}</p>
