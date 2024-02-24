@@ -8,9 +8,9 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 export default function Navbar() {
   const [dropdown, setDropdown] = useState(false);
   return (
-    <nav className='w-full px-24 py-4 bg-white'>
-      <ul className='flex items-center justify-between'>
-        <h1 className='font-bold text-blue-800 text-xl hover:text-yellow-500 transition-colors'>
+    <nav className='w-full px-24 py-2 bg-white'>
+      <div className='flex items-center justify-between'>
+        <h1 className='font-bold text-blue-800 text-2xl hover:text-yellow-500 transition-colors'>
           <Link href='/'>
             <div className='flex flex-col items-left gap-0'>
               <p className='mt-0'>Olimpiada</p>
@@ -37,21 +37,21 @@ export default function Navbar() {
             >
               <Link
                 className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-50 transition-colors'
-                href={'/historia'}
+                href={'/olimpiada/historia'}
               >
                 Historia
               </Link>
               <hr/>
               <Link
                 className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-50 transition-colors'
-                href={'/reglamento'}
+                href={'/olimpiada/reglamento'}
               >
                 Reglamento
               </Link>
               <hr/>
               <Link
                 className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-50 transition-colors'
-                href={'/copa-puerto-rico'}
+                href={'/olimpiada/copa-puerto-rico'}
               >
                 Copa Puerto Rico
               </Link>
@@ -76,7 +76,7 @@ export default function Navbar() {
             PRUEBAS
           </Link>
         </div>
-      </ul>
+      </div>
     </nav>
   )
 }
