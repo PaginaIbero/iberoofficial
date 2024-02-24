@@ -4,7 +4,7 @@ import { Section } from "@/components/Section";
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col text-black">
+    <main className="flex min-h-screen flex-col text-black/80">
       <h1 className='text-4xl font-semibold text-center'>Reglamento permanente</h1>
       <br />
       <Section title='Aspectos generales'>
