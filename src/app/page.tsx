@@ -1,11 +1,11 @@
 import { Cronologia } from "@/app/ui/Cronologia";
 
 
-export default async function Home() {
+export default function Home() {
   
   return (
     <main className="flex min-h-screen flex-col">
-      <Cronologia />
+      {/* <Cronologia /> */}
     </main>
   );
 }
