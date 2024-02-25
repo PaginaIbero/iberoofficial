@@ -18,7 +18,7 @@ export function Section({ title, children }: {
             {title}
           </h2>
           <ChevronDownIcon
-            className={`w-6 transition-transform transform ${open ? 'rotate-180' : ''}`} />
+            className={`w-6 transition-transform duration-300 transform ${open ? 'rotate-0' : '-rotate-90'}`} />
         </div>
         <div className={`px-4 bg-white transition-[max-height] transition-max-height duration-[2s] overflow-hidden ${open ? 'max-h-auto' : 'max-h-0'}`}>
           {children}
