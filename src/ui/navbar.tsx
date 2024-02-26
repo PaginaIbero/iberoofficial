@@ -36,21 +36,21 @@ export default function Navbar() {
               onMouseOver={() => setDropdown(true)}
             >
               <Link
-                className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-50 transition-colors'
+                className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/historia'}
               >
                 Historia
               </Link>
               <hr/>
               <Link
-                className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-50 transition-colors'
+                className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/reglamento'}
               >
                 Reglamento
               </Link>
               <hr/>
               <Link
-                className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-50 transition-colors'
+                className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/copa-puerto-rico'}
               >
                 Copa Puerto Rico

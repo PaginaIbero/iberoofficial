@@ -1,4 +1,4 @@
-import { Cronologia } from "@/app/ui/Cronologia";
+import { Cronologia } from "@/ui/Cronologia";
 
 
 export default function Page() {
