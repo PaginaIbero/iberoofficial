@@ -3,18 +3,7 @@ import { cronologia } from "@/lib/types";
 import Link from "next/link";
 
 export async function Cronologia() {
-  let cronologia: cronologia[] = []
-  try {
-    cronologia = await fetch(`${getBaseUrl()}/api/cronologia`, { 
-      next: { 
-        revalidate: 3600 
-      }
-    })
-      .then((res) => res.json())
-      .catch((error) => console.error(error));
-  } catch (error) {
-    console.error(error)
-  }
+  const cronologia = await fetch(`${getBaseUrl()}/api/cronologia`).then(res => res.json())
   
   return (
     <div>
