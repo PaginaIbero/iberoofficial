@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from '@/lib/db'
+import prismadb from '@/lib/db'
 
 
 export async function GET(req: NextRequest, res: NextResponse) {
-    const cronologia = await prisma.cronologia.findMany({
+    const cronologia = await prismadb.cronologia.findMany({
         orderBy: {
             id: 'desc'
         },
