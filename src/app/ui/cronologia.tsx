@@ -4,7 +4,6 @@ import Link from "next/link";
 
 export async function Cronologia() {
   const cronologia = await fetch(`${getBaseUrl()}/api/cronologia`).then(res => res.json())
-  
   return (
     <div>
       {cronologia ? 

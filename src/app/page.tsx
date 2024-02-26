@@ -1,5 +1,3 @@
-import { Cronologia } from "@/app/ui/cronologia";
-
 export default function Home() {
   return (
     <div>
