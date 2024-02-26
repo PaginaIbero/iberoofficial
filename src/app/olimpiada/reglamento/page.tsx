@@ -1,11 +1,12 @@
-import { Section } from "@/ui/Section";
+import { Section } from "@/app/ui/section";
 
 
 export default function Page() {
   return (
     <main className="flex min-h-screen flex-col text-black/80">
-      <h1 className='text-4xl font-semibold text-center'>Reglamento permanente</h1>
-      <br />
+      <h1 className='text-4xl font-semibold text-center'>Reglamento</h1>
+      <h1 className='text-center'>Reglamento permanente de la Olimpiada Iberoamericana de Matemática</h1>
+      <br/>
       <Section title='Aspectos generales'>
         <p className='my-2'>
           La Olimpiada Iberoamericana de Matemática (OIM), es una competición de matemática dirigida a estudiantes que no hayan superados los 18 años de edad al 31 de diciembre del año inmediato anterior a la celebración de la Olimpiada, se organiza anualmente y participan los países iberoamericanos.
