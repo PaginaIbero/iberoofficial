@@ -4,8 +4,7 @@ import { cronologia } from "@/lib/types";
 export async function Cronologia() {   
   // let cronologia: cronologia[] = []
   // try {
-      const response = await fetch(`${getBaseUrl()}/api/cronologia`, {next: { revalidate: 3600 } });
-      const cronologia: cronologia[] = await response.json()
+      const cronologia: cronologia[] = await fetch(`${getBaseUrl()}/api/cronologia`, {next: { revalidate: 3600 } }).then((res) => res.json()).catch((error) => console.error(error));
   // } catch (error) {
   //     console.error(error)
   // }
