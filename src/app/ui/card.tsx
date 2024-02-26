@@ -25,7 +25,7 @@ export default function Card({ title, subtitle }: {
           </p>
         </div>
       </div>
-      <div className='flex w-full p-2'>
+      <div className='flex w-full py-2'>
         <Link
           href={`/pruebas/${title}.pdf`}
           className='bg-blue-600 hover:bg-blue-900 font-semibold text-white w-full p-2 rounded-md text-center transition-colors'
