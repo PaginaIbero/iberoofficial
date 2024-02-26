@@ -11,12 +11,12 @@ export async function Cronologia() {
     
     return (
     <>
-        {cronologia.map((cronologia: cronologia) => (
+        {cronologia ? cronologia.map((cronologia: cronologia) => (
             <div key={cronologia.id} className="text-black">
             <h1 className='text-4xl font-semibold text-center'>{cronologia.id}</h1>
             <p className='text-center'>{cronologia.ciudad}</p>
             </div>
-        ))}
+        )) : <p>Loading...</p>}
     </>
   )
 }
