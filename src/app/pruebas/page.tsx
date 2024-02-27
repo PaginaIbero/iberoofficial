@@ -5,7 +5,7 @@ import { cronologia } from "@/lib/types"
 export default async function Page() {
   const cronologia = await fetch(`${getBaseUrl()}/api/cronologia`).then(res => res.json())
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-black">
       <h1 className='text-4xl font-semibold text-center'>
         Pruebas
       </h1>

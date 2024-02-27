@@ -2,9 +2,9 @@ import Table from "@/app/ui/cronologia/table";
 import { getBaseUrl } from "@/lib/baseUrl";
 
 export default async function Page() {
-  const data = await fetch(`${getBaseUrl()}/api/cronologia`).then((res) => res.json());
+  const data = await fetch(`${getBaseUrl()}/api/cronologia`, {next: {revalidate: 3600 }}).then((res) => res.json());
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-black">
       <h1 className='text-4xl font-semibold text-center'>
         Cronología
       </h1>

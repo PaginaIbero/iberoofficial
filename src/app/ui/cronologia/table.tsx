@@ -8,7 +8,7 @@ export default function Table({ data }: {
 }) {
   const router = useRouter();
   return (
-    <table className='text-center'>
+    <table className='text-center text-black'>
       <thead className='font-semibold'>
         <tr className='bg-blue-200'>
           <th className='p-1'></th>
@@ -57,10 +57,10 @@ export default function Table({ data }: {
       <td className='py-3 border-l-2 border-white'>{item.cortes[0]}</td>
       <td className='py-3'>{item.cortes[1]}</td>
       <td className='py-3'>{item.cortes[2]}</td>
-      <td className='py-3 border-l-2 border-white'>{item.premios[0]}</td>
-      <td className='py-3'>{item.premios[1]}</td>
-      <td className='py-3'>{item.premios[2]}</td>
-      <td className='py-3'>{item.premios[3]}</td>
+      <td className='py-3 border-l-2 border-white'>{item.premios ? item.premios[0] : 'N/A'}</td>
+      <td className='py-3'>{item.premios ? item.premios[1] : 'N/A'}</td>
+      <td className='py-3'>{item.premios ? item.premios[2] : 'N/A'}</td>
+      <td className='py-3'>{item.premios ? item.premios[3] : 'N/A'}</td>
     </tr>
           )
         })}
