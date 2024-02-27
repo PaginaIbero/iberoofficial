@@ -9,9 +9,6 @@ export default function Page() {
         La Copa Puerto Rico se otorga anualmente al país de mejor progreso relativo en la OIM.
       </p>
       <br/>
-      <h2 className='text-2xl font-semibold'>
-        Reglamento
-      </h2>
       <Section title='Artículo 1'>
         <p className='my-2'>
           Para que un país pueda optar por la Copa Puerto Rico en la OIM del año {today.getFullYear()}, debe satisfacer los requisitos siguientes:

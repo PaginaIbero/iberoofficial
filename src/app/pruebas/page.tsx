@@ -14,11 +14,11 @@ export default async function Page() {
       </p>
       <br/>
       <div className='grid grid-cols-4 gap-4'>
-        {cronologia.map((c: cronologia) => (
+        {cronologia.map((item: cronologia) => (
           <Card 
-            key={c.id} 
-            title={c.id.toString()} 
-            subtitle={c.ciudad}
+            key={item.id} 
+            title={item.id.toString()} 
+            subtitle={item.ciudad + ', ' + item.pais}
           />
         ))}
       </div>

@@ -1,10 +1,13 @@
 import Link from "next/link"
 import Image from "next/image"
+import { getBaseUrl } from "@/lib/baseUrl"
 
-export default function Card({ title, subtitle }: {
+export default async function Card({ title, subtitle }: {
   title: string,
   subtitle: string
 }) {
+  const exists = await fetch(`${getBaseUrl()}/pruebas/${title}.pdf`)
+    .then(res => res.status === 200)
   return (
     <div className='flex flex-col bg-white rounded-md'>
       <div className='relative w-full h-36'>
@@ -25,10 +28,14 @@ export default function Card({ title, subtitle }: {
           </p>
         </div>
       </div>
-      <div className='flex w-full py-2'>
+      <div className='flex w-full pt-2'>
         <Link
-          href={`/pruebas/${title}.pdf`}
-          className='bg-blue-600 hover:bg-blue-900 font-semibold text-white w-full p-2 rounded-md text-center transition-colors'
+          href={exists ? `/pruebas/${title}.pdf` : '#'}
+          className={`
+            ${exists ? 'bg-blue-600 hover:bg-blue-900 cursor-pointer transition-colors' : 'bg-blue-300 cursor-default'}
+            w-full p-2 rounded-md
+            font-semibold text-white text-center
+          `}
         >
           Ver prueba    
         </Link>
