@@ -1,4 +1,4 @@
-import { Cronologia } from "../ui/cronologia";
+import Table from "@/app/ui/cronologia/table";
 
 export default function Page() {
   return (
@@ -10,7 +10,7 @@ export default function Page() {
         La OIM es una competencia matemática que se lleva a cabo anualmente en un país iberoamericano.
       </p>
       <br/>
-      <Cronologia/>
+      <Table/>
     </div>
   )
 }

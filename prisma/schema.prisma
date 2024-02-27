@@ -10,10 +10,15 @@ datasource db {
 
 model Cronologia {
   id            Int     @id @unique
-  ciudad        String
-  pais          String
-  participantes Int
-  cortes        Int[]
+  ciudad        String  @default("n/a")
+  pais          String  @default("n/a")
+  fecha         String  @default("n/a")
+  paises        Int     @default(0)
+  participantes Int     @default(0)
+  hombres       Int     @default(0)
+  mujeres       Int     @default(0)
+  cortes        Int[]   @default([0, 0, 0])
+  premios       Int[]   @default([0, 0, 0, 0])
 }
 
 model Resultados {
