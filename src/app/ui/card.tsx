@@ -1,13 +1,14 @@
 import Link from "next/link"
 import Image from "next/image"
-import { getBaseUrl } from "@/lib/baseUrl"
 
 export default async function Card({ title, subtitle }: {
   title: string,
   subtitle: string
 }) {
-  const exists = await fetch(`${getBaseUrl()}/pruebas/${title}.pdf`)
+  const exists = async () => {
+    return await fetch(`${process.env.NEXT_PUBLIC_URL}/pruebas/${title}.pdf`)
     .then(res => res.status === 200)
+  }
   return (
     <div className='flex flex-col bg-white rounded-md'>
       <div className='relative w-full h-36'>
@@ -30,9 +31,9 @@ export default async function Card({ title, subtitle }: {
       </div>
       <div className='flex w-full pt-2'>
         <Link
-          href={exists ? `/pruebas/${title}.pdf` : '#'}
+          href={await exists() ? `/pruebas/${title}.pdf` : '#'}
           className={`
-            ${exists ? 'bg-blue-600 hover:bg-blue-900 cursor-pointer transition-colors' : 'bg-blue-300 cursor-default'}
+            ${await exists() ? 'bg-blue-600 hover:bg-blue-900 cursor-pointer transition-colors' : 'bg-blue-300 cursor-default'}
             w-full p-2 rounded-md
             font-semibold text-white text-center
           `}
