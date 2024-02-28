@@ -3,7 +3,7 @@ import Card from "../ui/card"
 import { cronologia } from "@/lib/types"
 
 export default async function Page() {
-  const cronologia = await fetch(`${getBaseUrl()}/api/cronologia`).then(res => res.json())
+  // const cronologia = await fetch(`${getBaseUrl()}/api/cronologia`).then(res => res.json())
   return (
     <div className="flex flex-col text-black">
       <h1 className='text-4xl font-semibold text-center'>
@@ -13,7 +13,7 @@ export default async function Page() {
         Archivo de pruebas de la Olimpiada Iberoamericana de Matemática
       </p>
       <br/>
-      <div className='grid grid-cols-4 gap-4'>
+      {/* <div className='grid grid-cols-4 gap-4'>
         {cronologia.map((item: cronologia) => (
           <Card 
             key={item.id} 
@@ -21,7 +21,7 @@ export default async function Page() {
             subtitle={item.ciudad + ', ' + item.pais}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   )
 }
