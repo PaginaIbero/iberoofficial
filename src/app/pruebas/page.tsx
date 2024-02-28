@@ -1,4 +1,3 @@
-import { getBaseUrl } from "@/lib/baseUrl"
 import Card from "../ui/card"
 import { cronologia } from "@/lib/types"
 
