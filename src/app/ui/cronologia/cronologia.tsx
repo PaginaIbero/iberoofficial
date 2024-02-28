@@ -1,13 +1,15 @@
-import { getBaseUrl } from "@/lib/baseUrl";
+'use client';
+import { trpc } from "@/app/_trpc/client";
 import { cronologia } from "@/lib/types";
 import Link from "next/link";
 
-export async function Cronologia() {
-  const cronologia = await fetch(`${getBaseUrl()}/api/cronologia`).then(res => res.json())
+const Cronologia = () => {
+  // const cronologia = await fetch(`${getBaseUrl()}/api/cronologia`).then(res => res.json())
+  const {data, isLoading} = trpc.cronologia.getAll.useQuery()
   return (
     <div>
-      {cronologia ? 
-        cronologia.map((cronologia: cronologia) => (
+      {data ? 
+        data.map((cronologia: cronologia) => (
           <div 
             key={cronologia.id}
             className='my-4'
@@ -25,3 +27,5 @@ export async function Cronologia() {
     </div>
   )
 }
+
+export default Cronologia

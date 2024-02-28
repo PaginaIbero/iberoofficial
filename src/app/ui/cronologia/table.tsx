@@ -1,12 +1,12 @@
 'use client';
 
+import { trpc } from "@/app/_trpc/client";
 import { cronologia } from "@/lib/types";
 import { useRouter } from "next/navigation";
 
-export default function Table({ data }: {
-  data: cronologia[]
-}) {
+const Table = () => {
   const router = useRouter();
+  const { data, isLoading } = trpc.cronologia.getAll.useQuery()
   return (
     <table className='text-center text-black'>
       <thead className='font-semibold'>
@@ -39,7 +39,7 @@ export default function Table({ data }: {
         </tr>
       </thead>
       <tbody>
-        {data.map((item: cronologia, index: number) => {
+        {data ? data.map((item: cronologia, index: number) => {
           return (
             <tr
       key={item.id}
@@ -63,8 +63,10 @@ export default function Table({ data }: {
       <td className='py-3'>{item.premios ? item.premios[3] : 'N/A'}</td>
     </tr>
           )
-        })}
+        }) : <p>Loading...</p>}
       </tbody>
     </table>
   );
 }
+
+export default Table;

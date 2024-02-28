@@ -1,8 +1,7 @@
 import Table from "@/app/ui/cronologia/table";
-import { getBaseUrl } from "@/lib/baseUrl";
 
-export default async function Page() {
-  const data = await fetch(`${getBaseUrl()}/api/cronologia`, {next: {revalidate: 3600 }}).then((res) => res.json());
+export default function Page() {
+  // const data = await fetch(`${getBaseUrl()}/api/cronologia`, {next: {revalidate: 3600 }}).then((res) => res.json());
   return (
     <div className="flex flex-col text-black">
       <h1 className='text-4xl font-semibold text-center'>
@@ -12,7 +11,7 @@ export default async function Page() {
         La OIM es una competencia matemática que se lleva a cabo anualmente en un país iberoamericano.
       </p>
       <br/>
-      <Table data={data}/>
+      <Table/>
     </div>
   )
 }
