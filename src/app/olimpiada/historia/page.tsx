@@ -1,5 +1,3 @@
-import { Cronologia } from "@/app/ui/cronologia/cronologia";
-
 
 export default function Page() {
   return (
