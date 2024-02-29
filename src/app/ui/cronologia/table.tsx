@@ -8,7 +8,7 @@ import { TableBodySkeleton } from "../skeletons";
 
 export default function Table() {
   return (
-    <table className='text-center text-black'>
+    <table className='text-center text-black table-fixed'>
       <thead className='font-semibold'>
         <tr className='bg-blue-200'>
           <th className='p-1'></th>
@@ -21,21 +21,21 @@ export default function Table() {
           <th colSpan={4} className='p-1 border-l-2 border-white'>Premios</th>
         </tr>
         <tr className='bg-blue-200'>
-          <th className='p-1'>Año</th>
-          <th className='p-1'>Ciudad</th>
-          <th className='p-1'>País</th>
-          <th className='p-1'>Fecha</th>
-          <th className='p-1'>Países</th>
-          <th className='p-1 border-l-2 border-white'>T</th>
-          <th className='p-1'>H</th>
-          <th className='p-1 border-r-2 border-white'>M</th>
-          <th className='p-1 border-l-2 border-white'>O</th>
-          <th className='p-1'>P</th>
-          <th className='p-1 border-r-2 border-white'>B</th>
-          <th className='p-1 border-l-2 border-white'>O</th>
-          <th className='p-1'>P</th>
-          <th className='p-1'>B</th>
-          <th className='p-1'>MH</th>
+          <th className='w-[10%] p-1'>Año</th>
+          <th className='w-[15%] p-1'>Ciudad</th>
+          <th className='w-[10%] p-1'>País</th>
+          <th className='w-[20%] p-1'>Fecha</th>
+          <th className='w-[10%] p-1'>Países</th>
+          <th className='w-[5%] p-1 border-l-2 border-white'>T</th>
+          <th className='w-[5%] p-1'>H</th>
+          <th className='w-[5%] p-1 border-r-2 border-white'>M</th>
+          <th className='w-[3%] p-1 border-l-2 border-white'>O</th>
+          <th className='w-[3%] p-1'>P</th>
+          <th className='w-[3%] p-1 border-r-2 border-white'>B</th>
+          <th className='w-[3%] p-1 border-l-2 border-white'>O</th>
+          <th className='w-[3%] p-1'>P</th>
+          <th className='w-[3%] p-1'>B</th>
+          <th className='w-[3%] p-1'>MH</th>
         </tr>
       </thead>
       <tbody>
