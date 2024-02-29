@@ -4,7 +4,7 @@ export default function Page() {
   const today = new Date()
   return (
     <main className="flex min-h-screen flex-col text-black">
-      <h1 className='text-4xl font-semibold text-center'>Copa Puerto Rico</h1>
+      <h1 className='text-4xl font-semibold text-center pb-5'>Copa Puerto Rico</h1>
       <p className='text-center'>
         La Copa Puerto Rico se otorga anualmente al país de mejor progreso relativo en la OIM.
       </p>

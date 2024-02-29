@@ -3,8 +3,8 @@ import { Section } from "@/app/ui/section";
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col text-black/80">
-      <h1 className='text-4xl font-semibold text-center'>Reglamento</h1>
+    <main className="flex min-h-screen flex-col text-black">
+      <h1 className='text-4xl font-semibold text-center pb-5'>Reglamento</h1>
       <h1 className='text-center'>Reglamento permanente de la Olimpiada Iberoamericana de Matemática</h1>
       <br/>
       <Section title='Aspectos generales'>

@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div className="text-black">
-      <h1 className='text-4xl font-semibold text-center'>
+      <h1 className='text-4xl font-semibold text-center pb-5'>
         Olimpiada Iberoamericana de Matemática
       </h1>
       <p className='text-center'>
