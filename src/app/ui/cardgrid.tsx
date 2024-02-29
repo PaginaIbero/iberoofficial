@@ -8,7 +8,7 @@ export default function CardGrid() {
   const { data: cronologia, isLoading } = trpc.cronologia.getAll.useQuery()
   return (
     <>
-      <div className='grid grid-cols-4 gap-4'>
+      <div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4'>
         {cronologia ? cronologia.map((item: cronologia) => (
           <Card
             key={item.id}
