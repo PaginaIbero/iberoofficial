@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div>
+    <div className="text-black">
       <h1 className='text-4xl font-semibold text-center'>
         Olimpiada Iberoamericana de Matemática
       </h1>
