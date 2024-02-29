@@ -82,7 +82,7 @@ export default function Navbar() {
             <CiMenuBurger className="w-8 h-8 text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer" onClick={() => setMenu(!menu)}/>
         </div>
       </div>
-      <div id="nav-hamburger" className={`flex flex-col hidden absolute top-28 gap-6 ${menu ? 'h-auto' : 'max-h-0'} bg-white w-screen drop-shadow-md`}>
+      <div id="nav-hamburger" className={`flex-col hidden absolute top-28 gap-6 ${menu ? 'h-auto' : 'max-h-0'} bg-white w-screen drop-shadow-md`}>
       <div
             className='relative'
             onMouseOver={() => setDropdown(true)}
