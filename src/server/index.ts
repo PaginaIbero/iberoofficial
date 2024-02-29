@@ -4,8 +4,8 @@ import { router } from "./trpc";
 import { z } from 'zod';
 
 export const appRouter = router({
-    cronologia: cronologiaRouter,
-    resultados: resultadosRouter,
+  cronologia: cronologiaRouter,
+  resultados: resultadosRouter,
 });
 
 export type AppRouter = typeof appRouter
