@@ -1,15 +1,16 @@
+'use client'
 import { trpc } from "@/app/_trpc/client";
 
 export default function Page({ params }: { 
   params: { 
-    id: string 
+    id: number 
   } 
 }) {
-  console.log(params.id)
   // esta línea me da error y no sé cómo resolver
-  /*const data = trpc.cronologia.getByID.useQuery({
-    id: params.id
-  })*/
+  const año = Number(params.id)
+  const { data } = trpc.cronologia.getByID.useQuery(año)
+  console.log(data?.ciudad)
+  // Tira error porque está tomando params.id como string
   return (
     <div className="flex flex-col text-black">
       <h1 className='text-4xl font-semibold text-center'>
