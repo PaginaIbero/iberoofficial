@@ -3,7 +3,8 @@ import { trpc } from "@/app/_trpc/client";
 
 
 export default function Page({params}: {params: {año: number}}) {
-    const { data, isLoading } = trpc.resultados.getByFecha.useQuery(2023); 
+    const año = Number(params.año)
+    const { data, isLoading } = trpc.resultados.getByFecha.useQuery(año); 
     return (
         <>
         {isLoading ? <p className="text-black">Loading...</p> : data?.map((result) => (
