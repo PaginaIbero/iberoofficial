@@ -101,11 +101,11 @@ export default function Navbar() {
             </div>
             <div 
               id='dropdown'
-              className={`absolute top-6 w-96 flex flex-col shadow ${dropdown ? 'block ml-5' : 'hidden'}`}
+              className={`absolute top-6 w-96 flex flex-col shadow ${dropdown ? 'block ml-5 backdrop-blur-sm' : 'hidden'}`}
               onClick={() => setDropdown(!dropdown)}
             >
               <Link
-                className='bg-white/70 p-3 text-gray-500 hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='bg-white/80 opacity-40 p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/historia'}
                 onClick={() => setMenu(!menu)}
               >
@@ -113,7 +113,7 @@ export default function Navbar() {
               </Link>
               <hr/>
               <Link
-                className='bg-white/70 p-3 text-gray-500 hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='bg-white/80 opacity-40 p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/reglamento'}
                 onClick={() => setMenu(!menu)}
               >
@@ -121,7 +121,7 @@ export default function Navbar() {
               </Link>
               <hr/>
               <Link
-                className='bg-white/70 p-3 text-gray-500 hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='bg-white/80 opacity-40 p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/copa-puerto-rico'}
                 onClick={() => setMenu(!menu)}
               >
