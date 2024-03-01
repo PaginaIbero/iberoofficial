@@ -1,7 +1,7 @@
 'use client'
 
 import { cronologia } from "@/lib/types"
-import { trpc } from "../_trpc/client"
+import { trpc } from "../../_trpc/client"
 import Card from "./card"
 
 export default function CardGrid() {
