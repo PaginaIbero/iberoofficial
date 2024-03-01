@@ -9,7 +9,7 @@ export default function Page({ params }: { params: { año: number } }) {
     <>
       {isLoading ? <p className="text-black">Loading...</p> : data?.map((result) => (
         <div className="text-black" key={result.id}>
-          <h1>{result.puntaje[0]} - {result.puntaje[1]} - {result.puntaje[2]} - {result.puntaje[3]} - {result.puntaje[4]} - {result.puntaje[5]}</h1>
+          <h1>{result.P1} - {result.P2} - {result.P3} - {result.P4} - {result.P5} - {result.P6}</h1>
           <p>{result.ranking}</p>
         </div>
       ))}
