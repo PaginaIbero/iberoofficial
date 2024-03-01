@@ -5,10 +5,16 @@ import React from "react";
 import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { CiMenuBurger } from "react-icons/ci";
+import { AiOutlineClose } from "react-icons/ai";
 
 export default function Navbar() {
   const [dropdown, setDropdown] = useState(false);
   const [menu, setMenu] = useState(false);
+
+  function closeMenu() {
+    setMenu(false);
+    setDropdown(false);
+  }
   return (
     <nav className='w-full bg-white relative'>
       <div className='flex items-center justify-between sm:px-24 px-10 py-2'>
@@ -79,22 +85,23 @@ export default function Navbar() {
           </Link>
         </div>
         <div id="menu-hamburger" className="lg:hidden flex h-full">
-            <CiMenuBurger className="w-8 h-8 text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer" onClick={() => setMenu(!menu)}/>
+            <CiMenuBurger className={`${menu ? 'hidden' : 'block'} w-8 h-8 text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer animate-fade-left`} onClick={() => setMenu(true)}/>
+            <AiOutlineClose className={`${menu ? 'block' : 'hidden'} w-8 h-8 text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer animate-fade-left`} onClick={closeMenu}/>
         </div>
       </div>
-      <div className={`${menu ? 'block pt-3 bg-gray-200 w-full animate-fade-down duration-200' : 'hidden'} lg:hidden`}>
+      <div className={`${menu ? 'block pt-3 bg-gray-200 w-full animate-fade-down duration-200' : 'hidden animate-fade-up'} lg:hidden`}>
             <div className='flex-col flex-basis flex gap-6 h-full text-md sm:px-24 px-10 py-2'>
           <div
             className='relative'
             onClick={() => setDropdown(!dropdown)}
           >
-            <div className='flex gap-1 pb-2 h-full text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer'>
+            <div className='flex gap-1 h-full text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer'>
               LA OLIMPIADA
               <ChevronDownIcon className='w-4'/>
             </div>
             <div 
               id='dropdown'
-              className={`flex flex-col ${dropdown ? 'block ml-5' : 'hidden'}`}
+              className={`absolute top-6 w-96 flex flex-col shadow ${dropdown ? 'block ml-5' : 'hidden'}`}
               onClick={() => setDropdown(!dropdown)}
             >
               <Link
