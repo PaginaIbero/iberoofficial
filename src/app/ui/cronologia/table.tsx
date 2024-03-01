@@ -58,7 +58,7 @@ export function TableBody() {
         <tr
           key={item.id}
           className={`${index % 2 === 0 ? 'bg-blue-0 hover:bg-blue-100' : 'bg-blue-50 hover:bg-blue-100'} transition-colors cursor-pointer`}
-          onClick={() => { router.push(`/cronologia/${item.id}`) }}
+          onClick={() => { router.push(`/resultados/${item.id}`) }}
         >
           <td className='py-3'>{item.id}</td>
           <td className='py-3'>{item.ciudad}</td>
