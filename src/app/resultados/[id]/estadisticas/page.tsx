@@ -10,6 +10,8 @@ export default function Page({ params }: {
 }) {
   const COLORS = ['#ffd000', '#c0c0c0', '#c74900', '#ff00dd', '#009dff']
   const { data, isLoading } = trpc.cronologia.getByID.useQuery(Number(params.id))
+  const { data: ProblemasPuntaje } = trpc.resultados.getProblemByFecha.useQuery(Number(params.id))
+  console.log(ProblemasPuntaje)
   const dataCortes = [{ 
     nada: 5,
     bronce: 10,
@@ -25,7 +27,7 @@ export default function Page({ params }: {
   ]
   return (
     <>
-      <h3 className='text-xl font-semibold mt-2'>
+      <h3 className='text-xl font-semibold mt-2 text-black'>
         Cortes
       </h3>
       <ResponsiveContainer width="100%" height={40}>
@@ -36,7 +38,7 @@ export default function Page({ params }: {
           layout='vertical'
         >
           <CartesianGrid horizontalPoints={[]} verticalCoordinatesGenerator={(props) => (
-            [...Array(43).keys()].map((i) => i * props.width / 42)
+            Array.from({ length: 43 }, (_, i) => i * props.width / 42)
           )} />
           <XAxis hide type='number' domain={[0, 42]} />
           <YAxis hide type='category' />
@@ -46,7 +48,7 @@ export default function Page({ params }: {
           <Bar dataKey="oro" stackId="a" fill="#ffd000" barSize={20} />
         </BarChart>
       </ResponsiveContainer>
-      <h3 className='text-xl font-semibold mt-2'>
+      <h3 className='text-xl font-semibold mt-2 text-black'>
         Distribución de premios
       </h3>
       <ResponsiveContainer width="100%" height={250}>

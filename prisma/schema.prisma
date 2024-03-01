@@ -25,7 +25,12 @@ model Resultados {
   id              String  @id @default(uuid())
   nombreCompleto  String
   date            Int
-  puntaje         Int[]
+  P1             Int
+  P2             Int
+  P3             Int
+  P4             Int
+  P5             Int
+  P6             Int
   ranking         Int
   medalla         Medalla
   pais            String
