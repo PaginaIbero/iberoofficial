@@ -9,8 +9,9 @@ export default function Page({ params }: {
   }
 }) {
   const COLORS = ['#ffd000', '#c0c0c0', '#c74900', '#ff00dd', '#009dff']
-  const { data, isLoading } = trpc.cronologia.getByID.useQuery(Number(params.id))
-  const { data: ProblemasPuntaje } = trpc.resultados.getProblemByFecha.useQuery(Number(params.id))
+  const { data, isLoading } = trpc.cronologia.getByID.useQuery(2023)
+  const { data: ProblemasPuntaje , isLoading: ProblemasPuntajeLoad} = trpc.resultados.getProblemByFecha.useQuery(2022)
+  // Esta query tarda como 10 segundos en cargar
   console.log(ProblemasPuntaje)
   const dataCortes = [{ 
     nada: 5,
