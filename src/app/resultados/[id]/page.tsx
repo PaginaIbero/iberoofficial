@@ -49,7 +49,7 @@ export default function Page({ params }: {
   )
 }
 
-export function Estadisticas({
+function Estadisticas({
   dataCronologia,
   isLoadingCronologia,
   dataPuntajes,
