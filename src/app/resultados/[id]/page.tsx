@@ -21,7 +21,7 @@ export default function Page({ params }: {
   const {
     data: dataPuntajes,
     isLoading: isLoadingPuntajes
-  } = trpc.resultados.getProblemByFecha.useQuery(Number(params.id)) // Esta query tarda como 10s
+  } = trpc.resultados.getPuntajesByFecha.useQuery(Number(params.id)) // Esta query tarda como 10s
   return (
     <>
       {isLoadingCronologia ? <TitleSkeleton /> :

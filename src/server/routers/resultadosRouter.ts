@@ -37,6 +37,21 @@ export const resultadosRouter = router({
       },
     });
   }),
+  getPuntajesByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
+    return (await prisma.resultados.findMany({
+      where: {
+        date: input
+      },
+      select: {
+        P1: true,
+        P2: true,
+        P3: true,
+        P4: true,
+        P5: true,
+        P6: true,
+      }
+    })).map((p) => [p.P1, p.P2, p.P3, p.P4, p.P5, p.P6])
+  }),
   getProblemByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
     let puntajes: number[][] = [[0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0]];
      for (let problem = 1; problem < 7; problem++) {
