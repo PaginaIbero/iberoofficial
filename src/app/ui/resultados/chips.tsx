@@ -1,34 +1,40 @@
 'use client';
 
+import { router } from "@/server/trpc";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function Chips({ id }: {
   id: number
 }) {
   return (
     <div className='flex flex-wrap gap-2 mt-4'>
-      <Chip text='Estadísticas' id={id} href='estadisticas' active={true}/>
-      <Chip text='Individuales' id={id} href='individuales' active={false}/>
-      <Chip text='Por país' id={id} href='por-pais' active={false}/>
+      <Chip text='Estadísticas' href='estadisticas'/>
+      <Chip text='Individuales' href='individuales'/>
+      <Chip text='Por país' href='por-pais'/>
     </div>
   )
 }
 
-export function Chip({ text, id, href, active } : {
+export function Chip({ text, href } : {
   text: string,
-  id: number,
   href: string
-  active: boolean
 }) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = new URLSearchParams(useSearchParams())
   return (
-    <Link 
+    <div 
       className={`
-        ${active ? 'bg-blue-200' : 'bg-blue-50 hover:bg-blue-100'}
-        text-black font-semibold rounded-full py-1 px-3
+        ${searchParams.get('section') === href ? 'bg-blue-200' : 'bg-blue-50 hover:bg-blue-100 cursor-pointer'}
+        text-black font-semibold rounded-full py-1 px-3 mb-5
       `}
-      href={`/resultados/${id}/${href}`}
+      onClick={() => {
+        searchParams.set('section', href)
+        router.push(`${pathname}?${searchParams.toString()}`)
+      }}
     >
       {text}
-    </Link>
+    </div>
   )
 }

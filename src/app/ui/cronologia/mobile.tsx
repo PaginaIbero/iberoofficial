@@ -3,8 +3,7 @@ import { trpc } from "@/app/_trpc/client";
 import { cronologia } from "@/lib/types";
 import Link from "next/link";
 
-const Cronologia = () => {
-  // const cronologia = await fetch(`${getBaseUrl()}/api/cronologia`).then(res => res.json())
+export default function MobileTable() {
   const {data, isLoading} = trpc.cronologia.getAll.useQuery()
   return (
     <div>
@@ -27,5 +26,3 @@ const Cronologia = () => {
     </div>
   )
 }
-
-export default Cronologia

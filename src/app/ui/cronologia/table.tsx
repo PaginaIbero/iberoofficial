@@ -3,10 +3,10 @@
 import { trpc } from "@/app/_trpc/client";
 import { cronologia } from "@/lib/types";
 import { useRouter } from "next/navigation";
-import { Suspense } from "react";
 import { TableBodySkeleton } from "../skeletons";
 
 export default function Table() {
+  const { data, isLoading } = trpc.cronologia.getAll.useQuery()
   return (
     <table className='text-center text-black table-fixed'>
       <thead className='font-semibold'>
@@ -39,26 +39,25 @@ export default function Table() {
         </tr>
       </thead>
       <tbody>
-        {<Suspense fallback={
-          <TableBodySkeleton/>
-        }>
-          {<TableBody/>}
-        </Suspense>}
+        {isLoading ? <TableBodySkeleton /> : <TableBody content={data} />}
       </tbody>
     </table>
   );
 }
 
-export function TableBody() {
+export function TableBody({ content }: {
+  content: cronologia[] | undefined
+}) {
   const router = useRouter();
-  const [data, dataQuery] = trpc.cronologia.getAll.useSuspenseQuery()
   return (
     <>
-      {data.map((item: cronologia, index: number) => (
+      {content?.map((item: cronologia, index: number) => (
         <tr
           key={item.id}
           className={`${index % 2 === 0 ? 'bg-blue-0 hover:bg-blue-100' : 'bg-blue-50 hover:bg-blue-100'} transition-colors cursor-pointer`}
-          onClick={() => { router.push(`/resultados/${item.id}`) }}
+          onClick={() => { 
+            router.push(`/resultados/${item.id}`) 
+          }}
         >
           <td className='py-3'>{item.id}</td>
           <td className='py-3'>{item.ciudad}</td>
