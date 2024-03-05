@@ -41,3 +41,26 @@ export function InformacionGeneralSkeleton() {
     </div>
   )
 }
+
+export function DistribucionPuntajesSkeleton() {
+  return (
+    <div className={`bg-blue-50 w-full h-[250px] motion-safe:animate-pulse rounded-lg`}/>
+  )
+}
+
+export function DistribucionProblemasSkeleton() {
+  return (
+    <div className='flex justify-between gap-8'>
+      {[...Array(6)].map((_, probno) => {
+        return (
+          <div key={probno} className='flex flex-col w-full'>
+            <h1 className='text-lg text-center'>
+              Problema {probno+1}
+            </h1>
+            <div className={`bg-blue-50 w-full h-[250px] motion-safe:animate-pulse rounded-lg`}/>
+          </div>
+        )
+      })}
+    </div>
+  )
+}

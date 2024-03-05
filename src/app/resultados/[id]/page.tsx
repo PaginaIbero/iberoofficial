@@ -1,12 +1,12 @@
 'use client'
 
 import { trpc } from "@/app/_trpc/client"
-import { DistribucionProblemas, DistribucionPuntajes } from "@/app/ui/resultados/charts";
 import Chips from "@/app/ui/resultados/chips";
 import { IndividualesTable, PorPaisTable } from "@/app/ui/resultados/table";
-import { InformacionGeneralSkeleton, TitleSkeleton } from "@/app/ui/skeletons";
-import { cronologia } from "@/lib/types";
+import { DistribucionProblemas, DistribucionPuntajes } from "@/app/ui/resultados/charts";
+import { DistribucionProblemasSkeleton, DistribucionPuntajesSkeleton, InformacionGeneralSkeleton, TitleSkeleton } from "@/app/ui/skeletons";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 export default function Page({ params }: {
   params: {
@@ -35,72 +35,53 @@ export default function Page({ params }: {
         </>
       }
       <Chips id={params.id} />
-      {searchParams.get('section') === 'estadisticas' &&
-        <Estadisticas
-          dataCronologia={dataCronologia}
-          isLoadingCronologia={isLoadingCronologia}
-          dataPuntajes={dataPuntajes}
-          isLoadingPuntajes={isLoadingPuntajes}
-        />
-      }
+      {searchParams.get('section') === 'estadisticas' && <Estadisticas id={Number(params.id)}/>}
       {searchParams.get('section') === 'individuales' && <IndividualesTable id={Number(params.id)}/>}
       {searchParams.get('section') === 'por-pais' && <PorPaisTable id={Number(params.id)}/>}
     </>
   )
 }
 
-function Estadisticas({
-  dataCronologia,
-  isLoadingCronologia,
-  dataPuntajes,
-  isLoadingPuntajes
-}: {
-  dataCronologia: cronologia | null | undefined,
-  isLoadingCronologia: boolean,
-  dataPuntajes: number[][] | undefined,
-  isLoadingPuntajes: boolean
+function Estadisticas({ id }: {
+  id: number
 }) {
-  const dataCortes = {
-    b: 10,
-    s: 20,
-    g: 30
-  } // dummy query
-  const dataPremios = [
-    { name: 'Oro', value: 20 },
-    { name: 'Plata', value: 15 },
-    { name: 'Bronce', value: 10 },
-    { name: 'Mención', value: 5 },
-    { name: 'Nada', value: 5 }
-  ] // dummy query
+  const {
+    data: dataCortes,
+    isLoading: isLoadingCortes
+  } = trpc.cronologia.getCortesByID.useQuery(id)
   return (
     <>
       <h3 className='text-xl font-semibold'>
         Información general
       </h3>
-      {isLoadingCronologia ? <InformacionGeneralSkeleton /> :
-        <ul className='list-disc pl-6'>
-          <li>Sede: {dataCronologia?.ciudad}, {dataCronologia?.pais} ({dataCronologia?.fecha})</li>
-          <li>Países participantes: {dataCronologia?.paises}</li>
-          <li>Concursantes: {dataCronologia?.participantes}</li>
-        </ul>
-      }
+      <Suspense fallback={<InformacionGeneralSkeleton />}>
+        <InformacionGeneral id={id} />
+      </Suspense>
       <h3 className='text-xl font-semibold mt-5 text-black'>
         Distribución de puntajes
       </h3>
-      {isLoadingPuntajes ? <p className="text-black">Loading...</p> :
-        <DistribucionPuntajes
-          puntajes={dataPuntajes || [[]]}
-          cortes={dataCortes}
-        />
-      }
+      <Suspense fallback={<DistribucionPuntajesSkeleton/>}>
+        <DistribucionPuntajes id={id}/>
+      </Suspense>
       <h3 className='text-xl font-semibold mt-5 text-black'>
         Distribución por problema
       </h3>
-      {isLoadingPuntajes ? <p className="text-black">Loading...</p> :
-        <DistribucionProblemas
-          puntajes={dataPuntajes || [[]]}
-        />
-      }
+      <Suspense fallback={<DistribucionProblemasSkeleton/>}>
+        <DistribucionProblemas id={id}/>
+      </Suspense>
     </>
+  )
+}
+
+function InformacionGeneral({ id }: {
+  id: number
+}) {
+  const [data, _] = trpc.cronologia.getGeneralInfoByID.useSuspenseQuery(id)
+  return (
+    <ul className='list-disc pl-6'>
+      <li>Sede: {data?.ciudad}, {data?.pais} ({data?.fecha})</li>
+      <li>Países participantes: {data?.paises}</li>
+      <li>Concursantes: {data?.participantes}</li>
+    </ul>
   )
 }

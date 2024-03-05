@@ -1,3 +1,4 @@
+import { trpc } from "@/app/_trpc/client";
 import {
   Bar,
   BarChart,
@@ -10,7 +11,6 @@ import {
   XAxis,
   YAxis
 } from "recharts";
-
 
 const COLORS = ['#ffd000', '#c0c0c0', '#c74900', '#ff00dd', '#009dff']
 
@@ -65,30 +65,11 @@ export function PremiosPieChart({ dataPremios }: {
   )
 }
 
-export function DistribucionPuntajes({ puntajes, cortes }: {
-  puntajes: number[][],
-  cortes: {
-    b: number,
-    s: number,
-    g: number
-  }
+export function DistribucionPuntajes({ id }: {
+  id: number
 }) {
-  var chartData = [...Array(43)].map((_, index) => ({
-    name: index,
-    no: 0, hm: 0, b: 0, s: 0, g: 0
-  }))
-  for (let p of puntajes) {
-    const suma = p.reduce((a, b) => a + b, 0)
-    if (suma < cortes.b && !p.includes(7))
-      chartData[suma].no += 1
-    else if (suma < cortes.b && p.includes(7))
-      chartData[suma].hm += 1
-    else if (suma < cortes.s)
-      chartData[suma].b += 1
-    else if (suma < cortes.g)
-      chartData[suma].s += 1
-    else chartData[suma].g += 1
-  }
+  const [cortes, ] = trpc.cronologia.getCortesByID.useSuspenseQuery(id)
+  const [chartData, _] = trpc.resultados.getDistribucionPuntajesByFecha.useSuspenseQuery(id)
   return (
     <ResponsiveContainer width="100%" height={250}>
       <BarChart
@@ -100,7 +81,7 @@ export function DistribucionPuntajes({ puntajes, cortes }: {
           dataKey='name'
           type='number'
           domain={[0, 42]}
-          ticks={[7, cortes.b, cortes.s, cortes.g, 42]}
+          ticks={[7, cortes[0], cortes[1], cortes[2], 42]}
         />
         <YAxis type='number' />
         <Bar dataKey="hm" stackId="a" fill="#ff00b7" barSize={10} />
@@ -113,19 +94,14 @@ export function DistribucionPuntajes({ puntajes, cortes }: {
   )
 }
 
-export function DistribucionProblemas({ puntajes }: {
-  puntajes: number[][]
+export function DistribucionProblemas({ id }: {
+  id: number
 }) {
+  const [data, ] = trpc.cronologia.getGeneralInfoByID.useSuspenseQuery(id)
+  const [chartData, ] = trpc.resultados.getProblemStatsByFecha.useSuspenseQuery(id)
   return (
     <div className='flex justify-between'>
       {[...Array(6)].map((_, probno) => {
-        const chartData = [...Array(8)].map((_, index) => ({
-          name: index,
-          c: 0
-        }))
-        for (let p of puntajes) {
-          chartData[p[probno]].c += 1
-        }
         return (
           <div key={probno} className='flex flex-col w-full'>
             <h1 className='text-lg text-center'>
@@ -133,9 +109,9 @@ export function DistribucionProblemas({ puntajes }: {
             </h1>
             { /*Por algún motivo los gráficos no se ven centrados*/ }
             <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={chartData}>
+              <BarChart data={chartData[probno]}>
                 <XAxis dataKey='name' type='number' domain={[0, 7]} ticks={[0, 1, 2, 3, 4, 5, 6, 7]} />
-                <YAxis type='number' domain={[0, puntajes.length]} />
+                <YAxis type='number' domain={[0, data?.participantes || 0]} />
                 <Bar dataKey="c" fill="#009dff" barSize={10} />
               </BarChart>
             </ResponsiveContainer>

@@ -56,7 +56,7 @@ export function TableBody({ content }: {
           key={item.id}
           className={`${index % 2 === 0 ? 'bg-blue-0 hover:bg-blue-100' : 'bg-blue-50 hover:bg-blue-100'} transition-colors cursor-pointer`}
           onClick={() => { 
-            router.push(`/resultados/${item.id}`) 
+            router.push(`/resultados/${item.id}?section=estadisticas`) 
           }}
         >
           <td className='py-3'>{item.id}</td>
