@@ -1,8 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { CiMenuBurger } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
@@ -10,10 +9,14 @@ import { AiOutlineClose } from "react-icons/ai";
 export default function Navbar() {
   const [dropdown, setDropdown] = useState(false);
   const [menu, setMenu] = useState(false);
-  function closeMenu() {
-    setMenu(false);
-    setDropdown(false);
-  }
+  const dropdownRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    document.addEventListener("mousedown", (event: MouseEvent) => {
+      if (!dropdownRef.current?.contains(event.target as Node)) { 
+        setDropdown(false);
+      }
+    });
+  }, [dropdownRef]);
   return (
     <nav className='fixed top-0 w-full bg-white z-10'>
       <div className='flex items-center justify-between sm:px-24 px-10 py-2'>
@@ -89,43 +92,46 @@ export default function Navbar() {
           />
           <AiOutlineClose 
             className={`${menu ? 'block' : 'hidden'} w-8 h-8 text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer animate-fade-left`} 
-            onClick={() => closeMenu()}
+            onClick={() => {
+              setMenu(false);
+              setDropdown(false);
+            }}
           />
         </div>
       </div>
       <div className={`${menu ? 'absolute pt-3 bg-white bg-opacity-80 w-full animate-fade-down duration-200 backdrop-blur-sm' : 'hidden animate-fade-up'} lg:hidden`}>
-        <div className='flex-col flex-basis flex gap-6 h-full text-md sm:px-24 px-10 py-2'>
+        <div className='flex flex-col sm:px-24 px-10 py-2 text-md'>
           <div
             className='relative'
             onClick={() => setDropdown(!dropdown)}
           >
-            <div className='flex gap-1 h-full text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer'>
+            <div className='flex gap-1 py-3 text-gray-400'>
               LA OLIMPIADA
               <ChevronDownIcon className='w-4' />
             </div>
             <div
               id='dropdown'
-              className={`absolute flex flex-col top-6 w-96 ml-5 bg-white ${dropdown ? 'block backdrop-blur-sm' : 'hidden'}`}
-              onClick={() => setDropdown(!dropdown)}
+              className={`absolute flex flex-col top-6 w-96 mt-4 ml-5 bg-white ${dropdown ? 'block backdrop-blur-sm' : 'hidden'}`}
+              ref={dropdownRef}
             >
               <Link
-                className='p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='p-3 text-gray-400'
                 href={'/olimpiada/historia'}
                 onClick={() => setMenu(!menu)}
               >
                 Historia
               </Link>
-              <hr />
+              <hr/>
               <Link
-                className='p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='p-3 text-gray-400'
                 href={'/olimpiada/reglamento'}
                 onClick={() => setMenu(!menu)}
               >
                 Reglamento
               </Link>
-              <hr />
+              <hr/>
               <Link
-                className='p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='p-3 text-gray-400'
                 href={'/olimpiada/copa-puerto-rico'}
                 onClick={() => setMenu(!menu)}
               >
@@ -135,21 +141,21 @@ export default function Navbar() {
           </div>
           <Link
             href={'/cronologia'}
-            className='text-gray-400 hover:text-blue-800 transition-colors'
+            className='py-3 text-gray-400'
             onClick={() => setMenu(!menu)}
           >
             CRONOLOGÍA
           </Link>
           <Link
             href={'/resultados'}
-            className='text-gray-400 hover:text-blue-800 transition-colors'
+            className='py-3 text-gray-400'
             onClick={() => setMenu(!menu)}
           >
             RESULTADOS
           </Link>
           <Link
             href={'/pruebas'}
-            className='text-gray-400 hover:text-blue-800 transition-colors'
+            className='py-3 text-gray-400'
             onClick={() => setMenu(!menu)}
           >
             PRUEBAS
