@@ -18,7 +18,7 @@ export default function Page() {
             Haber participado en las Olimpiadas de los años {today.getFullYear() - 2} y {today.getFullYear() - 1}.
           </li>
           <li>
-          Participar con equipo completo.
+            Participar con equipo completo.
           </li>
         </ul>
       </Section>

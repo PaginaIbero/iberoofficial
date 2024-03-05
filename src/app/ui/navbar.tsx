@@ -10,13 +10,12 @@ import { AiOutlineClose } from "react-icons/ai";
 export default function Navbar() {
   const [dropdown, setDropdown] = useState(false);
   const [menu, setMenu] = useState(false);
-
   function closeMenu() {
     setMenu(false);
     setDropdown(false);
   }
   return (
-    <nav className='w-full bg-white relative'>
+    <nav className='fixed top-0 w-full bg-white z-10'>
       <div className='flex items-center justify-between sm:px-24 px-10 py-2'>
         <h1 className='font-bold text-blue-800 sm:text-2xl text-xl hover:text-yellow-500 transition-colors'>
           <Link href='/'>
@@ -27,18 +26,17 @@ export default function Navbar() {
             </div>
           </Link>
         </h1>
-        <div className='flex-basis gap-6 h-full text-md lg:flex hidden'>
+        <div className='hidden flex-basis lg:flex gap-6 h-full text-md'>
           <div
             className='relative'
             onMouseOver={() => setDropdown(true)}
-            onMouseOut={(e) => setDropdown(false)
-            }
+            onMouseOut={(e) => setDropdown(false)}
           >
             <div className='flex gap-1 h-full text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer'>
               LA OLIMPIADA
-              <ChevronDownIcon className='w-4'/>
+              <ChevronDownIcon className='w-4' />
             </div>
-            <div 
+            <div
               id='dropdown'
               className={`absolute flex flex-col top-6 w-96 shadow ${dropdown ? 'block' : 'hidden'}`}
               onMouseOver={() => setDropdown(true)}
@@ -56,7 +54,7 @@ export default function Navbar() {
               >
                 Reglamento
               </Link>
-              <hr/>
+              <hr />
               <Link
                 className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/copa-puerto-rico'}
@@ -84,44 +82,50 @@ export default function Navbar() {
             PRUEBAS
           </Link>
         </div>
-        <div id="menu-hamburger" className="lg:hidden flex h-full">
-            <CiMenuBurger className={`${menu ? 'hidden' : 'block'} w-8 h-8 text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer animate-fade-left`} onClick={() => setMenu(true)}/>
-            <AiOutlineClose className={`${menu ? 'block' : 'hidden'} w-8 h-8 text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer animate-fade-left`} onClick={closeMenu}/>
+        <div id="menu-hamburger" className="flex lg:hidden h-full">
+          <CiMenuBurger 
+            className={`${menu ? 'hidden' : 'block'} w-8 h-8 text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer animate-fade-left`} 
+            onClick={() => setMenu(true)}
+          />
+          <AiOutlineClose 
+            className={`${menu ? 'block' : 'hidden'} w-8 h-8 text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer animate-fade-left`} 
+            onClick={() => closeMenu()}
+          />
         </div>
       </div>
-      <div className={`${menu ? 'block pt-3 bg-gray-200 w-full animate-fade-down duration-200' : 'hidden animate-fade-up'} lg:hidden`}>
-            <div className='flex-col flex-basis flex gap-6 h-full text-md sm:px-24 px-10 py-2'>
+      <div className={`${menu ? 'absolute pt-3 bg-white bg-opacity-80 w-full animate-fade-down duration-200 backdrop-blur-sm' : 'hidden animate-fade-up'} lg:hidden`}>
+        <div className='flex-col flex-basis flex gap-6 h-full text-md sm:px-24 px-10 py-2'>
           <div
             className='relative'
             onClick={() => setDropdown(!dropdown)}
           >
             <div className='flex gap-1 h-full text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer'>
               LA OLIMPIADA
-              <ChevronDownIcon className='w-4'/>
+              <ChevronDownIcon className='w-4' />
             </div>
-            <div 
+            <div
               id='dropdown'
-              className={`absolute top-6 w-96 flex flex-col shadow ${dropdown ? 'block ml-5 backdrop-blur-sm' : 'hidden'}`}
+              className={`absolute flex flex-col top-6 w-96 ml-5 bg-white ${dropdown ? 'block backdrop-blur-sm' : 'hidden'}`}
               onClick={() => setDropdown(!dropdown)}
             >
               <Link
-                className='bg-white/80 opacity-40 p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/historia'}
                 onClick={() => setMenu(!menu)}
               >
                 Historia
               </Link>
-              <hr/>
+              <hr />
               <Link
-                className='bg-white/80 opacity-40 p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/reglamento'}
                 onClick={() => setMenu(!menu)}
               >
                 Reglamento
               </Link>
-              <hr/>
+              <hr />
               <Link
-                className='bg-white/80 opacity-40 p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='p-3 text-black hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/copa-puerto-rico'}
                 onClick={() => setMenu(!menu)}
               >

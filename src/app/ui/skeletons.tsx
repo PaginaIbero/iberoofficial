@@ -44,7 +44,7 @@ export function InformacionGeneralSkeleton() {
 
 export function DistribucionPuntajesSkeleton() {
   return (
-    <div className={`bg-blue-50 w-full h-[250px] motion-safe:animate-pulse rounded-lg`}/>
+    <div className={`bg-blue-100 w-full h-[250px] motion-safe:animate-pulse rounded-lg`}/>
   )
 }
 
@@ -57,7 +57,7 @@ export function DistribucionProblemasSkeleton() {
             <h1 className='text-lg text-center'>
               Problema {probno+1}
             </h1>
-            <div className={`bg-blue-50 w-full h-[250px] motion-safe:animate-pulse rounded-lg`}/>
+            <div className={`bg-blue-100 w-full h-[250px] motion-safe:animate-pulse rounded-lg`}/>
           </div>
         )
       })}

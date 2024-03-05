@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Navbar/>
-          <main className='sm:px-32 px-10 py-8 bg-slate-50 min-h-screen'>
+          <main className='sm:px-32 px-10 py-8 mt-[100px] bg-slate-50 min-h-screen'>
             {children}
           </main>
         </Providers>
