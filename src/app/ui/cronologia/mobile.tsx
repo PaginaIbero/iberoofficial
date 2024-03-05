@@ -15,7 +15,7 @@ export default function MobileTable() {
             className='my-4'
           >
             <Link 
-              href={`/resultados/${cronologia.id}`}
+              href={`/resultados/${cronologia.id}?section=estadisticas`}
               className='text-black'
             >
               <h1 className='text-4xl font-semibold text-center'>{cronologia.id}</h1>
