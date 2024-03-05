@@ -1,14 +1,12 @@
 'use client';
 
-import { router } from "@/server/trpc";
-import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function Chips({ id }: {
   id: number
 }) {
   return (
-    <div className='flex flex-wrap gap-2 mt-4'>
+    <div className='flex gap-2 mt-4 w-auto overflow-x-scroll md:overflow-hidden'>
       <Chip text='Estadísticas' href='estadisticas'/>
       <Chip text='Individuales' href='individuales'/>
       <Chip text='Por país' href='por-pais'/>
@@ -26,8 +24,8 @@ export function Chip({ text, href } : {
   return (
     <div 
       className={`
-        ${searchParams.get('section') === href ? 'bg-blue-200' : 'bg-blue-50 hover:bg-blue-100 cursor-pointer'}
-        text-black font-semibold rounded-full py-1 px-3 mb-5
+        w-auto py-1 px-3 mb-5 text-black font-semibold rounded-full text-nowrap
+        ${searchParams.get('section') === href ? 'bg-blue-200' : 'bg-blue-50 md:hover:bg-blue-100 md:cursor-pointer'}
       `}
       onClick={() => {
         searchParams.set('section', href)

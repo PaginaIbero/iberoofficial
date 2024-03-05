@@ -4,6 +4,7 @@ import {
   BarChart,
   CartesianGrid,
   Cell,
+  Legend,
   Pie,
   PieChart,
   ResponsiveContainer,
@@ -89,6 +90,7 @@ export function DistribucionPuntajes({ id }: {
         <Bar dataKey="b" stackId="a" fill="#c74900" barSize={10} />
         <Bar dataKey="s" stackId="a" fill="#c0c0c0" barSize={10} />
         <Bar dataKey="g" stackId="a" fill="#ffd000" barSize={10} />
+        <Legend/>
       </BarChart>
     </ResponsiveContainer>
   )
@@ -100,11 +102,11 @@ export function DistribucionProblemas({ id }: {
   const [data, ] = trpc.cronologia.getGeneralInfoByID.useSuspenseQuery(id)
   const [chartData, ] = trpc.resultados.getProblemStatsByFecha.useSuspenseQuery(id)
   return (
-    <div className='flex justify-between'>
+    <div className='lg:flex lg:justify-between'>
       {[...Array(6)].map((_, probno) => {
         return (
           <div key={probno} className='flex flex-col w-full'>
-            <h1 className='text-lg text-center'>
+            <h1 className='text-lg lg:text-center'>
               Problema {probno+1}
             </h1>
             { /*Por algún motivo los gráficos no se ven centrados*/ }

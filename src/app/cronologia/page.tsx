@@ -10,8 +10,8 @@ export default function Page() {
       <p className='text-center'>
         La OIM es una competencia matemática que se lleva a cabo anualmente en un país iberoamericano.
       </p>
-      <br/>
       <div className='hidden md:block'>
+        <br/>
         <Table/>
       </div>
       <div className='block md:hidden'>

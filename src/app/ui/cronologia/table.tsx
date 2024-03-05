@@ -39,7 +39,7 @@ export default function Table() {
         </tr>
       </thead>
       <tbody>
-        {isLoading ? <TableBodySkeleton /> : <TableBody content={data} />}
+        {isLoading ? <TableBodySkeleton/> : <TableBody content={data}/>}
       </tbody>
     </table>
   );

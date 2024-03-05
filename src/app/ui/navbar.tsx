@@ -7,20 +7,23 @@ import { CiMenuBurger } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
 
 export default function Navbar() {
-  const [dropdown, setDropdown] = useState(false);
   const [menu, setMenu] = useState(false);
-  const dropdownRef = useRef<HTMLElement | null>(null);
+  const [dropdown, setDropdown] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     document.addEventListener("mousedown", (event: MouseEvent) => {
       if (!dropdownRef.current?.contains(event.target as Node)) { 
         setDropdown(false);
+      } else if (!menuRef.current?.contains(event.target as Node)) { 
+        setMenu(false);
       }
     });
-  }, [dropdownRef]);
+  }, [dropdownRef, menuRef]);
   return (
     <nav className='fixed top-0 w-full bg-white z-10'>
       <div className='flex items-center justify-between sm:px-24 px-10 py-2'>
-        <h1 className='font-bold text-blue-800 sm:text-2xl text-xl hover:text-yellow-500 transition-colors'>
+        <h1 className='font-bold text-blue-800 text-xl md:text-2xl md:hover:text-yellow-500 transition-colors'>
           <Link href='/'>
             <div className='flex flex-col items-left gap-0'>
               <p className='mt-0'>Olimpiada</p>
@@ -99,11 +102,15 @@ export default function Navbar() {
           />
         </div>
       </div>
-      <div className={`${menu ? 'absolute pt-3 bg-white bg-opacity-80 w-full animate-fade-down duration-200 backdrop-blur-sm' : 'hidden animate-fade-up'} lg:hidden`}>
+      <div 
+        className={`${menu ? 'absolute pt-3 bg-white bg-opacity-80 w-full animate-fade-down duration-200 backdrop-blur-sm' : 'hidden animate-fade-up'} lg:hidden`}
+        ref={menuRef}
+      >
         <div className='flex flex-col sm:px-24 px-10 py-2 text-md'>
           <div
             className='relative'
             onClick={() => setDropdown(!dropdown)}
+            ref={dropdownRef}
           >
             <div className='flex gap-1 py-3 text-gray-400'>
               LA OLIMPIADA
@@ -112,7 +119,6 @@ export default function Navbar() {
             <div
               id='dropdown'
               className={`absolute flex flex-col top-6 w-96 mt-4 ml-5 bg-white ${dropdown ? 'block backdrop-blur-sm' : 'hidden'}`}
-              ref={dropdownRef}
             >
               <Link
                 className='p-3 text-gray-400'

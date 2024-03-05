@@ -11,7 +11,7 @@ export function Section({ title, children }: {
     return (
       <div className='flex flex-col border my-2'>
         <div
-          className='flex justify-between p-4 bg-blue-100 hover:bg-blue-200 cursor-pointer transition-colors'
+          className='flex justify-between p-4 bg-blue-100 md:hover:bg-blue-200 cursor-pointer transition-colors'
           onClick={() => setOpen(!open)}
         >
           <h2 className='font-semibold text-gray-800'>

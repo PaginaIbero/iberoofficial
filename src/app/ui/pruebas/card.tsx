@@ -29,16 +29,26 @@ export default function Card({ title, subtitle }: {
           </p>
         </div>
       </div>
-      <div className='flex w-full pt-2'>
+      <div className='flex w-full gap-0'>
         <Link
-          href={`/pruebas/${title}.pdf`}
+          href={`/pruebas/${title}-sp.pdf`}
           className={`
-            ${'bg-blue-600 hover:bg-blue-900 cursor-pointer transition-colors'}
-            w-full p-2 rounded-md
+            ${'bg-blue-600 md:hover:bg-blue-900 cursor-pointer transition-colors'}
+            w-full p-2 rounded-bl-md
             font-semibold text-white text-center
           `}
         >
-          Ver prueba    
+          Español
+        </Link>
+        <Link
+          href={`/pruebas/${title}-pt.pdf`}
+          className={`
+            ${'bg-blue-600 md:hover:bg-blue-900 cursor-pointer transition-colors'}
+            w-full p-2 rounded-br-md
+            font-semibold text-white text-center
+          `}
+        >
+          Portugués
         </Link>
       </div>
     </div>

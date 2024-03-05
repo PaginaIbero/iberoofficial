@@ -7,6 +7,7 @@ import { DistribucionProblemas, DistribucionPuntajes } from "@/app/ui/resultados
 import { DistribucionProblemasSkeleton, DistribucionPuntajesSkeleton, InformacionGeneralSkeleton, TitleSkeleton } from "@/app/ui/skeletons";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import MobileInvidividualesTable from "@/app/ui/resultados/mobile";
 
 export default function Page({ params }: {
   params: {
@@ -24,19 +25,26 @@ export default function Page({ params }: {
   } = trpc.resultados.getPuntajesByFecha.useQuery(Number(params.id)) // Esta query tarda como 10s
   return (
     <>
-      {isLoadingCronologia ? <TitleSkeleton /> :
+      {isLoadingCronologia ? <TitleSkeleton/> :
         <>
-          <h1 className='text-4xl text-center'>
+          <h1 className='text-2xl lg:text-4xl text-center'>
             <span className='font-semibold'>{dataCronologia?.ciudad}</span>, {dataCronologia?.pais}
           </h1>
-          <h2 className='text-4xl text-center'>
+          <h2 className='text-2xl lg:text-4xl text-center'>
             {dataCronologia?.id}
           </h2>
         </>
       }
       <Chips id={params.id} />
       {searchParams.get('section') === 'estadisticas' && <Estadisticas id={Number(params.id)}/>}
-      {searchParams.get('section') === 'individuales' && <IndividualesTable id={Number(params.id)}/>}
+      {searchParams.get('section') === 'individuales' && <>
+        <div className='hidden md:block'>
+          <IndividualesTable id={Number(params.id)}/>
+        </div>
+        <div className='block md:hidden'>
+          <MobileInvidividualesTable id={Number(params.id)}/>
+        </div>
+      </>}
       {searchParams.get('section') === 'por-pais' && <PorPaisTable id={Number(params.id)}/>}
     </>
   )
