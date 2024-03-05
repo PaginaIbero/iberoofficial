@@ -11,15 +11,18 @@ export default function Navbar() {
   const [dropdown, setDropdown] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const mobileDropdownRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     document.addEventListener("mousedown", (event: MouseEvent) => {
-      if (!dropdownRef.current?.contains(event.target as Node)) { 
+      console.log(dropdownRef.current?.contains(event.target as Node))
+      if (!mobileDropdownRef.current?.contains(event.target as Node) &&
+          !dropdownRef.current?.contains(event.target as Node)) { 
         setDropdown(false);
       } else if (!menuRef.current?.contains(event.target as Node)) { 
         setMenu(false);
       }
     });
-  }, [dropdownRef, menuRef]);
+  }, [dropdownRef, mobileDropdownRef, menuRef]);
   return (
     <nav className='fixed top-0 w-full bg-white z-10'>
       <div className='flex items-center justify-between sm:px-24 px-10 py-2'>
@@ -37,6 +40,7 @@ export default function Navbar() {
             className='relative'
             onMouseOver={() => setDropdown(true)}
             onMouseOut={(e) => setDropdown(false)}
+            ref={dropdownRef}
           >
             <div className='flex gap-1 h-full text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer'>
               LA OLIMPIADA
@@ -110,7 +114,7 @@ export default function Navbar() {
           <div
             className='relative'
             onClick={() => setDropdown(!dropdown)}
-            ref={dropdownRef}
+            ref={mobileDropdownRef}
           >
             <div className='flex gap-1 py-3 text-gray-400'>
               LA OLIMPIADA
