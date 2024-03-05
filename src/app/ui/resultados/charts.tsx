@@ -102,18 +102,18 @@ export function DistribucionProblemas({ id }: {
   const [data, ] = trpc.cronologia.getGeneralInfoByID.useSuspenseQuery(id)
   const [chartData, ] = trpc.resultados.getProblemStatsByFecha.useSuspenseQuery(id)
   return (
-    <div className='lg:flex lg:justify-between'>
+    <div className='grid xl:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-5 text-center items-center'>
       {[...Array(6)].map((_, probno) => {
         return (
-          <div key={probno} className='flex flex-col w-full'>
-            <h1 className='text-lg lg:text-center'>
+          <div key={probno} className='flex flex-col w-full text-black content-center'>
+            <h1 className='text-lg lg:text-center pb-2'>
               Problema {probno+1}
             </h1>
             { /*Por algún motivo los gráficos no se ven centrados*/ }
-            <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={chartData[probno]}>
-                <XAxis dataKey='name' type='number' domain={[0, 7]} ticks={[0, 1, 2, 3, 4, 5, 6, 7]} />
-                <YAxis type='number' domain={[0, data?.participantes || 0]} />
+            <ResponsiveContainer width={'99%'} height={250}>
+              <BarChart data={chartData[probno]} margin={{right: 35}}>
+                <XAxis className="absolute left-0" dataKey='name' type='number' domain={[0, 7]} ticks={[0, 1, 2, 3, 4, 5, 6, 7]} />
+                <YAxis className="absolute left-0" type='number' domain={[0, data?.participantes || 0]} />
                 <Bar dataKey="c" fill="#009dff" barSize={10} />
               </BarChart>
             </ResponsiveContainer>
