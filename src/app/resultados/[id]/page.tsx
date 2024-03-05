@@ -27,10 +27,10 @@ export default function Page({ params }: {
     <>
       {isLoadingCronologia ? <TitleSkeleton/> :
         <>
-          <h1 className='text-2xl lg:text-4xl text-center'>
+          <h1 className='text-2xl lg:text-4xl text-center text-black'>
             <span className='font-semibold'>{dataCronologia?.ciudad}</span>, {dataCronologia?.pais}
           </h1>
-          <h2 className='text-2xl lg:text-4xl text-center'>
+          <h2 className='text-2xl lg:text-4xl text-center text-black'>
             {dataCronologia?.id}
           </h2>
         </>
@@ -59,7 +59,7 @@ function Estadisticas({ id }: {
   } = trpc.cronologia.getCortesByID.useQuery(id)
   return (
     <>
-      <h3 className='text-xl font-semibold'>
+      <h3 className='text-xl font-semibold text-black'>
         Información general
       </h3>
       <Suspense fallback={<InformacionGeneralSkeleton />}>
@@ -71,7 +71,7 @@ function Estadisticas({ id }: {
       <Suspense fallback={<DistribucionPuntajesSkeleton/>}>
         <DistribucionPuntajes id={id}/>
       </Suspense>
-      <h3 className='text-xl font-semibold mt-5 text-black'>
+      <h3 className='text-xl font-semibold my-5 text-black'>
         Distribución por problema
       </h3>
       <Suspense fallback={<DistribucionProblemasSkeleton/>}>
@@ -86,7 +86,7 @@ function InformacionGeneral({ id }: {
 }) {
   const [data, _] = trpc.cronologia.getGeneralInfoByID.useSuspenseQuery(id)
   return (
-    <ul className='list-disc pl-6'>
+    <ul className='list-disc pl-6 text-black'>
       <li>Sede: {data?.ciudad}, {data?.pais} ({data?.fecha})</li>
       <li>Países participantes: {data?.paises}</li>
       <li>Concursantes: {data?.participantes}</li>
