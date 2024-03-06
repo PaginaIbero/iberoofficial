@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
 import prisma from "@/lib/db";
+import { Data, ExcelData } from "../types/excelData";
+import { Medalla } from "@prisma/client";
 
 export const resultadosRouter = router({
   getByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
@@ -139,5 +141,40 @@ export const resultadosRouter = router({
         medalla: true,
       }
     });
+  }),
+  excelToBD: publicProcedure.query(async () => {
+    return fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRXg53PKiTHMxPfo0Z_Gh-juc2TwOAxFgcaafw-PlGKgUzltMcGM2MnqkZ86cjkiJ0sxzEdIeZRcAuB/pub?gid=0&single=true&output=tsv')
+    .then(response => response.text())
+    .then(text => {
+      const data: ExcelData[] = text.split('\n').slice(1).map(line => {
+        const [nombre, indice, pais, numeracion, P1, P2, P3, P4, P5, P6, total, medalla] = line.split('\t')
+        return {
+          nombre, indice, pais, numeracion, P1, P2, P3, P4, P5, P6, total, medalla
+        }
+      })
+      async function SendData() {
+        for (let index = 0; index < data.length; index++) {
+          await prisma.resultados.create({
+            data: {
+              date: 2023,
+              ranking: index + 1,
+              nombreCompleto: data[index].nombre,
+              pais: data[index].pais,
+              numeracion: parseInt(data[index].numeracion),
+              P1: parseInt(data[index].P1),
+              P2: parseInt(data[index].P2),
+              P3: parseInt(data[index].P3),
+              P4: parseInt(data[index].P4),
+              P5: parseInt(data[index].P5),
+              P6: parseInt(data[index].P6),
+              medalla: 'ORO'
+            }
+          })
+        }
+        console.log('Data sent')
+      }
+      SendData()
+      return data
+    })
   })
 })
