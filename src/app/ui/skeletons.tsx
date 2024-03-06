@@ -98,7 +98,7 @@ export function DistribucionProblemasSkeleton() {
 
 export function CardGridSkeleton() {
   return (
-    <div className='grid grid-cols-1 sm:card-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+    <div className='grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4'>
       {[...Array(6)].map((_, index) => {
         return (
           <div 
