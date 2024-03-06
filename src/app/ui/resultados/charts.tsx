@@ -85,11 +85,11 @@ export function DistribucionPuntajes({ id }: {
           ticks={[7, cortes[0], cortes[1], cortes[2], 42]}
         />
         <YAxis type='number' />
-        <Bar dataKey="hm" stackId="a" fill="#ff00b7" barSize={10} />
-        <Bar dataKey="no" stackId="a" fill="#009dff" barSize={10} />
-        <Bar dataKey="b" stackId="a" fill="#c74900" barSize={10} />
-        <Bar dataKey="s" stackId="a" fill="#c0c0c0" barSize={10} />
-        <Bar dataKey="g" stackId="a" fill="#ffd000" barSize={10} />
+        <Bar dataKey="hm" stackId="a" fill="#ff00b7"/>
+        <Bar dataKey="no" stackId="a" fill="#009dff"/>
+        <Bar dataKey="b" stackId="a" fill="#c74900"/>
+        <Bar dataKey="s" stackId="a" fill="#c0c0c0"/>
+        <Bar dataKey="g" stackId="a" fill="#ffd000"/>
         <Legend/>
       </BarChart>
     </ResponsiveContainer>
@@ -112,9 +112,19 @@ export function DistribucionProblemas({ id }: {
             { /*Por algún motivo los gráficos no se ven centrados*/ }
             <ResponsiveContainer width={'99%'} height={250}>
               <BarChart data={chartData[probno]} margin={{right: 35}}>
-                <XAxis className="absolute left-0" dataKey='name' type='number' domain={[0, 7]} ticks={[0, 1, 2, 3, 4, 5, 6, 7]} />
-                <YAxis className="absolute left-0" type='number' domain={[0, data?.participantes || 0]} />
-                <Bar dataKey="c" fill="#009dff" barSize={10} />
+                <XAxis 
+                  className="absolute left-0" 
+                  dataKey='name' 
+                  type='number' 
+                  domain={[0, 7]} 
+                  ticks={[0, 1, 2, 3, 4, 5, 6, 7]}
+                />
+                <YAxis
+                  className="absolute left-0"
+                  type='number'
+                  domain={[0, data?.participantes || 0]}
+                />
+                <Bar dataKey="c" fill="#009dff"/>
               </BarChart>
             </ResponsiveContainer>
           </div>

@@ -13,17 +13,17 @@ export function IndividualesTable({ id }: {
     <table className='text-center text-black table-fixed'>
       <thead className='font-semibold'>
         <tr className='bg-blue-200'>
-          <th className='w-1/3 p-1'>Concursante</th>
-          <th className='w-1/3 p-1'>País</th>
-          <th className='p-1'>P1</th>
-          <th className='p-1'>P2</th>
-          <th className='p-1'>P3</th>
-          <th className='p-1'>P4</th>
-          <th className='p-1'>P5</th>
-          <th className='p-1'>P6</th>
-          <th className='w-1/12 p-1'>Total</th>
-          <th className='w-1/12 p-1'>Puesto</th>
-          <th className='w-1/12 p-1'>Premio</th>
+          <th className='w-[5%] p-1'>#</th>
+          <th className='w-[50%] p-1'>Concursante</th>
+          <th className='w-[20%] p-1'>País</th>
+          <th className='w-[3%] p-1'>P1</th>
+          <th className='w-[3%] p-1'>P2</th>
+          <th className='w-[3%] p-1'>P3</th>
+          <th className='w-[3%] p-1'>P4</th>
+          <th className='w-[3%] p-1'>P5</th>
+          <th className='w-[3%] p-1'>P6</th>
+          <th className='w-[10%] p-1'>Total</th>
+          <th className='w-[10%] p-1'>Premio</th>
         </tr>
       </thead>
       <tbody>
@@ -77,7 +77,7 @@ export function PorPaisTable({ id }: {
         </tr>
       </thead>
       <tbody>
-        {isLoading ? <TableBodySkeleton/> : <TableBody content={data}/>}
+        {isLoading ? <TableBodySkeleton/> : <div>To be implemented</div>}
       </tbody>
     </table>
   );
@@ -95,6 +95,7 @@ export function TableBody({ content }: {
           className={`${index % 2 === 0 ? 'bg-blue-0 hover:bg-blue-100' : 'bg-blue-50 hover:bg-blue-100'} transition-colors cursor-pointer`}
           onClick={() => {}}
         >
+          <td className='py-3'>{item.ranking}</td>
           <td className='py-3'>{item.nombreCompleto}</td>
           <td className='py-3'>{item.pais}</td>
           <td className='py-3'>{item.P1}</td>
@@ -104,7 +105,6 @@ export function TableBody({ content }: {
           <td className='py-3'>{item.P5}</td>
           <td className='py-3'>{item.P6}</td>
           <td className='py-3'>{item.P1 + item.P2 + item.P3 + item.P4 + item.P5 + item.P6}</td>
-          <td className='py-3'>{item.ranking}</td>
           <td className='py-3'>{item.medalla}</td>
         </tr>
       ))}
