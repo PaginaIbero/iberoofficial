@@ -8,6 +8,8 @@ import { DistribucionProblemasSkeleton, DistribucionPuntajesSkeleton, Informacio
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import MobileInvidividualesTable from "@/app/ui/resultados/mobile";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 export default function Page({ params }: {
   params: {
@@ -26,14 +28,28 @@ export default function Page({ params }: {
   return (
     <>
       {isLoadingCronologia ? <TitleSkeleton/> :
-        <>
-          <h1 className='text-2xl lg:text-4xl text-center text-black'>
-            <span className='font-semibold'>{dataCronologia?.ciudad}</span>, {dataCronologia?.pais}
-          </h1>
-          <h2 className='text-2xl lg:text-4xl text-center text-black'>
-            {dataCronologia?.id}
-          </h2>
-        </>
+        <div className='flex justify-center items-center gap-4'>
+          <Link 
+            href={`/resultados/${Number(params.id) - 1}?${searchParams}`}
+            className='text-black hover:text-blue-800 transition-colors'
+          >
+            ◄
+          </Link>
+          <div className='flex flex-col'>
+            <h1 className='text-2xl lg:text-4xl text-center text-black'>
+              <span className='font-semibold'>{dataCronologia?.ciudad}</span>, {dataCronologia?.pais}
+            </h1>
+            <h2 className='text-2xl lg:text-4xl text-center text-black'>
+              {dataCronologia?.id}
+            </h2>
+          </div>
+          <Link 
+            href={`/resultados/${Number(params.id) + 1}?${searchParams}`}
+            className='text-black hover:text-blue-800 transition-colors'
+          >
+            ►
+          </Link>
+        </div>
       }
       <Chips chips={[{
         text: 'Estadísticas',
