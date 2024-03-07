@@ -7,12 +7,12 @@ import Link from "next/link";
 export default function MobileTable() {
   const { data, isLoading } = trpc.cronologia.getAll.useQuery()
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center">
       {isLoading ? <MobileTableSkeleton/> :
         data?.map((cronologia: cronologia) => (
           <div 
             key={cronologia.id}
-            className='my-4'
+            className='my-4 hover:bg-gray-300 py-2 px-3 rounded-md w-fit'
           >
             <Link 
               href={`/resultados/${cronologia.id}?section=estadisticas`}
