@@ -12,7 +12,7 @@ export default function MobileTable() {
         data?.map((cronologia: cronologia) => (
           <div 
             key={cronologia.id}
-            className='my-4 hover:bg-gray-300 py-2 px-3 rounded-md w-fit'
+            className='my-4 hover:bg-gray-300 py-3 px-8 rounded-md w-fit'
           >
             <Link 
               href={`/resultados/${cronologia.id}?section=estadisticas`}
