@@ -13,7 +13,7 @@ export default function MobileInvidividualesTable({ id }: {
         data?.map((resultado: resultado) => (
           <div 
             key={resultado.id}
-            className='my-4'
+            className='my-4 text-black'
           >
             <h2 className='text-xl font-semibold'>
               {resultado.medalla}
