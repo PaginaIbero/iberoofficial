@@ -4,7 +4,7 @@ import { cronologia } from "@/lib/types";
 import { MobileTableSkeleton } from "@/app/ui/skeletons";
 import Link from "next/link";
 
-export default function MobileTable() {
+export default function CronologiaMobileTable() {
   const { data, isLoading } = trpc.cronologia.getAll.useQuery()
   return (
     <div className="flex flex-col justify-center items-center">
@@ -12,11 +12,11 @@ export default function MobileTable() {
         data?.map((cronologia: cronologia) => (
           <div 
             key={cronologia.id}
-            className='my-4 hover:bg-gray-300 py-3 px-8 rounded-md w-fit'
+            className='my-1 py-3 px-8 rounded-md w-fit hover:bg-blue-100 transition duration-300 ease-in-out cursor-pointer'
           >
             <Link 
               href={`/resultados/${cronologia.id}?section=estadisticas`}
-              className='text-black'
+              className='text-black hover:text-blue-800 transition duration-300 ease-in-out cursor-pointer'
             >
               <h1 className='text-4xl font-semibold text-center'>{cronologia.id}</h1>
               <p className='text-center'>{cronologia.ciudad}</p>

@@ -2,14 +2,17 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function Chips({ id }: {
-  id: number
+export default function Chips({ chips }: {
+  chips: {
+    text: string,
+    href: string
+  }[]
 }) {
   return (
     <div className='flex gap-2 mt-4 w-auto overflow-x-scroll md:overflow-hidden'>
-      <Chip text='Estadísticas' href='estadisticas'/>
-      <Chip text='Individuales' href='individuales'/>
-      <Chip text='Por país' href='por-pais'/>
+      {chips.map(chip => (
+        <Chip key={chip.href} text={chip.text} href={chip.href}/>
+      ))}
     </div>
   )
 }

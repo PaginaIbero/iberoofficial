@@ -5,7 +5,7 @@ import { cronologia } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { TableBodySkeleton } from "../skeletons";
 
-export default function Table() {
+export default function CronologiaTable() {
   const { data, isLoading } = trpc.cronologia.getAll.useQuery()
   return (
     <table className='text-center text-black table-fixed'>
@@ -45,7 +45,7 @@ export default function Table() {
   );
 }
 
-export function TableBody({ content }: {
+function TableBody({ content }: {
   content: cronologia[] | undefined
 }) {
   const router = useRouter();

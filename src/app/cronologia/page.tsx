@@ -1,5 +1,5 @@
-import Table from "@/app/ui/cronologia/table";
-import MobileTable from "@/app/ui/cronologia/mobile";
+import CronologiaTable from "@/app/ui/cronologia/table";
+import CronologiaMobileTable from "@/app/ui/cronologia/mobile";
 
 export default function Page() {
   return (
@@ -7,15 +7,15 @@ export default function Page() {
       <h1 className='text-4xl font-semibold text-center'>
         Cronología
       </h1>
-      <p className='text-center'>
+      <p className='text-center mb-5'>
         La OIM es una competencia matemática que se lleva a cabo anualmente en un país iberoamericano.
       </p>
       <div className='hidden md:block'>
         <br/>
-        <Table/>
+        <CronologiaTable/>
       </div>
       <div className='block md:hidden'>
-        <MobileTable/>
+        <CronologiaMobileTable/>
       </div>
     </div>
   )

@@ -2,22 +2,22 @@ export function TableBodySkeleton() {
   return (
     <>
       <tr>
-        <td colSpan={15} className='bg-blue-50 w-full h-12 motion-safe:animate-pulse rounded' />
+        <td colSpan={20} className='bg-blue-50 w-full h-12 motion-safe:animate-pulse rounded' />
       </tr>
       <tr>
-        <td colSpan={15} className='bg-blue-100 w-full h-12 motion-safe:animate-pulse rounded' />
+        <td colSpan={20} className='bg-blue-100 w-full h-12 motion-safe:animate-pulse rounded' />
       </tr>
       <tr>
-        <td colSpan={15} className='bg-blue-50 w-full h-12 motion-safe:animate-pulse rounded' />
+        <td colSpan={20} className='bg-blue-50 w-full h-12 motion-safe:animate-pulse rounded' />
       </tr>
       <tr>
-        <td colSpan={15} className='bg-blue-100 w-full h-12 motion-safe:animate-pulse rounded' />
+        <td colSpan={20} className='bg-blue-100 w-full h-12 motion-safe:animate-pulse rounded' />
       </tr>
       <tr>
-        <td colSpan={15} className='bg-blue-50 w-full h-12 motion-safe:animate-pulse rounded' />
+        <td colSpan={20} className='bg-blue-50 w-full h-12 motion-safe:animate-pulse rounded' />
       </tr>
       <tr>
-        <td colSpan={15} className='bg-blue-100 w-full h-12 motion-safe:animate-pulse rounded' />
+        <td colSpan={20} className='bg-blue-100 w-full h-12 motion-safe:animate-pulse rounded' />
       </tr>
     </>
   )
@@ -26,14 +26,21 @@ export function TableBodySkeleton() {
 export function MobileTableSkeleton() {
   return (
     <div className='flex flex-col items-center'>
-      <div className='bg-blue-50 w-24 h-10 my-4 mb-1 motion-safe:animate-pulse rounded' />
-      <div className='bg-blue-100 w-36 h-5 motion-safe:animate-pulse rounded' />
-      <div className='bg-blue-50 w-24 h-10 my-4 mb-1 motion-safe:animate-pulse rounded' />
-      <div className='bg-blue-100 w-16 h-5 motion-safe:animate-pulse rounded' />
-      <div className='bg-blue-50 w-24 h-10 my-4 mb-1 motion-safe:animate-pulse rounded' />
-      <div className='bg-blue-100 w-24 h-5 motion-safe:animate-pulse rounded' />
-      <div className='bg-blue-50 w-24 h-10 my-4 mb-1 motion-safe:animate-pulse rounded' />
-      <div className='bg-blue-100 w-36 h-5 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-50 w-24 h-10 mt-4 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-36 h-5 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-48 h-5 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-36 h-5 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-24 h-5 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-50 w-24 h-10 mt-8 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-36 h-5 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-48 h-5 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-36 h-5 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-24 h-5 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-50 w-24 h-10 mt-8 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-36 h-5 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-48 h-5 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-36 h-5 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-100 w-24 h-5 mb-1 motion-safe:animate-pulse rounded' />
     </div>
   )
 }

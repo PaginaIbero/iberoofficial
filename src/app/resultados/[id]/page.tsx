@@ -35,7 +35,16 @@ export default function Page({ params }: {
           </h2>
         </>
       }
-      <Chips id={params.id} />
+      <Chips chips={[{
+        text: 'Estadísticas',
+        href: 'estadisticas'
+      }, {
+        text: 'Individuales',
+        href: 'individuales'
+      }, {
+        text: 'Por país',
+        href: 'por-pais'
+      }]}/>
       {searchParams.get('section') === 'estadisticas' && <Estadisticas id={Number(params.id)}/>}
       {searchParams.get('section') === 'individuales' && <>
         <div className='hidden md:block'>

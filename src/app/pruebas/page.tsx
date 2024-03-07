@@ -1,6 +1,6 @@
 import { Suspense } from "react"
-import CardGrid from "../ui/pruebas/cardgrid"
-import { CardGridSkeleton } from "../ui/skeletons"
+import { CardGridSkeleton } from "@/app/ui/skeletons"
+import CardGrid from "@/app/ui/pruebas/card_grid"
 
 export default function Page() {
   return (

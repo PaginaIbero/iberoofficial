@@ -80,7 +80,7 @@ export default function Navbar() {
             CRONOLOGÍA
           </Link>
           <Link
-            href={'/resultados'}
+            href={'/resultados?section=por-año'}
             className='text-gray-400 hover:text-blue-800 transition-colors'
           >
             RESULTADOS
@@ -157,7 +157,7 @@ export default function Navbar() {
             CRONOLOGÍA
           </Link>
           <Link
-            href={'/resultados'}
+            href={'/resultados?section=por-año'}
             className='py-3 text-gray-400'
             onClick={() => setMenu(!menu)}
           >
