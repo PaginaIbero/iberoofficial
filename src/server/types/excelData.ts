@@ -11,6 +11,7 @@ export type ExcelData = {
     P6: string;
     total: string;
     medalla: string;
+    ranking: string;
 }
 
 export type Data = ExcelData[]

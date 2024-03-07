@@ -142,22 +142,31 @@ export const resultadosRouter = router({
       }
     });
   }),
-  excelToBD: publicProcedure.query(async () => {
+  excelToBD: publicProcedure.input(z.number()).query(async ({ input }) => {
     return fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRXg53PKiTHMxPfo0Z_Gh-juc2TwOAxFgcaafw-PlGKgUzltMcGM2MnqkZ86cjkiJ0sxzEdIeZRcAuB/pub?gid=0&single=true&output=tsv')
     .then(response => response.text())
     .then(text => {
-      const data: ExcelData[] = text.split('\n').slice(1).map(line => {
-        const [nombre, indice, pais, numeracion, P1, P2, P3, P4, P5, P6, total, medalla] = line.split('\t')
+      let data: ExcelData[] = text.split('\n').slice(1).map(line => {
+        const [nombre, indice, pais, numeracion, P1, P2, P3, P4, P5, P6, total, medalla, ranking] = line.split('\t')
         return {
-          nombre, indice, pais, numeracion, P1, P2, P3, P4, P5, P6, total, medalla
+          nombre, indice, pais, numeracion, P1, P2, P3, P4, P5, P6, total, medalla, ranking
         }
       })
       async function SendData() {
         for (let index = 0; index < data.length; index++) {
+          let medalla: Medalla;
+          if (data[index].medalla === 'ORO') medalla = 'ORO'
+          else if (data[index].medalla === 'PLATA') medalla = 'PLATA'
+          else if (data[index].medalla === 'BRONCE') medalla = 'BRONCE'
+          else if (data[index].medalla === 'MENCIÓN DE HONOR') medalla = 'MENCION'
+          else medalla = 'NADA'
+          if (index > 0) {
+          if (data[index].total === data[index-1].total && index > 0) data[index].ranking = data[index-1].ranking
+          }
           await prisma.resultados.create({
             data: {
-              date: 2023,
-              ranking: index + 1,
+              date: input,
+              ranking: parseInt(data[index].ranking),
               nombreCompleto: data[index].nombre,
               pais: data[index].pais,
               numeracion: parseInt(data[index].numeracion),
@@ -167,7 +176,7 @@ export const resultadosRouter = router({
               P4: parseInt(data[index].P4),
               P5: parseInt(data[index].P5),
               P6: parseInt(data[index].P6),
-              medalla: 'ORO'
+              medalla: medalla
             }
           })
         }
