@@ -72,25 +72,37 @@ export function DistribucionPuntajes({ id }: {
   const [cortes, ] = trpc.cronologia.getCortesByID.useSuspenseQuery(id)
   const [chartData, _] = trpc.resultados.getDistribucionPuntajesByFecha.useSuspenseQuery(id)
   return (
-    <ResponsiveContainer width="100%" height={250}>
+    <ResponsiveContainer width='100%' height={250}>
       <BarChart
         width={20}
         height={300}
         data={chartData}
+        margin={{right: 15}}
+        barCategoryGap={1}
       >
         <XAxis
           dataKey='name'
           type='number'
           domain={[0, 42]}
-          ticks={[7, cortes[0], cortes[1], cortes[2], 42]}
+          interval={0}
+          ticks={Array.from({ length: 43 }, (_, i) => i)}
+          tickFormatter={(value) => {
+            if ([0, 42].includes(value) || cortes.includes(value))
+              return String(value)
+            else
+              return ''
+          }}
         />
-        <YAxis type='number' />
-        <Bar dataKey="hm" stackId="a" fill="#ff00b7"/>
-        <Bar dataKey="no" stackId="a" fill="#009dff"/>
-        <Bar dataKey="b" stackId="a" fill="#c74900"/>
-        <Bar dataKey="s" stackId="a" fill="#c0c0c0"/>
-        <Bar dataKey="g" stackId="a" fill="#ffd000"/>
-        <Legend/>
+        <YAxis 
+          type='number'
+          width={20}
+        />
+        <Bar dataKey="hm" name='Mención honorífica' stackId="a" fill="#ff00b7"/>
+        <Bar dataKey="no" name='Nada' stackId="a" fill="#009dff"/>
+        <Bar dataKey="b" name='Bronce' stackId="a" fill="#c74900"/>
+        <Bar dataKey="s" name='Plata' stackId="a" fill="#c0c0c0"/>
+        <Bar dataKey="g" name='Oro' stackId="a" fill="#ffd000"/>
+        <Legend className='absolute' layout='vertical' verticalAlign="top" align="right"/>
       </BarChart>
     </ResponsiveContainer>
   )
@@ -111,17 +123,20 @@ export function DistribucionProblemas({ id }: {
             </h1>
             { /*Por algún motivo los gráficos no se ven centrados*/ }
             <ResponsiveContainer width={'99%'} height={250}>
-              <BarChart data={chartData[probno]} margin={{right: 35}}>
+              <BarChart 
+                data={chartData[probno]} 
+                margin={{right: 35}}
+              >
                 <XAxis 
-                  className="absolute left-0" 
                   dataKey='name' 
                   type='number' 
                   domain={[0, 7]} 
+                  interval={0}
                   ticks={[0, 1, 2, 3, 4, 5, 6, 7]}
                 />
                 <YAxis
-                  className="absolute left-0"
                   type='number'
+                  width={30}
                   domain={[0, data?.participantes || 0]}
                 />
                 <Bar dataKey="c" fill="#009dff"/>
