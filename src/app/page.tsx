@@ -1,6 +1,7 @@
 export default function Home() {
   return (
-    <div className="text-black">
+    <div className="text-black flex flex-col">
+      <img src='/images/ibero_home.png' alt='Ibero Home' className="w-screen absolute left-0 object-cover" />
       <h1 className='text-4xl font-semibold text-center pb-5'>
         Olimpiada Iberoamericana de Matemática
       </h1>
