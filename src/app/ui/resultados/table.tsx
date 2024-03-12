@@ -34,11 +34,30 @@ export function IndividualesTable({ id }: {
 export function PorPaisTable({ id }: {
   id: number
 }) {
-  const { data, isLoading } = trpc.resultados.getByFecha.useQuery(Number(id))
+  const { data, isLoading } = trpc.participaciones.getByFecha.useQuery(Number(id))
   return (
     <Table
       headers={['#', 'País', 'T', 'H', 'M', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'Total', 'O', 'P', 'B', 'MH', 'Jefe', 'Tutor']}
-      data={data ? data.map((item: resultado) => []) : []}
+      data={data ? data.map((item) => [
+        item.ranking.toString(),
+        item.nombrePais,
+        item.equipo.length.toString(),
+        '0',
+        '0',
+        item.P1.toString(),
+        item.P2.toString(),
+        item.P3.toString(),
+        item.P4.toString(),
+        item.P5.toString(),
+        item.P6.toString(),
+        (item.P1 + item.P2 + item.P3 + item.P4 + item.P5 + item.P6).toString(),
+        item.g.toString(),
+        item.s.toString(),
+        item.b.toString(),
+        item.hm.toString(),
+        item.nombreLider,
+        item.nombreTutor
+      ]) : []}
       isLoading={isLoading}
     />
   )

@@ -86,6 +86,12 @@ export default function Navbar() {
             RESULTADOS
           </Link>
           <Link
+            href={'/paises'}
+            className='text-gray-400 hover:text-blue-800 transition-colors'
+          >
+            PAÍSES
+          </Link>
+          <Link
             href={'/pruebas'}
             className='text-gray-400 hover:text-blue-800 transition-colors'
           >
@@ -162,6 +168,13 @@ export default function Navbar() {
             onClick={() => setMenu(!menu)}
           >
             RESULTADOS
+          </Link>
+          <Link
+            href={'/paises'}
+            className='py-3 text-gray-400'
+            onClick={() => setMenu(!menu)}
+          >
+            PAÍSES
           </Link>
           <Link
             href={'/pruebas'}

@@ -22,19 +22,21 @@ model Cronologia {
 }
 
 model Resultados {
-  id              String  @id @default(uuid())
-  nombreCompleto  String
-  date            Int
-  P1             Int
-  P2             Int
-  P3             Int
-  P4             Int
-  P5             Int
-  P6             Int
-  ranking         Int
-  medalla         Medalla
-  pais            String
-  numeracion      Int
+  id  String  @id @default(uuid())
+  nombreCompleto String @default("n/a")
+  date  Int   @default(0)
+  P1    Int   @default(0)
+  P2    Int   @default(0)
+  P3    Int   @default(0)
+  P4    Int   @default(0)
+  P5    Int   @default(0)
+  P6    Int   @default(0)
+  ranking Int @default(0)
+  medalla Medalla     @default(NADA)
+  pais    String      @default("n/a")
+  numeracion      Int @default(0)
+  participacionId String @default("-")
+  participacion   Participaciones @relation(fields: [participacionId], references: [id])
 }
 
 enum Medalla {
@@ -45,3 +47,19 @@ enum Medalla {
   NADA
 }
 
+model Participaciones {
+  id          String  @id @default(uuid())
+  nombrePais  String  @default("n/a")
+  date        Int     @default(0)
+  nombreLider String  @default("n/a")
+  nombreTutor String  @default("n/a")
+  equipo      Resultados[]
+  ranking     Int
+}
+
+model Paises {
+  id      String  @id @default(uuid())
+  nombre  String  @default("n/a")
+  contacto String @default("n/a")
+  sitio    String @default("n/a")
+}

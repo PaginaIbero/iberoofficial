@@ -12,7 +12,7 @@ export default function Page() {
         Resultados
       </h1>
       <p className='text-center mb-5'>
-        La OIM es una competencia matemática que se lleva a cabo anualmente en un país iberoamericano.
+        Resultados de las instancias de la Olimpiada Iberoamericana de Matemática
       </p>
       <Chips chips={[{
         text: 'Por año',

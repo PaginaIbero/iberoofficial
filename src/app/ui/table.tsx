@@ -10,7 +10,7 @@ export default function Table({ headers, data, href, isLoading }: {
   isLoading: boolean
 }) {
   return (
-    <table className='text-center text-black table-fixed'>
+    <table className='text-center text-black table-auto w-full'>
       <thead className='font-semibold'>
         <tr className='bg-blue-200'>
           {headers.map((header, index) => (

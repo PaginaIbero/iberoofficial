@@ -70,7 +70,9 @@ export default function Page({ params }: {
           <MobileInvidividualesTable id={Number(params.id)}/>
         </div>
       </>}
-      {searchParams.get('section') === 'por-pais' && <PorPaisTable id={Number(params.id)}/>}
+      {searchParams.get('section') === 'por-pais' && <>
+        <PorPaisTable id={Number(params.id)}/>
+      </>}
     </>
   )
 }
