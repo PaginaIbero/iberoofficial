@@ -30,7 +30,7 @@ export default function Page() {
   )
 }
 
-export function ResultadosContent() {
+function ResultadosContent() {
   const searchParams = new URLSearchParams(useSearchParams());
   return (
     <>
