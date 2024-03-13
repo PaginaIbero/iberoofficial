@@ -1,13 +1,13 @@
 'use client';
 
 import { trpc } from "../_trpc/client";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AcumuladoAnoTable, AcumuladoPaisTable } from "@/app/ui/resultados/table";
 import Chips from "@/app/ui/resultados/chips";
 
 export default function Page() {
   //trpc.cargaDatos.cargaResultadosPorFecha.useQuery(2023)
-  const searchParams = new URLSearchParams(useSearchParams());
   return (
     <div className="flex flex-col text-black">
       <h1 className='text-4xl font-semibold text-center'>
@@ -23,8 +23,19 @@ export default function Page() {
         text: 'Por país',
         href: 'por-pais'
       }]}/>
+      <Suspense fallback={'Loading...'}>
+        <ResultadosContent/>
+      </Suspense>
+    </div>
+  )
+}
+
+export function ResultadosContent() {
+  const searchParams = new URLSearchParams(useSearchParams());
+  return (
+    <>
       {searchParams.get('section') === 'por-año' && <AcumuladoAnoTable/>}
       {searchParams.get('section') === 'por-pais' && <AcumuladoPaisTable/>}
-    </div>
+    </>
   )
 }
