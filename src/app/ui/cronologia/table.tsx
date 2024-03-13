@@ -64,7 +64,7 @@ function TableBody({ content }: {
           <td className='py-3'>{item.pais}</td>
           <td className='py-3'>{item.fecha}</td>
           <td className='py-3'>{item.paises}</td>
-          <td className='py-3 border-l-2 border-white'>{item.participantes}</td>
+          <td className='py-3 border-l-2 border-white'>{item.concursantes}</td>
           <td className='py-3'>{item.hombres}</td>
           <td className='py-3'>{item.mujeres}</td>
           <td className='py-3 border-l-2 border-white hidden lg:table-cell'>{item.cortes ? item.cortes[0] : 'n/a'}</td>

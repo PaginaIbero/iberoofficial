@@ -1,12 +1,11 @@
-import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
 import prisma from '@/lib/db'
 
-export const participacionesRouter = router({
+export const paisesRouter = router({
   getAll: publicProcedure.query(async () => {
-    return await prisma.participaciones.findMany({
+    return await prisma.paises.findMany({
       orderBy: {
-        nombrePais: 'asc'
+        nombre: 'asc'
       },
     })
   }),

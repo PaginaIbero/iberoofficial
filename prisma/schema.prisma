@@ -1,20 +1,18 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
   provider  = "postgresql"
   url       = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
-
 model Cronologia {
   id            Int     @id @unique
   ciudad        String  @default("n/a")
   pais          String  @default("n/a")
   fecha         String  @default("n/a")
   paises        Int     @default(0)
-  participantes Int     @default(0)
+  concursantes  Int     @default(0)
   hombres       Int     @default(0)
   mujeres       Int     @default(0)
   cortes        Int[]   @default([0, 0, 0])
@@ -22,44 +20,55 @@ model Cronologia {
 }
 
 model Resultados {
-  id  String  @id @default(uuid())
-  nombreCompleto String @default("n/a")
-  date  Int   @default(0)
-  P1    Int   @default(0)
-  P2    Int   @default(0)
-  P3    Int   @default(0)
-  P4    Int   @default(0)
-  P5    Int   @default(0)
-  P6    Int   @default(0)
-  ranking Int @default(0)
-  medalla Medalla     @default(NADA)
-  pais    String      @default("n/a")
-  numeracion      Int @default(0)
-  participacionId String @default("-")
+  id              String  @id @default(uuid())
+  fecha           Int     @default(0)
+  nombreCompleto  String  @default("n/a")
+  ranking         Int     @default(0)
+  participacionId String  @default("-")
   participacion   Participaciones @relation(fields: [participacionId], references: [id])
+  pais            String  @default("n/a")
+  num             Int     @default(0)
+  prob1           Int     @default(0)
+  prob2           Int     @default(0)
+  prob3           Int     @default(0)
+  prob4           Int     @default(0)
+  prob5           Int     @default(0)
+  prob6           Int     @default(0)
+  total           Int     @default(0)
+  premio          Medalla @default(n)
 }
 
 enum Medalla {
-  ORO
-  PLATA
-  BRONCE
-  MENCION
-  NADA
+  g
+  s
+  b
+  hm
+  n
 }
 
 model Participaciones {
   id          String  @id @default(uuid())
-  nombrePais  String  @default("n/a")
-  date        Int     @default(0)
+  fecha       Int     @default(0)
+  paisId      String  @default("n/a")
+  pais        Paises  @relation(fields: [paisId], references: [id])
+  ranking     Int
+  prob1       Int @default(0)
+  prob2       Int @default(0)
+  prob3       Int @default(0)
+  prob4       Int @default(0)
+  prob5       Int @default(0)
+  prob6       Int @default(0)
+  total       Int @default(0)
+  premios     Int[] @default([0, 0, 0, 0])
   nombreLider String  @default("n/a")
   nombreTutor String  @default("n/a")
   equipo      Resultados[]
-  ranking     Int
 }
 
 model Paises {
-  id      String  @id @default(uuid())
-  nombre  String  @default("n/a")
-  contacto String @default("n/a")
-  sitio    String @default("n/a")
+  id        String  @id @default(uuid())
+  nombre    String  @default("n/a")
+  contacto  String  @default("n/a")
+  sitio     String  @default("n/a")
+  participaciones Participaciones[]
 }

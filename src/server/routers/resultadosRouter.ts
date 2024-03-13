@@ -1,14 +1,12 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
 import prisma from "@/lib/db";
-import { Data, ExcelData } from "../types/excelData";
-import { Medalla } from "@prisma/client";
 
 export const resultadosRouter = router({
   getByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
     return await prisma.resultados.findMany({
       where: {
-        date: input
+        fecha: input
       },
       orderBy: {
         ranking: 'asc'
@@ -21,7 +19,7 @@ export const resultadosRouter = router({
         pais: input
       },
       orderBy: {
-        date: 'asc'
+        fecha: 'asc'
       },
     });
   }),
@@ -32,7 +30,7 @@ export const resultadosRouter = router({
     return await prisma.resultados.findMany({
       where: {
         pais: input.pais,
-        date: input.fecha
+        fecha: input.fecha
       },
       orderBy: {
         ranking: 'asc'
@@ -42,31 +40,31 @@ export const resultadosRouter = router({
   getPuntajesByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
     const data = await prisma.resultados.findMany({
       where: {
-        date: input
+        fecha: input
       },
       select: {
-        P1: true,
-        P2: true,
-        P3: true,
-        P4: true,
-        P5: true,
-        P6: true,
+        prob1: true,
+        prob2: true,
+        prob3: true,
+        prob4: true,
+        prob5: true,
+        prob6: true,
       }
     })
-    return data.map((p) => [p.P1, p.P2, p.P3, p.P4, p.P5, p.P6])
+    return data.map((p) => [p.prob1, p.prob2, p.prob3, p.prob4, p.prob5, p.prob6])
   }),
   getDistribucionPuntajesByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
     const dataPuntajes = await prisma.resultados.findMany({
       where: {
-        date: input
+        fecha: input
       },
       select: {
-        P1: true,
-        P2: true,
-        P3: true,
-        P4: true,
-        P5: true,
-        P6: true,
+        prob1: true,
+        prob2: true,
+        prob3: true,
+        prob4: true,
+        prob5: true,
+        prob6: true,
       }
     })
     const dataCortes = await prisma.cronologia.findFirst({
@@ -77,7 +75,7 @@ export const resultadosRouter = router({
         cortes: true
       }
     })
-    const puntajes = dataPuntajes.map((p) => [p.P1, p.P2, p.P3, p.P4, p.P5, p.P6])
+    const puntajes = dataPuntajes.map((p) => [p.prob1, p.prob2, p.prob3, p.prob4, p.prob5, p.prob6])
     const cortes = dataCortes?.cortes || [0, 0, 0]
     var chartData = [...Array(43)].map((_, index) => ({
       name: index,
@@ -100,18 +98,18 @@ export const resultadosRouter = router({
   getProblemStatsByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
     const data = await prisma.resultados.findMany({
       where: {
-        date: input
+        fecha: input
       },
       select: {
-        P1: true,
-        P2: true,
-        P3: true,
-        P4: true,
-        P5: true,
-        P6: true,
+        prob1: true,
+        prob2: true,
+        prob3: true,
+        prob4: true,
+        prob5: true,
+        prob6: true,
       }
     })
-    const puntajes = data.map((p) => [p.P1, p.P2, p.P3, p.P4, p.P5, p.P6])
+    const puntajes = data.map((p) => [p.prob1, p.prob2, p.prob3, p.prob4, p.prob5, p.prob6])
     const chartData = [...Array(6)].map((_, probno) => {
       var cantPorPuntos = [...Array(8)].map((_, index) => ({
         name: index,
@@ -126,64 +124,20 @@ export const resultadosRouter = router({
   getAcumuladoPaisByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
     return await prisma.resultados.findMany({
       where: {
-        date: input
+        fecha: input
       },
       orderBy: {
         ranking: 'asc'
       },
       select: {
-        P1: true,
-        P2: true,
-        P3: true,
-        P4: true,
-        P5: true,
-        P6: true,
-        medalla: true,
+        prob1: true,
+        prob2: true,
+        prob3: true,
+        prob4: true,
+        prob5: true,
+        prob6: true,
+        premio: true,
       }
     });
   }),
-  excelToBD: publicProcedure.input(z.number()).query(async ({ input }) => {
-    return fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRXg53PKiTHMxPfo0Z_Gh-juc2TwOAxFgcaafw-PlGKgUzltMcGM2MnqkZ86cjkiJ0sxzEdIeZRcAuB/pub?gid=0&single=true&output=tsv')
-    .then(response => response.text())
-    .then(text => {
-      let data: ExcelData[] = text.split('\n').slice(1).map(line => {
-        const [nombre, indice, pais, numeracion, P1, P2, P3, P4, P5, P6, total, medalla, ranking] = line.split('\t')
-        return {
-          nombre, indice, pais, numeracion, P1, P2, P3, P4, P5, P6, total, medalla, ranking
-        }
-      })
-      async function SendData() {
-        for (let index = 0; index < data.length; index++) {
-          let medalla: Medalla;
-          if (data[index].medalla === 'ORO') medalla = 'ORO'
-          else if (data[index].medalla === 'PLATA') medalla = 'PLATA'
-          else if (data[index].medalla === 'BRONCE') medalla = 'BRONCE'
-          else if (data[index].medalla === 'MENCIÓN DE HONOR') medalla = 'MENCION'
-          else medalla = 'NADA'
-          if (index > 0) {
-          if (data[index].total === data[index-1].total && index > 0) data[index].ranking = data[index-1].ranking
-          }
-          await prisma.resultados.create({
-            data: {
-              date: input,
-              ranking: parseInt(data[index].ranking),
-              nombreCompleto: data[index].nombre,
-              pais: data[index].pais,
-              numeracion: parseInt(data[index].numeracion),
-              P1: parseInt(data[index].P1),
-              P2: parseInt(data[index].P2),
-              P3: parseInt(data[index].P3),
-              P4: parseInt(data[index].P4),
-              P5: parseInt(data[index].P5),
-              P6: parseInt(data[index].P6),
-              medalla: medalla
-            }
-          })
-        }
-        console.log('Data sent')
-      }
-      SendData()
-      return data
-    })
-  })
 })

@@ -6,7 +6,7 @@ export type cronologia = {
   pais: string;
   fecha: string;
   paises: number;
-  participantes: number;
+  concursantes: number;
   hombres: number;
   mujeres: number;
   cortes: number[];
@@ -15,18 +15,19 @@ export type cronologia = {
 
 export type resultado = {
   id: string;
+  fecha: number;
   nombreCompleto: string;
-  date: number;
-  P1: number;
-  P2: number;
-  P3: number;
-  P4: number;
-  P5: number;
-  P6: number;
   ranking: number;
-  medalla: string;
   pais: string;
-  numeracion: number;
+  num: number;
+  prob1: number;
+  prob2: number;
+  prob3: number;
+  prob4: number;
+  prob5: number;
+  prob6: number;
+  total: number;
+  premio: string;
 }
 
 declare global {

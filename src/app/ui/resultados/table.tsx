@@ -12,19 +12,19 @@ export function IndividualesTable({ id }: {
   const { data, isLoading } = trpc.resultados.getByFecha.useQuery(Number(id))
   return (
     <Table
-      headers={['#', 'Concursante', 'País', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'Total', 'Premio']}
+      headers={['#', 'Código', 'Concursante', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'Total', 'Premio']}
       data={data ? data.map((item: resultado) => [
         item.ranking.toString(),
+        item.pais + item.num,
         item.nombreCompleto,
-        item.pais,
-        item.P1.toString(),
-        item.P2.toString(),
-        item.P3.toString(),
-        item.P4.toString(),
-        item.P5.toString(),
-        item.P6.toString(),
-        (item.P1 + item.P2 + item.P3 + item.P4 + item.P5 + item.P6).toString(),
-        item.medalla
+        item.prob1.toString(),
+        item.prob2.toString(),
+        item.prob3.toString(),
+        item.prob4.toString(),
+        item.prob5.toString(),
+        item.prob6.toString(),
+        item.total.toString(),
+        item.premio
       ]) : []}
       isLoading={isLoading}
     />
@@ -40,21 +40,21 @@ export function PorPaisTable({ id }: {
       headers={['#', 'País', 'T', 'H', 'M', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'Total', 'O', 'P', 'B', 'MH', 'Jefe', 'Tutor']}
       data={data ? data.map((item) => [
         item.ranking.toString(),
-        item.nombrePais,
+        item.pais.nombre,
         item.equipo.length.toString(),
         '0',
         '0',
-        item.P1.toString(),
-        item.P2.toString(),
-        item.P3.toString(),
-        item.P4.toString(),
-        item.P5.toString(),
-        item.P6.toString(),
-        (item.P1 + item.P2 + item.P3 + item.P4 + item.P5 + item.P6).toString(),
-        item.g.toString(),
-        item.s.toString(),
-        item.b.toString(),
-        item.hm.toString(),
+        item.prob1.toString(),
+        item.prob2.toString(),
+        item.prob3.toString(),
+        item.prob4.toString(),
+        item.prob5.toString(),
+        item.prob6.toString(),
+        item.total.toString(),
+        item.premios[0].toString(),
+        item.premios[1].toString(),
+        item.premios[2].toString(),
+        item.premios[3].toString(),
         item.nombreLider,
         item.nombreTutor
       ]) : []}
@@ -125,7 +125,7 @@ function AcumuladoAnoTableBody({ content }: {
           <td className='py-3'>{item.id}</td>
           <td className='py-3'>{item.pais}</td>
           <td className='py-3'>{item.paises}</td>
-          <td className='py-3 border-l-2 border-white'>{item.participantes}</td>
+          <td className='py-3 border-l-2 border-white'>{item.concursantes}</td>
           <td className='py-3'>{item.hombres}</td>
           <td className='py-3'>{item.mujeres}</td>
           <td className='py-3 border-l-2 border-white hidden lg:table-cell'>{item.cortes ? item.cortes[0] : 'n/a'}</td>

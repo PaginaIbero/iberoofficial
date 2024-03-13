@@ -1,30 +1,32 @@
 'use client'
 
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { trpc } from "@/app/_trpc/client"
 import Chips from "@/app/ui/resultados/chips";
+import MobileInvidividualesTable from "@/app/ui/resultados/mobile";
 import { IndividualesTable, PorPaisTable } from "@/app/ui/resultados/table";
 import { DistribucionProblemas, DistribucionPuntajes } from "@/app/ui/resultados/charts";
 import { DistribucionProblemasSkeleton, DistribucionPuntajesSkeleton, InformacionGeneralSkeleton, TitleSkeleton } from "@/app/ui/skeletons";
-import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import MobileInvidividualesTable from "@/app/ui/resultados/mobile";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
 
 export default function Page({ params }: {
   params: {
     id: number
   }
 }) {
+  const router = useRouter()
+  const pathname = usePathname()
   const searchParams = new URLSearchParams(useSearchParams())
   const {
     data: dataCronologia,
     isLoading: isLoadingCronologia
   } = trpc.cronologia.getByID.useQuery(Number(params.id))
-  const {
-    data: dataPuntajes,
-    isLoading: isLoadingPuntajes
-  } = trpc.resultados.getPuntajesByFecha.useQuery(Number(params.id)) // Esta query tarda como 10s
+  if (!['estadisticas', 'individuales', 'por-pais'].includes(searchParams.get('section') || '')) {
+    searchParams.set('section', 'estadisticas')
+    router.push(`${pathname}?${searchParams.toString()}`)
+  }
   return (
     <>
       {isLoadingCronologia ? <TitleSkeleton/> :
@@ -80,10 +82,6 @@ export default function Page({ params }: {
 function Estadisticas({ id }: {
   id: number
 }) {
-  const {
-    data: dataCortes,
-    isLoading: isLoadingCortes
-  } = trpc.cronologia.getCortesByID.useQuery(id)
   return (
     <>
       <h3 className='text-xl font-semibold text-black'>
@@ -116,7 +114,7 @@ function InformacionGeneral({ id }: {
     <ul className='list-disc pl-6 text-black'>
       <li>Sede: {data?.ciudad}, {data?.pais} ({data?.fecha})</li>
       <li>Países participantes: {data?.paises}</li>
-      <li>Concursantes: {data?.participantes}</li>
+      <li>Concursantes: {data?.concursantes}</li>
     </ul>
   )
 }

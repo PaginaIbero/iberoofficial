@@ -4,6 +4,7 @@ import { trpc } from "../_trpc/client";
 import Table from "../ui/table";
 
 export default function Page() {
+  // trpc.cargaDatos.cargaPaises.useQuery()
   const { data, isLoading } = trpc.paises.getAll.useQuery();
   return (
     <div className="flex flex-col text-black">
@@ -22,8 +23,8 @@ export default function Page() {
             pais.nombre,
             pais.contacto,
             pais.sitio,
-            'to compute',
-            'to compute',
+            'tbd',
+            'tbd',
           ]) || []}
           href={data?.map((pais) => `/paises/${pais.id}`) || []}
           isLoading={isLoading}

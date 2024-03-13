@@ -1,10 +1,12 @@
 'use client';
 
+import { trpc } from "../_trpc/client";
 import { useSearchParams } from "next/navigation";
 import { AcumuladoAnoTable, AcumuladoPaisTable } from "@/app/ui/resultados/table";
 import Chips from "@/app/ui/resultados/chips";
 
 export default function Page() {
+  //trpc.cargaDatos.cargaResultadosPorFecha.useQuery(2023)
   const searchParams = new URLSearchParams(useSearchParams());
   return (
     <div className="flex flex-col text-black">

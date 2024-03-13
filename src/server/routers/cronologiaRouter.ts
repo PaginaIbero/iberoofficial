@@ -28,7 +28,7 @@ export const cronologiaRouter = router({
         pais: true,
         fecha: true,
         paises: true,
-        participantes: true
+        concursantes: true
       }
     });
   }),
