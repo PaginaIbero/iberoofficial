@@ -16,15 +16,15 @@ export default function MobileInvidividualesTable({ id }: {
             className='my-4 text-black'
           >
             <h2 className='text-xl font-semibold'>
-              {resultado.medalla}
+              {resultado.premio}
             </h2>
             <h1 className='text-lg'>
               <span className='font-bold'>
                 (#{resultado.ranking}) {resultado.nombreCompleto}
-              </span> ({resultado.pais.slice(0, 3)}{resultado.numeracion})
+              </span> ({resultado.pais}{resultado.num})
             </h1>
             <p>
-              Puntaje: {resultado.P1} + {resultado.P2} + {resultado.P3} + {resultado.P4} + {resultado.P5} + {resultado.P6} = {resultado.P1 + resultado.P2 + resultado.P3 + resultado.P4 + resultado.P5 + resultado.P6}
+              Puntaje: {resultado.prob1} + {resultado.prob2} + {resultado.prob3} + {resultado.prob4} + {resultado.prob5} + {resultado.prob6} = {resultado.total}
             </p>
           </div>
         ))
