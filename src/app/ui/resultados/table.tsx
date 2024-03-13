@@ -165,6 +165,8 @@ export function AcumuladoPaisTable() {
         item.premios[2].toString(),
         item.premios[3].toString()
       ]) || [[]]}
-      isLoading={isLoading}/>
+      href={data?.map((item) => `/paises/${item.codigo}?section=equipo`) || []}
+      isLoading={isLoading}
+    />
   )
 }

@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
 import prisma from '@/lib/db'
 
@@ -7,6 +8,13 @@ export const paisesRouter = router({
       orderBy: {
         nombre: 'asc'
       },
+    })
+  }),
+  getByID: publicProcedure.input(z.string()).query(async ({ input }) => {
+    return await prisma.paises.findUnique({
+      where: {
+        id: input
+      }
     })
   }),
 })

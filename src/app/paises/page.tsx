@@ -26,7 +26,7 @@ export default function Page() {
             'tbd',
             'tbd',
           ]) || []}
-          href={data?.map((pais) => `/paises/${pais.id}`) || []}
+          href={data?.map((pais) => `/paises/${pais.id}?section=estadisticas`) || []}
           isLoading={isLoading}
         />
       </div>

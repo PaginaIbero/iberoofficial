@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
 import prisma from "@/lib/db";
-import { Data, ExcelData } from "../types/excelData";
 import { Medalla } from "@prisma/client";
 
 export const cargaDatosRouter = router({
@@ -30,24 +29,15 @@ export const cargaDatosRouter = router({
   }),
   cargaResultadosPorFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
     console.log('starting cargaResultados / fecha: ', input)
-    const { count: countResultados } = await prisma.resultados.deleteMany({
-      where: {
-        fecha: input
-      }
-    })
-    console.log('deleted resultados: ', countResultados)
-    const { count: countParticipaciones } = await prisma.participaciones.deleteMany({
-      where: {
-        fecha: input
-      }
-    })
-    console.log('deleted participaciones: ', countParticipaciones)
+    await prisma.resultados.deleteMany({where: { fecha: input }})
+    await prisma.participaciones.deleteMany({where: { fecha: input }})
     return (
       fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRXg53PKiTHMxPfo0Z_Gh-juc2TwOAxFgcaafw-PlGKgUzltMcGM2MnqkZ86cjkiJ0sxzEdIeZRcAuB/pub?gid=0&single=true&output=tsv')
         .then(response => response.text())
         .then(async text => {
           let paises: string[] = []
           let equipos: string[][][] = []
+          let totales: number[] = []
           text.split('\n').slice(1).map(line => {
             const data = line.split('\t')
             if (!paises.includes(data[3])) {
@@ -57,8 +47,7 @@ export const cargaDatosRouter = router({
             equipos[paises.indexOf(data[3])].push(data)
           })
           for (let i = 0; i < paises.length; i++) {
-            console.log('creating: ', paises[i])
-            console.log('equipo to load: ', equipos[i].length)
+            totales.push(equipos[i].reduce((acc, c) => acc + parseInt(c[11]), 0))
             await prisma.participaciones.create({
               data: {
                 fecha: input,
@@ -75,6 +64,12 @@ export const cargaDatosRouter = router({
                 prob5: equipos[i].reduce((acc, c) => acc + parseInt(c[9]), 0),
                 prob6: equipos[i].reduce((acc, c) => acc + parseInt(c[10]), 0),
                 total: equipos[i].reduce((acc, c) => acc + parseInt(c[11]), 0),
+                premios: [
+                  equipos[i].filter(c => c[12] === 'g').length,
+                  equipos[i].filter(c => c[12] === 's').length,
+                  equipos[i].filter(c => c[12] === 'b').length,
+                  equipos[i].filter(c => c[12] === 'hm').length,
+                ],
                 nombreLider: 'n/a',
                 nombreTutor: 'n/a',
                 equipo: {
@@ -96,8 +91,19 @@ export const cargaDatosRouter = router({
                 }
               }
             })
-            console.log('ended loading: ', paises[i])
           }
+          for (let i = 0; i < paises.length; i++) {
+            await prisma.participaciones.updateMany({
+              where: {
+                fecha: input,
+                paisId: paises[i]
+              },
+              data: {
+                ranking: totales.filter(t => t > totales[i]).length + 1
+              }
+            })
+          }
+          console.log('finished loading!')
           return true
         })
     )

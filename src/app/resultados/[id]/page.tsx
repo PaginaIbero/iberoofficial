@@ -19,14 +19,14 @@ export default function Page({ params }: {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = new URLSearchParams(useSearchParams())
-  const {
-    data: dataCronologia,
-    isLoading: isLoadingCronologia
-  } = trpc.cronologia.getByID.useQuery(Number(params.id))
   if (!['estadisticas', 'individuales', 'por-pais'].includes(searchParams.get('section') || '')) {
     searchParams.set('section', 'estadisticas')
     router.push(`${pathname}?${searchParams.toString()}`)
   }
+  const {
+    data: dataCronologia,
+    isLoading: isLoadingCronologia
+  } = trpc.cronologia.getByID.useQuery(Number(params.id))
   return (
     <>
       {isLoadingCronologia ? <TitleSkeleton/> :
