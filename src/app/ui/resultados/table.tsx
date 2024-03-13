@@ -5,6 +5,7 @@ import { trpc } from "@/app/_trpc/client";
 import { cronologia, resultado } from "@/lib/types";
 import { TableBodySkeleton } from "@/app/ui/skeletons";
 import Table from "@/app/ui/table";
+import { formatPremio } from "@/lib/formatStrings";
 
 export function IndividualesTable({ id }: {
   id: number
@@ -24,7 +25,7 @@ export function IndividualesTable({ id }: {
         item.prob5.toString(),
         item.prob6.toString(),
         item.total.toString(),
-        item.premio
+        formatPremio(item.premio)
       ]) : []}
       isLoading={isLoading}
     />
@@ -75,8 +76,8 @@ export function AcumuladoAnoTable() {
           <th className='p-1'></th>
           <th className='p-1'></th>
           <th colSpan={3} className='p-1 border-x-2 border-white'>Concursantes</th>
-          <th colSpan={3} className='p-1 border-x-2 border-white hidden lg:table-cell'>Cortes</th>
-          <th colSpan={4} className='p-1 border-l-2 border-white hidden lg:table-cell'>Premios</th>
+          <th colSpan={3} className='p-1 border-x-2 border-white'>Cortes</th>
+          <th colSpan={4} className='p-1 border-l-2 border-white'>Premios</th>
           <th colSpan={6} className='p-1 border-l-2 border-white hidden lg:table-cell'>Eficiencia</th>
         </tr>
         <tr className='bg-blue-200'>
@@ -86,13 +87,13 @@ export function AcumuladoAnoTable() {
           <th className='w-[5%] p-1 border-l-2 border-white'>T</th>
           <th className='w-[5%] p-1'>H</th>
           <th className='w-[5%] p-1 border-r-2 border-white'>M</th>
-          <th className='w-[3%] p-1 border-l-2 border-white hidden lg:table-cell'>O</th>
-          <th className='w-[3%] p-1 hidden lg:table-cell'>P</th>
-          <th className='w-[3%] p-1 border-r-2 border-white hidden lg:table-cell'>B</th>
-          <th className='w-[3%] p-1 border-l-2 border-white hidden lg:table-cell'>O</th>
-          <th className='w-[3%] p-1 hidden lg:table-cell'>P</th>
-          <th className='w-[3%] p-1 hidden lg:table-cell'>B</th>
-          <th className='w-[3%] p-1 border-r-2 border-white hidden lg:table-cell'>MH</th>
+          <th className='w-[3%] p-1 border-l-2 border-white'>O</th>
+          <th className='w-[3%] p-1'>P</th>
+          <th className='w-[3%] p-1 border-r-2 border-white'>B</th>
+          <th className='w-[3%] p-1 border-l-2 border-white'>O</th>
+          <th className='w-[3%] p-1'>P</th>
+          <th className='w-[3%] p-1'>B</th>
+          <th className='w-[3%] p-1 border-r-2 border-white'>MH</th>
           <th className='w-[3%] p-1 border-l-2 border-white hidden lg:table-cell'>P1</th>
           <th className='w-[3%] p-1 hidden lg:table-cell'>P2</th>
           <th className='w-[3%] p-1 hidden lg:table-cell'>P3</th>
@@ -128,19 +129,19 @@ function AcumuladoAnoTableBody({ content }: {
           <td className='py-3 border-l-2 border-white'>{item.concursantes}</td>
           <td className='py-3'>{item.hombres}</td>
           <td className='py-3'>{item.mujeres}</td>
-          <td className='py-3 border-l-2 border-white hidden lg:table-cell'>{item.cortes ? item.cortes[0] : 'n/a'}</td>
-          <td className='py-3 hidden lg:table-cell'>{item.cortes ? item.cortes[1] : 'n/a'}</td>
-          <td className='py-3 hidden lg:table-cell'>{item.cortes ? item.cortes[2] : 'n/a'}</td>
-          <td className='py-3 border-l-2 border-white hidden lg:table-cell'>{item.premios ? item.premios[0] : 'n/a'}</td>
-          <td className='py-3 hidden lg:table-cell'>{item.premios ? item.premios[1] : 'n/a'}</td>
-          <td className='py-3 hidden lg:table-cell'>{item.premios ? item.premios[2] : 'n/a'}</td>
-          <td className='py-3 hidden lg:table-cell'>{item.premios ? item.premios[3] : 'n/a'}</td>
-          <td className='py-3 border-l-2 border-white'>0.0</td>
-          <td className='py-3'>0.0</td>
-          <td className='py-3'>0.0</td>
-          <td className='py-3'>0.0</td>
-          <td className='py-3'>0.0</td>
-          <td className='py-3'>0.0</td>
+          <td className='py-3 border-l-2 border-white'>{item.cortes ? item.cortes[0] : 'n/a'}</td>
+          <td className='py-3'>{item.cortes ? item.cortes[1] : 'n/a'}</td>
+          <td className='py-3'>{item.cortes ? item.cortes[2] : 'n/a'}</td>
+          <td className='py-3 border-l-2 border-white'>{item.premios ? item.premios[0] : 'n/a'}</td>
+          <td className='py-3'>{item.premios ? item.premios[1] : 'n/a'}</td>
+          <td className='py-3'>{item.premios ? item.premios[2] : 'n/a'}</td>
+          <td className='py-3'>{item.premios ? item.premios[3] : 'n/a'}</td>
+          <td className='py-3 border-l-2 border-white hidden lg:table-cell'>0.0</td>
+          <td className='py-3 hidden lg:table-cell'>0.0</td>
+          <td className='py-3 hidden lg:table-cell'>0.0</td>
+          <td className='py-3 hidden lg:table-cell'>0.0</td>
+          <td className='py-3 hidden lg:table-cell'>0.0</td>
+          <td className='py-3 hidden lg:table-cell'>0.0</td>
         </tr>
       ))}
     </>
@@ -150,8 +151,20 @@ function AcumuladoAnoTableBody({ content }: {
 // Resultados acumulados por país
 
 export function AcumuladoPaisTable() {
+  const { data, isLoading } = trpc.participaciones.getAcumuladoPais.useQuery()
   return (
-    <>
-    </>
+    <Table 
+      headers={['País', 'Part.', '1ra part.', 'Total concursantes', 'O', 'P', 'B', 'MH']}
+      data={data?.map((item) => [
+        item.pais,
+        item.participaciones.toString(),
+        item.primera.toString(),
+        item.concursantes.toString(),
+        item.premios[0].toString(),
+        item.premios[1].toString(),
+        item.premios[2].toString(),
+        item.premios[3].toString()
+      ]) || [[]]}
+      isLoading={isLoading}/>
   )
 }

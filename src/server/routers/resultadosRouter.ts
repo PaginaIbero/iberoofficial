@@ -120,24 +120,5 @@ export const resultadosRouter = router({
       return cantPorPuntos
     })
     return chartData
-  }),
-  getAcumuladoPaisByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
-    return await prisma.resultados.findMany({
-      where: {
-        fecha: input
-      },
-      orderBy: {
-        ranking: 'asc'
-      },
-      select: {
-        prob1: true,
-        prob2: true,
-        prob3: true,
-        prob4: true,
-        prob5: true,
-        prob6: true,
-        premio: true,
-      }
-    });
-  }),
+  })
 })

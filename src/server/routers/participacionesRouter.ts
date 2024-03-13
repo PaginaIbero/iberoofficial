@@ -22,4 +22,37 @@ export const participacionesRouter = router({
       }
     });
   }),
+  getAcumuladoPais: publicProcedure.query(async () => {
+    const paises = await prisma.paises.findMany();
+    const data = [] 
+    for (let p of paises) {
+      const participaciones = await prisma.participaciones.findMany({
+        where: {
+          pais: {
+            id: p.id
+          }
+        },
+        orderBy: {
+          fecha: 'asc'
+        },
+        include: {
+          pais: true,
+          equipo: true
+        }
+      });
+      data.push({
+        pais: p.nombre,
+        participaciones: participaciones.length,
+        primera: participaciones[0].fecha,
+        concursantes: participaciones.reduce((acc, p) => acc + p.equipo.length, 0),
+        premios: [
+          participaciones.reduce((acc, p) => acc + p.premios[0], 0),
+          participaciones.reduce((acc, p) => acc + p.premios[1], 0),
+          participaciones.reduce((acc, p) => acc + p.premios[2], 0),
+          participaciones.reduce((acc, p) => acc + p.premios[3], 0)
+        ]
+      });
+    }
+    return data;
+  }),
 })

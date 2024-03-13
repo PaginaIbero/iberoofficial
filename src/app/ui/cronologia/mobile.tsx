@@ -21,7 +21,7 @@ export default function CronologiaMobileTable() {
               <h1 className='text-4xl font-semibold text-center'>{cronologia.id}</h1>
               <p className='text-center'>{cronologia.ciudad}</p>
               <p className='text-center'>{cronologia.fecha}</p>
-              <p className='text-center'>Concursantes: {cronologia.participantes}</p>
+              <p className='text-center'>Concursantes: {cronologia.concursantes}</p>
               <p className='text-center'>(H: {cronologia.hombres} | M: {cronologia.mujeres})</p>
             </Link>
           </div>

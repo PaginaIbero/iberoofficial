@@ -80,6 +80,7 @@ export function DistribucionPuntajes({ id }: {
         margin={{right: 15}}
         barCategoryGap={1}
       >
+        <Legend/>
         <XAxis
           dataKey='name'
           type='number'
@@ -102,7 +103,6 @@ export function DistribucionPuntajes({ id }: {
         <Bar dataKey="b" name='Bronce' stackId="a" fill="#c74900"/>
         <Bar dataKey="s" name='Plata' stackId="a" fill="#c0c0c0"/>
         <Bar dataKey="g" name='Oro' stackId="a" fill="#ffd000"/>
-        <Legend className='absolute' layout='vertical' verticalAlign="top" align="right"/>
       </BarChart>
     </ResponsiveContainer>
   )
@@ -137,7 +137,7 @@ export function DistribucionProblemas({ id }: {
                 <YAxis
                   type='number'
                   width={30}
-                  domain={[0, data?.participantes || 0]}
+                  domain={[0, data?.concursantes || 0]}
                 />
                 <Bar dataKey="c" fill="#009dff"/>
               </BarChart>

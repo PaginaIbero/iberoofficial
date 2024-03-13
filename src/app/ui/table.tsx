@@ -36,7 +36,7 @@ function TableBody({ content, href }: {
         <tr
           key={index}
           className={`${index % 2 === 0 ? 'bg-blue-0 hover:bg-blue-100' : 'bg-blue-50 hover:bg-blue-100'} 
-                      transition-colors cursor-pointer`}
+                      transition-colors ${href ? 'cursor-pointer' : ''}`}
           onClick={href ? () => router.push(href[index]) : undefined}
         >
           {item.map((cell, index) => (
