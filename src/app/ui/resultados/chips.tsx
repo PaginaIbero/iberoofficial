@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function Chips({ chips }: {
@@ -11,7 +12,9 @@ export default function Chips({ chips }: {
   return (
     <div className='flex gap-2 mt-4 w-auto overflow-x-scroll md:overflow-hidden'>
       {chips.map(chip => (
-        <Chip key={chip.href} text={chip.text} href={chip.href}/>
+        <Suspense key={chip.href} fallback='Loading...'>
+          <Chip text={chip.text} href={chip.href}/>
+        </Suspense>
       ))}
     </div>
   )
