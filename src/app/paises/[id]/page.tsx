@@ -5,6 +5,8 @@ import { Suspense } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { InformacionGeneralSkeleton, TitleSkeleton } from "@/app/ui/skeletons"
 import Chips from "@/app/ui/resultados/chips"
+import Table from "@/app/ui/table"
+import { formatPremio } from "@/lib/formatStrings"
 
 export default function Page({ params: { id } }: {
   params: {
@@ -22,6 +24,10 @@ export default function Page({ params: { id } }: {
     data: dataPais,
     isLoading: isLoadingPais
   } = trpc.paises.getByID.useQuery(id)
+  const {
+    data: dataResultados,
+    isLoading: isLoadingResultados
+  } = trpc.participaciones.getByPais.useQuery(id)
   return (
     <>
       {isLoadingPais ? <TitleSkeleton /> :
@@ -44,7 +50,54 @@ export default function Page({ params: { id } }: {
         text: 'Por equipo',
         href: 'equipo'
       }]} />
-      {searchParams.get('section') === 'estadisticas' && <Estadisticas id={id}/>}
+      {searchParams.get('section') === 'estadisticas' && <Estadisticas id={id} />}
+      {searchParams.get('section') === 'individuales' && <>
+        <Table
+          headers={['Código', 'Concursante', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'Total', 'Ranking', 'Premio']}
+          data={
+            dataResultados ? (new Array).concat(...dataResultados.map((res) =>
+              res.equipo.map((item) => [
+                item.pais + item.num,
+                item.nombreCompleto,
+                item.prob1.toString(),
+                item.prob2.toString(),
+                item.prob3.toString(),
+                item.prob4.toString(),
+                item.prob5.toString(),
+                item.prob6.toString(),
+                item.total.toString(),
+                item.ranking.toString(),
+                formatPremio(item.premio),
+              ])
+            )) : []
+          }
+          isLoading={isLoadingResultados}
+        />
+      </>}
+      {searchParams.get('section') === 'equipo' && <>
+        <Table
+          headers={['Año', 'T', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'Total', 'Ranking', 'Premios', 'Líder', 'Tutor']}
+          data={
+            dataResultados ? dataResultados.map((item) => [
+              item.fecha.toString(),
+              item.equipo.length.toString(),
+              item.prob1.toString(),
+              item.prob2.toString(),
+              item.prob3.toString(),
+              item.prob4.toString(),
+              item.prob5.toString(),
+              item.prob6.toString(),
+              item.total.toString(),
+              item.ranking.toString(),
+              item.premios.join(', '),
+              item.nombreLider,
+              item.nombreTutor
+            ]) : []
+          }
+          href={dataResultados ? dataResultados.map((item) => `/resultados/${item.fecha}`) : []}
+          isLoading={isLoadingResultados}
+        />
+      </>}
     </>
   )
 }
@@ -83,7 +136,7 @@ function InformacionGeneral({ id }: {
   )
 }
 
-function Resultados({id}: {
+function Resultados({ id }: {
   id: string
 }) {
   const [data, _] = trpc.participaciones.getAcumuladoByPais.useSuspenseQuery(id)
@@ -93,11 +146,11 @@ function Resultados({id}: {
       <li>Primera participación: {data?.primera}</li>
       <li>Concursantes: {data?.concursantes}</li>
       <li>
-        Premios: 
-          Oros ({data?.premios[0]}) | 
-          Platas ({data?.premios[1]}) | 
-          Bronces ({data?.premios[2]}) | 
-          Menciones de honor ({data?.premios[3]})
+        Premios:
+        Oros ({data?.premios[0]}) |
+        Platas ({data?.premios[1]}) |
+        Bronces ({data?.premios[2]}) |
+        Menciones de honor ({data?.premios[3]})
       </li>
     </ul>
   )

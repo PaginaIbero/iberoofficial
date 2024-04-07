@@ -30,6 +30,20 @@ export type resultado = {
   premio: string;
 }
 
+export type participacion = {
+  id: string;
+  paisId: string;
+  equipo: string;
+  prob1: number;
+  prob2: number;
+  prob3: number;
+  prob4: number;
+  prob5: number;
+  prob6: number;
+  total: number;
+  premio: string;
+}
+
 declare global {
   namespace globalThis {
     var prismadb: PrismaClient;

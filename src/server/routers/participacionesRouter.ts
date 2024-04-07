@@ -22,6 +22,24 @@ export const participacionesRouter = router({
       }
     });
   }),
+  getByPais: publicProcedure.input(z.string()).query(async ({input}) => {
+    return await prisma.participaciones.findMany({
+      where: {
+        paisId: input,
+      },
+      orderBy: {
+        fecha: 'asc'
+      },
+      include: {
+        pais: true,
+        equipo: {
+          orderBy: {
+            num: 'asc'
+          }
+        }
+      }
+    })
+  }),
   getAcumuladoPais: publicProcedure.query(async () => {
     const paises = await prisma.paises.findMany();
     const data = []

@@ -59,6 +59,7 @@ export function PorPaisTable({ id }: {
         item.nombreLider,
         item.nombreTutor
       ]) : []}
+      href={data?.map((item) => `/paises/${item.pais.id}?section=equipo`) || []}
       isLoading={isLoading}
     />
   )
