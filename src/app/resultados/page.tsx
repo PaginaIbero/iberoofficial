@@ -1,13 +1,12 @@
 'use client';
 
-import { trpc } from "../_trpc/client";
-import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AcumuladoAnoTable, AcumuladoPaisTable } from "@/app/ui/resultados/table";
+import { AcumuladoAnoMobileTable, AcumuladoPaisMobileTable } from "@/app/ui/resultados/mobile";
 import Chips from "@/app/ui/resultados/chips";
 
 export default function Page() {
-  //trpc.cargaDatos.cargaResultadosPorFecha.useQuery(2023)
+  const searchParams = new URLSearchParams(useSearchParams());
   return (
     <div className="flex flex-col text-black">
       <h1 className='text-4xl font-semibold text-center'>
@@ -23,19 +22,24 @@ export default function Page() {
         text: 'Por país',
         href: 'por-pais'
       }]}/>
-      <Suspense fallback={'Loading...'}>
-        <ResultadosContent/>
-      </Suspense>
+      {searchParams?.get('section') === 'por-año' && <>
+        <div className='hidden md:block'>
+          <br/>
+          <AcumuladoAnoTable/>
+        </div>
+        <div className='block md:hidden'>
+          <AcumuladoAnoMobileTable/>
+        </div>
+      </>}
+      {searchParams?.get('section') === 'por-pais' && <>
+        <div className='hidden md:block'>
+          <br/>
+          <AcumuladoPaisTable/>
+        </div>
+        <div className='block md:hidden'>
+          <AcumuladoPaisMobileTable/>
+        </div>
+      </>}
     </div>
-  )
-}
-
-function ResultadosContent() {
-  const searchParams = new URLSearchParams(useSearchParams());
-  return (
-    <>
-      {searchParams.get('section') === 'por-año' && <AcumuladoAnoTable/>}
-      {searchParams.get('section') === 'por-pais' && <AcumuladoPaisTable/>}
-    </>
   )
 }

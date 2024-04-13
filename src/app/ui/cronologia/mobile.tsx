@@ -1,14 +1,14 @@
 'use client';
 import { trpc } from "@/app/_trpc/client";
 import { cronologia } from "@/lib/types";
-import { MobileTableSkeleton } from "@/app/ui/skeletons";
+import { CronologiaMobileTableSkeleton } from "@/app/ui/skeletons";
 import Link from "next/link";
 
 export default function CronologiaMobileTable() {
   const { data, isLoading } = trpc.cronologia.getAll.useQuery()
   return (
     <div className="flex flex-col justify-center items-center">
-      {isLoading ? <MobileTableSkeleton/> :
+      {isLoading ? <CronologiaMobileTableSkeleton/> :
         data?.map((cronologia: cronologia) => (
           <div 
             key={cronologia.id}

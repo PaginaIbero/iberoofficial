@@ -25,6 +25,16 @@ export function TableBodySkeleton() {
 
 export function MobileTableSkeleton() {
   return (
+    <div className='flex flex-col'>
+      <div className='bg-blue-50 w-1/2 h-24 mt-4 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-50 w-1/2 h-24 mt-4 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-50 w-1/2 h-24 mt-4 mb-1 motion-safe:animate-pulse rounded' />
+    </div>
+  )
+}
+
+export function CronologiaMobileTableSkeleton() {
+  return (
     <div className='flex flex-col items-center'>
       <div className='bg-blue-50 w-24 h-10 mt-4 mb-1 motion-safe:animate-pulse rounded' />
       <div className='bg-blue-100 w-36 h-5 mb-1 motion-safe:animate-pulse rounded' />

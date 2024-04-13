@@ -30,7 +30,7 @@ export default function Navbar() {
           <Link href='/'>
             <div className='flex flex-col items-left gap-0'>
               <p className='mt-0'>Olimpiada</p>
-              <p>Iberoamericada de</p>
+              <p>Iberoamericana de</p>
               <p>Matemática</p>
             </div>
           </Link>

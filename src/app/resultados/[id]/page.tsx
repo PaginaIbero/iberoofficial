@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { trpc } from "@/app/_trpc/client"
 import Chips from "@/app/ui/resultados/chips";
-import MobileInvidividualesTable from "@/app/ui/resultados/mobile";
+import { IndividualesMobileTable, PorPaisMobileTable }from "@/app/ui/resultados/mobile";
 import { IndividualesTable, PorPaisTable } from "@/app/ui/resultados/table";
 import { DistribucionProblemas, DistribucionPuntajes } from "@/app/ui/resultados/charts";
 import { DistribucionProblemasSkeleton, DistribucionPuntajesSkeleton, InformacionGeneralSkeleton, TitleSkeleton } from "@/app/ui/skeletons";
@@ -69,11 +69,16 @@ export default function Page({ params }: {
           <IndividualesTable id={Number(params.id)}/>
         </div>
         <div className='block md:hidden'>
-          <MobileInvidividualesTable id={Number(params.id)}/>
+          <IndividualesMobileTable id={Number(params.id)}/>
         </div>
       </>}
       {searchParams.get('section') === 'por-pais' && <>
-        <PorPaisTable id={Number(params.id)}/>
+        <div className='hidden md:block'>
+          <PorPaisTable id={Number(params.id)}/>
+        </div>
+        <div className='block md:hidden'>
+          <PorPaisMobileTable id={Number(params.id)}/>
+        </div>
       </>}
     </>
   )
