@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { trpc } from "@/app/_trpc/client";
+import { formatPremio } from "@/lib/formatStrings";
 import { cronologia, resultado } from "@/lib/types";
 import { TableBodySkeleton } from "@/app/ui/skeletons";
 import Table from "@/app/ui/table";
-import { formatPremio } from "@/lib/formatStrings";
 
 export function IndividualesTable({ id }: {
   id: number

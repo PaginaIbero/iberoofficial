@@ -1,11 +1,20 @@
 'use client';
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AcumuladoAnoTable, AcumuladoPaisTable } from "@/app/ui/resultados/table";
 import { AcumuladoAnoMobileTable, AcumuladoPaisMobileTable } from "@/app/ui/resultados/mobile";
 import Chips from "@/app/ui/resultados/chips";
 
 export default function Page() {
+  return (
+    <Suspense fallback={'Loading...'}>
+      <Content/>
+    </Suspense>
+  )
+}
+
+function Content() {
   const searchParams = new URLSearchParams(useSearchParams());
   return (
     <div className="flex flex-col text-black">

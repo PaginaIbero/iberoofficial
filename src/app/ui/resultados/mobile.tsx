@@ -1,7 +1,7 @@
 'use client';
 import { trpc } from "@/app/_trpc/client";
 import { participacion, resultado, cronologia } from "@/lib/types";
-import { CronologiaMobileTableSkeleton, MobileInvidividualesTableSkeleton, MobileTableSkeleton } from "@/app/ui/skeletons";
+import { CronologiaMobileTableSkeleton, InvidividualesMobileTableSkeleton, MobileTableSkeleton } from "@/app/ui/skeletons";
 import { formatPremio } from "@/lib/formatStrings";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ export function IndividualesMobileTable({ id }: {
   const { data, isLoading } = trpc.resultados.getByFecha.useQuery(id)
   return (
     <div>
-      {isLoading ? <MobileInvidividualesTableSkeleton/> :
+      {isLoading ? <InvidividualesMobileTableSkeleton/> :
         data?.map((resultado: resultado) => (
           <div 
             key={resultado.id}

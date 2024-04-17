@@ -7,6 +7,8 @@ import { InformacionGeneralSkeleton, TitleSkeleton } from "@/app/ui/skeletons"
 import Chips from "@/app/ui/resultados/chips"
 import Table from "@/app/ui/table"
 import { formatPremio } from "@/lib/formatStrings"
+import { PaisIndividualesTable, PaisPorEquipoTable } from "@/app/ui/paises/table"
+import { PaisIndividualesMobileTable, PaisPorEquipoMobileTable } from "@/app/ui/paises/mobile"
 
 export default function Page({ params: { id } }: {
   params: {
@@ -52,51 +54,20 @@ export default function Page({ params: { id } }: {
       }]} />
       {searchParams.get('section') === 'estadisticas' && <Estadisticas id={id} />}
       {searchParams.get('section') === 'individuales' && <>
-        <Table
-          headers={['Código', 'Concursante', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'Total', 'Ranking', 'Premio']}
-          data={
-            dataResultados ? (new Array).concat(...dataResultados.map((res) =>
-              res.equipo.map((item) => [
-                item.pais + item.num,
-                item.nombreCompleto,
-                item.prob1.toString(),
-                item.prob2.toString(),
-                item.prob3.toString(),
-                item.prob4.toString(),
-                item.prob5.toString(),
-                item.prob6.toString(),
-                item.total.toString(),
-                item.ranking.toString(),
-                formatPremio(item.premio),
-              ])
-            )) : []
-          }
-          isLoading={isLoadingResultados}
-        />
+        <div className='hidden md:block'>
+          <PaisIndividualesTable id={id}/>
+        </div>
+        <div className='block md:hidden'>
+          {<PaisIndividualesMobileTable id={id}/>}
+        </div>
       </>}
       {searchParams.get('section') === 'equipo' && <>
-        <Table
-          headers={['Año', 'T', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'Total', 'Ranking', 'Premios', 'Líder', 'Tutor']}
-          data={
-            dataResultados ? dataResultados.map((item) => [
-              item.fecha.toString(),
-              item.equipo.length.toString(),
-              item.prob1.toString(),
-              item.prob2.toString(),
-              item.prob3.toString(),
-              item.prob4.toString(),
-              item.prob5.toString(),
-              item.prob6.toString(),
-              item.total.toString(),
-              item.ranking.toString(),
-              item.premios.join(', '),
-              item.nombreLider,
-              item.nombreTutor
-            ]) : []
-          }
-          href={dataResultados ? dataResultados.map((item) => `/resultados/${item.fecha}`) : []}
-          isLoading={isLoadingResultados}
-        />
+        <div className='hidden md:block'>
+          <PaisPorEquipoTable id={id}/>
+        </div>
+        <div className='block md:hidden'>
+          {<PaisPorEquipoMobileTable id={id}/>}
+        </div>
       </>}
     </>
   )

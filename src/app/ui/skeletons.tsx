@@ -26,9 +26,9 @@ export function TableBodySkeleton() {
 export function MobileTableSkeleton() {
   return (
     <div className='flex flex-col'>
-      <div className='bg-blue-50 w-1/2 h-24 mt-4 mb-1 motion-safe:animate-pulse rounded' />
-      <div className='bg-blue-50 w-1/2 h-24 mt-4 mb-1 motion-safe:animate-pulse rounded' />
-      <div className='bg-blue-50 w-1/2 h-24 mt-4 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-50 w-full h-24 mt-4 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-50 w-full h-24 mt-4 mb-1 motion-safe:animate-pulse rounded' />
+      <div className='bg-blue-50 w-full h-24 mt-4 mb-1 motion-safe:animate-pulse rounded' />
     </div>
   )
 }
@@ -55,7 +55,7 @@ export function CronologiaMobileTableSkeleton() {
   )
 }
 
-export function MobileInvidividualesTableSkeleton() {
+export function InvidividualesMobileTableSkeleton() {
   return (
     <div className='flex flex-col'>
       <div className='bg-blue-50 w-12 h-7 mb-1 motion-safe:animate-pulse rounded' />
