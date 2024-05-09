@@ -12,11 +12,9 @@ export default function Page() {
         Archivo de pruebas de la Olimpiada Iberoamericana de Matemática
       </p>
       <br/>
-      {/*
       <Suspense fallback={<CardGridSkeleton/>}>
         <CardGrid/>
       </Suspense>
-      */}
     </div>
   )
 }
