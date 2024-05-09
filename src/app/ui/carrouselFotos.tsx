@@ -14,10 +14,10 @@ const CarrouselFotos = () => {
                         <img src='/images/ibero_home.png' alt='Ibero Home' className="max-w-[600px] mx-auto h-[200px] object-cover border-4 border-black" />
                     </CarouselItem>
                     <CarouselItem>
-                        <img src='/images/2023.jpg' alt='Ibero Home' className="max-w-[600px] mx-auto h-[200px] object-cover border-2 border-black" />
+                        <img src='/images/2023.jpg' alt='Ibero Home' className="max-w-[600px] mx-auto h-[200px] object-cover border-4 border-black" />
                     </CarouselItem>
                     <CarouselItem>
-                        <img src='/images/2022.jpg' alt='Ibero Home' className="max-w-[600px] mx-auto h-[200px] object-cover border-2 border-black" />
+                        <img src='/images/2022.jpg' alt='Ibero Home' className="max-w-[600px] mx-auto h-[200px] object-cover border-4 border-black" />
                     </CarouselItem>
                 </CarouselContent>
             </Carousel>
