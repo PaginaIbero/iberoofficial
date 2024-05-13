@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { CiMenuBurger } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
   const [menu, setMenu] = useState(false);
@@ -12,6 +13,7 @@ export default function Navbar() {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const mobileDropdownRef = useRef<HTMLDivElement | null>(null);
+  const { data: session } = useSession();
   useEffect(() => {
     document.addEventListener("mousedown", (event: MouseEvent) => {
       console.log(dropdownRef.current?.contains(event.target as Node))
@@ -97,6 +99,13 @@ export default function Navbar() {
           >
             PRUEBAS
           </Link>
+          <div>
+            {session ? (
+              <p>Logueado. {session.user?.name}</p>
+            ) : (
+              <p>No logueado</p>
+            )}
+          </div>
         </div>
         <div id="menu-hamburger" className="flex lg:hidden h-full">
           <CiMenuBurger 

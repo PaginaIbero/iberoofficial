@@ -4,6 +4,7 @@ import Navbar from "@/app/ui/navbar";
 import '@/app/globals.css';
 import Providers from "@/app/_trpc/Providers";
 import Footer from "./ui/footer";
+import SessionWrapper from "@/components/login-auth/SessionWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <SessionWrapper>
     <html lang="es">
       <body className={inter.className}>
         <Providers>
@@ -29,5 +31,6 @@ export default function RootLayout({
         <Footer/>
       </body>
     </html>
+    </SessionWrapper>
   );
 }
