@@ -3,7 +3,7 @@
 import { trpc } from "../_trpc/client";
 import Link from "next/link";
 
-export default function Carousel() {
+export default function CarouselEdiciones() {
   const [data, dataQuery] = trpc.cronologia.getAll.useSuspenseQuery()
   return (
     <div className='flex flex-col md:flex-row w-full gap-5'>

@@ -1,7 +1,8 @@
 'use client';
 
 import { Suspense } from "react";
-import Carousel from "./ui/carousel";
+import CarouselEdiciones from "./ui/carouselCards";
+import CarrouselFotos from "./ui/carrouselFotos";
 
 export default function Home() {
   return (
@@ -16,13 +17,14 @@ export default function Home() {
       <h1 className='text-3xl font-semibold mt-5 pb-5'>
         Ediciones
       </h1>
-      <Suspense fallback={'Loading...'}>
-        <Carousel/>
+      <Suspense fallback={'Cargando...'}>
+        <CarouselEdiciones/>
       </Suspense>
       <h1 className='text-3xl font-semibold mt-5 pb-5'>
         Fotos
       </h1>
-      <p>Acá habrá muchas fotos...</p>
+      {/* <p>Acá habrá muchas fotos...</p> */}
+        <CarrouselFotos />
     </div>
   );
 }
