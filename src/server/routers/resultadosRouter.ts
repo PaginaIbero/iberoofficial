@@ -83,13 +83,13 @@ export const resultadosRouter = router({
     }))
     for (let p of puntajes) {
       const suma = p.reduce((a, b) => a + b, 0)
-      if (suma < cortes[0] && !p.includes(7))
+      if (suma < cortes[2] && !p.includes(7))
         chartData[suma].no += 1
-      else if (suma < cortes[0] && p.includes(7))
+      else if (suma < cortes[2] && p.includes(7))
         chartData[suma].hm += 1
       else if (suma < cortes[1])
         chartData[suma].b += 1
-      else if (suma < cortes[2])
+      else if (suma < cortes[0])
         chartData[suma].s += 1
       else chartData[suma].g += 1
     }
