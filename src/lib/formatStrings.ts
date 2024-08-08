@@ -1,12 +1,12 @@
 export function formatPremio(medal: string) {
   switch (medal) {
-    case 'g':
+    case 'ORO':
       return 'Medalla de oro 🥇'
-    case 's':
+    case 'PLATA':
       return 'Medalla de plata 🥈'
-    case 'b':
+    case 'BRONCE':
       return 'Medalla de bronce🥉'
-    case 'hm':
+    case 'MENCION':
       return 'Mención de honor'
     default:
       return '-'

@@ -8,9 +8,10 @@ datasource db {
 }
 model Cronologia {
   id            Int     @id @unique
-  ciudad        String  @default("n/a")
-  pais          String  @default("n/a")
-  fecha         String  @default("n/a")
+  ciudad        String  @default("-") 
+  pais          String  @default("-")
+  fecha         String  @default("-") // Se refiere a la fecha en días y no al año, como en el resto de
+                                      // instancias de esta base de datos. Slds.
   paises        Int     @default(0)
   concursantes  Int     @default(0)
   hombres       Int     @default(0)
@@ -19,14 +20,22 @@ model Cronologia {
   premios       Int[]   @default([0, 0, 0, 0])
 }
 
+enum Medalla {
+  ORO
+  PLATA
+  BRONCE
+  MENCION
+  NADA
+}
+
 model Resultados {
   id              String  @id @default(uuid())
   fecha           Int     @default(0)
-  nombreCompleto  String  @default("n/a")
+  nombreCompleto  String  @default("-")
   ranking         Int     @default(0)
   participacionId String  @default("-")
   participacion   Participaciones @relation(fields: [participacionId], references: [id])
-  pais            String  @default("n/a")
+  pais            String  @default("-")
   num             Int     @default(0)
   prob1           Int     @default(0)
   prob2           Int     @default(0)
@@ -35,21 +44,13 @@ model Resultados {
   prob5           Int     @default(0)
   prob6           Int     @default(0)
   total           Int     @default(0)
-  premio          Medalla @default(n)
-}
-
-enum Medalla {
-  g
-  s
-  b
-  hm
-  n
+  premio          Medalla @default(NADA)
 }
 
 model Participaciones {
   id          String  @id @default(uuid())
   fecha       Int     @default(0)
-  paisId      String  @default("n/a")
+  paisId      String  @default("-")
   pais        Paises  @relation(fields: [paisId], references: [id])
   ranking     Int
   prob1       Int @default(0)
@@ -60,15 +61,20 @@ model Participaciones {
   prob6       Int @default(0)
   total       Int @default(0)
   premios     Int[] @default([0, 0, 0, 0])
-  nombreLider String  @default("n/a")
-  nombreTutor String  @default("n/a")
+  nombreLider String  @default("-")
+  nombreTutor String  @default("-")
   equipo      Resultados[]
 }
 
 model Paises {
   id        String  @id @default(uuid())
-  nombre    String  @default("n/a")
-  contacto  String  @default("n/a")
-  sitio     String  @default("n/a")
+  nombre    String  @default("-")
+  contacto  String  @default("-")
+  sitio     String  @default("-")
   participaciones Participaciones[]
+}
+
+model Spreadsheet {
+  year Int    @id @default(autoincrement())
+  data String
 }
