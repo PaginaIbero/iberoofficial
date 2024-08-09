@@ -7,7 +7,7 @@ export default function CarouselEdiciones() {
   const [data, dataQuery] = trpc.cronologia.getAll.useSuspenseQuery()
   return (
     <div className='flex flex-col md:flex-row w-full gap-5'>
-      {data?.slice(0, 2).map(cronologia => (<YearCard id={cronologia.id} key={cronologia.id}/>))}
+      {data?.slice(0, 3).map(cronologia => (<YearCard id={cronologia.id} key={cronologia.id}/>))}
       <VerMasCard/>
     </div>
   )

@@ -10,42 +10,49 @@ export async function loadData({ year, url, pass }: {
 }) {
   console.group('Carga de resultados por fecha | Año: ', year)
 
+  if (pass !== 'pass') return false
+
   await prisma.cronologia.deleteMany({ where: { id: year } })
   await prisma.resultados.deleteMany({ where: { fecha: year } })
   await prisma.participaciones.deleteMany({ where: { fecha: year } })
 
-  if (pass !== 'pass') return false
-
   try {
-    console.info("Fetching data from: ", url)
-
     const raw = await fetch(url)
     const text = await raw.text()
     const data = text.split('\n').slice(1).map(line => line.split('\t'))
 
-    console.group('Lines: ', data.length)
-    console.table(data.slice(0, 5))
-    console.groupEnd()
+    console.log('Lines: ', data.length)
     console.log('Creating resultados')
 
-    const resultados = data.filter(linea => linea[2].length > 0).map(linea => ({
-      fecha: year,
-      ranking: parseInt(linea[0]),
-      nombreCompleto: linea[2],
-      pais: linea[1].slice(0, 3),
-      num: parseInt(linea[1].slice(3, 4)),
-      prob1: parseInt(linea[3]),
-      prob2: parseInt(linea[4]),
-      prob3: parseInt(linea[5]),
-      prob4: parseInt(linea[6]),
-      prob5: parseInt(linea[7]),
-      prob6: parseInt(linea[8]),
-      total: parseInt(linea[9]),
-      premio: (linea[10] as Medalla),
-    }))
+    const resultados = data
+      .filter(linea => linea[2].length > 0)
+      .map(linea => ({
+        fecha: year,
+        ranking: parseInt(linea[0]),
+        nombreCompleto: linea[2],
+        pais: linea[1].slice(0, 3),
+        num: parseInt(linea[1].slice(3, 4)),
+        prob1: parseInt(linea[3]),
+        prob2: parseInt(linea[4]),
+        prob3: parseInt(linea[5]),
+        prob4: parseInt(linea[6]),
+        prob5: parseInt(linea[7]),
+        prob6: parseInt(linea[8]),
+        total: parseInt(linea[9]),
+        premio: (linea[10] as Medalla),
+      }))
+
+    const paises = (await prisma.paises.findMany({ select: { id: true } }))
+      .map(pais => pais.id)
     
-    const paises = data.filter(linea => linea[15].length > 0)
-    paises.forEach(async (linea, i) => {
+    data.forEach(async (linea) => {
+      const paisId = linea[15]
+
+      if (!paises.includes(paisId)) {
+        console.error('Pais no encontrado: ', paisId)
+        return false
+      }
+
       await prisma.participaciones.create({
         data: {
           fecha: year,
