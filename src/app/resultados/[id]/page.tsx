@@ -44,7 +44,7 @@ export default function Page({ params }: {
         <div className='flex justify-center items-center gap-4'>
               <Link 
               href={`/resultados/${Number(params.id) - 1}?${searchParams}`}
-              className={`text-black hover:text-blue-800 transition-colors ${Number(params.id) !== primerAnio ? '' : 'opacity-0'}`}
+              className={`text-black hover:text-blue-800 transition-colors ${Number(params.id) !== primerAnio ? '' : 'invisible'}`}
             >
               ◄
             </Link>
@@ -58,7 +58,7 @@ export default function Page({ params }: {
           </div>
             <Link 
               href={`/resultados/${Number(params.id) + 1}?${searchParams}`}
-              className={`text-black hover:text-blue-800 transition-colors ${Number(params.id) !== ultimoAnio ? '' : 'opacity-0'}`}
+              className={`text-black hover:text-blue-800 transition-colors ${Number(params.id) !== ultimoAnio ? '' : 'invisible'}`}
             >
               ►
             </Link>
