@@ -28,7 +28,7 @@ export const participacionesRouter = router({
         paisId: input,
       },
       orderBy: {
-        fecha: 'asc'
+        fecha: 'desc'
       },
       include: {
         pais: true,
@@ -63,6 +63,7 @@ export const participacionesRouter = router({
         pais: p.nombre,
         participaciones: participaciones.length,
         primera: participaciones[0].fecha,
+        anfitrion: [],
         concursantes: participaciones.reduce((acc, p) => acc + p.equipo.length, 0),
         premios: [
           participaciones.reduce((acc, p) => acc + p.premios[0], 0),

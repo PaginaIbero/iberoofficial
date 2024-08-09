@@ -9,28 +9,61 @@ export function PaisIndividualesTable({ id }: {
     data: dataResultados,
     isLoading: isLoadingResultados
   } = trpc.participaciones.getByPais.useQuery(id)
+  let counter = 0
   return (
-    <Table
-      headers={['Código', 'Concursante', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'Total', 'Ranking', 'Premio']}
-      data={
-        dataResultados ? (new Array).concat(...dataResultados.map((res) =>
-          res.equipo.map((item) => [
-            item.pais + item.num,
-            item.nombreCompleto,
-            item.prob1.toString(),
-            item.prob2.toString(),
-            item.prob3.toString(),
-            item.prob4.toString(),
-            item.prob5.toString(),
-            item.prob6.toString(),
-            item.total.toString(),
-            item.ranking.toString(),
-            formatPremio(item.premio),
-          ])
-        )) : []
-      }
-      isLoading={isLoadingResultados}
-    />
+    <table className='text-center text-black table-auto w-full'>
+      <thead>
+        <tr className='bg-blue-200'>
+          <th className='py-3'>Código</th>
+          <th>Concursante</th>
+          <th>P1</th>
+          <th>P2</th>
+          <th>P3</th>
+          <th>P4</th>
+          <th>P5</th>
+          <th>P6</th>
+          <th>Total</th>
+          <th>Ranking</th>
+          <th>Premio</th>
+        </tr>
+      </thead>
+      <tbody>
+        {dataResultados ? dataResultados.map((part) => {
+            return (
+              <>
+                <tr
+                  key={part.fecha}
+                  className={'bg-blue-200'}
+                >
+                  <td colSpan={11} className='py-1'>
+                    <span className='font-semibold'>{part.fecha}</span> 
+                  </td>
+                </tr>
+                {part.equipo.map((item, index) => (
+                  <tr
+                    key={part.id}
+                    className={(index % 2 === 0 ? 'bg-blue-0' : 'bg-blue-50') + 
+                      ' hover:bg-blue-100 transition-colors'}
+                  >
+                    <td className='py-3'>{item.pais + item.num}</td>
+                    <td>{item.nombreCompleto}</td>
+                    <td>{item.prob1}</td>
+                    <td>{item.prob2}</td>
+                    <td>{item.prob3}</td>
+                    <td>{item.prob4}</td>
+                    <td>{item.prob5}</td>
+                    <td>{item.prob6}</td>
+                    <td>{item.total}</td>
+                    <td>{item.ranking}</td>
+                    <td>{formatPremio(item.premio)}</td>
+                  </tr>
+                ))}
+              </>
+            )
+          }) : []
+        }
+      </tbody>
+    </table>
   )
 }
 

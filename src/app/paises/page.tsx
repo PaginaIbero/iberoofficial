@@ -25,8 +25,8 @@ export default function Page() {
             pais.nombre,
             pais.contacto,
             pais.sitio,
-            'to compute',
-            'to compute',
+            pais.anfitrion.join(', ') || 'N/A',
+            pais.primera?.toString() || 'N/A',
           ]) || []}
           href={data?.map((pais) => `/paises/${pais.id}?section=estadisticas`) || []}
           isLoading={isLoading}
@@ -46,8 +46,8 @@ export default function Page() {
               </div>
               <p>{pais.contacto}</p>
               <p>{pais.sitio}</p>
-              <p>to compute</p>
-              <p>to compute</p>
+              <p>1ra part.: {pais.primera || 'N/A'}</p>
+              <p>Anfitrión {pais.anfitrion.join(', ') || 'N/A'}</p>
             </div>
             {i < data.length - 1 && <hr className='my-2'/>}
           </>
