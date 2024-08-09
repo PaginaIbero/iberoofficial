@@ -27,7 +27,7 @@ export function YearCard({ id }: {
       </Link>
       <Link
         className='text-gray-800 hover:text-blue-500 rounded-md'
-        href={`/pruebas/${id}`}
+        href={`/pruebas`}
       >
         Ver Pruebas
       </Link>
