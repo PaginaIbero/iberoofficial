@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { trpc } from "@/app/_trpc/client"
 import Chips from "@/app/ui/resultados/chips";
@@ -19,6 +19,8 @@ export default function Page({ params }: {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = new URLSearchParams(useSearchParams())
+  const [primerAnio, setPrimerAnio] = useState<number>(2023)
+  const [ultimoAnio, setUltimoAnio] = useState<number>(2023)
   if (!['estadisticas', 'individuales', 'por-pais'].includes(searchParams.get('section') || '')) {
     searchParams.set('section', 'estadisticas')
     router.push(`${pathname}?${searchParams.toString()}`)
@@ -27,16 +29,25 @@ export default function Page({ params }: {
     data: dataCronologia,
     isLoading: isLoadingCronologia
   } = trpc.cronologia.getByID.useQuery(Number(params.id))
+  const { data: cronologiaAnios } = trpc.cronologia.getAll.useQuery()
+  cronologiaAnios?.forEach((cronologiaAnio) => {
+    if (cronologiaAnio.id < primerAnio) {
+      setPrimerAnio(cronologiaAnio.id)
+    }
+    if (cronologiaAnio.id > ultimoAnio) {
+      setUltimoAnio(cronologiaAnio.id)
+    }
+  })
   return (
     <>
       {isLoadingCronologia ? <TitleSkeleton/> :
         <div className='flex justify-center items-center gap-4'>
-          <Link 
-            href={`/resultados/${Number(params.id) - 1}?${searchParams}`}
-            className='text-black hover:text-blue-800 transition-colors'
-          >
-            ◄
-          </Link>
+              <Link 
+              href={`/resultados/${Number(params.id) - 1}?${searchParams}`}
+              className={`text-black hover:text-blue-800 transition-colors ${Number(params.id) !== primerAnio ? '' : 'opacity-0'}`}
+            >
+              ◄
+            </Link>
           <div className='flex flex-col'>
             <h1 className='text-2xl lg:text-4xl text-center text-black'>
               <span className='font-semibold'>{dataCronologia?.ciudad}</span>, {dataCronologia?.pais}
@@ -45,12 +56,12 @@ export default function Page({ params }: {
               {dataCronologia?.id}
             </h2>
           </div>
-          <Link 
-            href={`/resultados/${Number(params.id) + 1}?${searchParams}`}
-            className='text-black hover:text-blue-800 transition-colors'
-          >
-            ►
-          </Link>
+            <Link 
+              href={`/resultados/${Number(params.id) + 1}?${searchParams}`}
+              className={`text-black hover:text-blue-800 transition-colors ${Number(params.id) !== ultimoAnio ? '' : 'opacity-0'}`}
+            >
+              ►
+            </Link>
         </div>
       }
       <Chips chips={[{
