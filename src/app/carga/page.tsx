@@ -7,6 +7,7 @@ export default function Page() {
   const [year, setYear] = useState(0);
   const [url, setUrl] = useState('');
   const [pass, setPass] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleYearChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setYear(parseInt(event.target.value));
@@ -20,10 +21,10 @@ export default function Page() {
     setPass(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle form submission logic here
-    loadData({ year, url, pass });
+    const error = await loadData({ year, url, pass });
+    setErrorMsg(error)
   };
 
   return (
@@ -44,6 +45,8 @@ export default function Page() {
       </label>
       <br />
       <button type="submit">Submit</button>
+      <hr/>
+      {errorMsg}
     </form>
   );
 };

@@ -7,10 +7,17 @@ export async function loadData({ year, url, pass }: {
   year: number
   url: string
   pass: string
-}) {
-  console.group('Carga de resultados por fecha | Año: ', year)
+}): Promise<string> {
+  let response = ''
 
-  if (pass !== 'pass') return false
+  console.group('Carga de resultados por fecha | Año: ', year)
+  response += 'Carga de resultados por fecha | Año: ' + year + '\n'
+
+  if (pass !== 'pass') {
+    console.error('Contraseña incorrecta.')
+    response += 'Contraseña incorrecta.'
+    return response
+  }
 
   await prisma.cronologia.deleteMany({ where: { id: year } })
   await prisma.resultados.deleteMany({ where: { fecha: year } })
@@ -21,11 +28,17 @@ export async function loadData({ year, url, pass }: {
     const text = await raw.text()
     const data = text.split('\n').slice(1).map(line => line.split('\t'))
 
-    console.log('Lines: ', data.length)
-    console.log('Creating resultados')
+    console.log('Líneas: ', data.length)
+    response += 'Líneas: ' + data.length + '\n'
+    console.log('Creando resultados:')
+    response += 'Creando resultados:\n'
 
     const resultados = data
-      .filter(linea => linea[2].length > 0)
+      .filter(linea => {
+        if (linea.length < 11) return false
+        if (linea[2].length > 0) return true
+        else return false
+      })
       .map(linea => ({
         fecha: year,
         ranking: parseInt(linea[0]),
@@ -45,43 +58,45 @@ export async function loadData({ year, url, pass }: {
     const paises = (await prisma.paises.findMany({ select: { id: true } }))
       .map(pais => pais.id)
     
-    data.forEach(async (linea) => {
-      const paisId = linea[15]
-
-      if (!paises.includes(paisId)) {
-        console.error('Pais no encontrado: ', paisId)
-        return false
-      }
-
-      await prisma.participaciones.create({
-        data: {
-          fecha: year,
-          pais: {
-            connect: {
-              id: linea[15]
-            }
-          },
-          ranking: parseInt(linea[14]),
-          prob1: parseInt(linea[17]),
-          prob2: parseInt(linea[18]),
-          prob3: parseInt(linea[19]),
-          prob4: parseInt(linea[20]),
-          prob5: parseInt(linea[21]),
-          prob6: parseInt(linea[22]),
-          total: parseInt(linea[23]),
-          premios: [
-            resultados.filter(r => r.pais === linea[15] && r.premio === 'ORO' as Medalla).length,
-            resultados.filter(r => r.pais === linea[15] && r.premio === 'PLATA' as Medalla).length,
-            resultados.filter(r => r.pais === linea[15] && r.premio === 'BRONCE' as Medalla).length,
-            resultados.filter(r => r.pais === linea[15] && r.premio === 'MENCION' as Medalla).length
-          ],
-          nombreLider: linea[25],
-          nombreTutor: linea[26],
-          equipo: {
-            create: resultados.filter(r => r.pais === linea[15])
-          }
+    data
+      .filter(linea => linea.length > 15 && linea[15].length > 0)
+      .forEach(async linea => {
+        const paisId = linea[15]
+        if (!paises.includes(paisId)) {
+          console.error('Pais no encontrado: ', paisId)
+          response += 'Pais no encontrado: ' + paisId + '\n'
+          return
         }
-      })
+
+        await prisma.participaciones.create({
+          data: {
+            fecha: year,
+            pais: {
+              connect: {
+                id: linea[15]
+              }
+            },
+            ranking: parseInt(linea[14]),
+            prob1: parseInt(linea[17]),
+            prob2: parseInt(linea[18]),
+            prob3: parseInt(linea[19]),
+            prob4: parseInt(linea[20]),
+            prob5: parseInt(linea[21]),
+            prob6: parseInt(linea[22]),
+            total: parseInt(linea[23]),
+            premios: [
+              resultados.filter(r => r.pais === linea[15] && r.premio === 'ORO' as Medalla).length,
+              resultados.filter(r => r.pais === linea[15] && r.premio === 'PLATA' as Medalla).length,
+              resultados.filter(r => r.pais === linea[15] && r.premio === 'BRONCE' as Medalla).length,
+              resultados.filter(r => r.pais === linea[15] && r.premio === 'MENCION' as Medalla).length
+            ],
+            nombreLider: linea[25],
+            nombreTutor: linea[26],
+            equipo: {
+              create: resultados.filter(r => r.pais === linea[15])
+            }
+          }
+        })
     })
     
     await prisma.cronologia.create({
@@ -105,9 +120,12 @@ export async function loadData({ year, url, pass }: {
     })
 
     console.groupEnd()
-    console.log('Data loaded successfully')
+    console.log('Datos cargados exitosamente')
+    response += 'Datos cargados exitosamente'
+    return response
   } catch (e) {
-    console.error('Error while fetching data: ', e)
-    return false
+    console.error('Error en la carga de datos: ', e)
+    response += 'Error en la carga de datos: ' + e
+    return response
   }
 }
