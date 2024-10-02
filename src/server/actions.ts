@@ -62,9 +62,17 @@ export async function loadData({ year, url, pass }: {
       .filter(linea => linea.length > 15 && linea[15].length > 0)
       .forEach(async linea => {
         const paisId = linea[15]
+
         if (!paises.includes(paisId)) {
           console.error('Pais no encontrado: ', paisId)
           response += 'Pais no encontrado: ' + paisId + '\n'
+          return
+        }
+
+        const equipo = resultados.filter(r => r.pais === paisId)
+        if (equipo.length === 0) {
+          console.info('Equipo vacío: ', paisId)
+          response += 'Equipo vacío: ' + paisId + '\n'
           return
         }
 
@@ -93,7 +101,7 @@ export async function loadData({ year, url, pass }: {
             nombreLider: linea[25],
             nombreTutor: linea[26],
             equipo: {
-              create: resultados.filter(r => r.pais === linea[15])
+              create: equipo
             }
           }
         })
@@ -102,9 +110,9 @@ export async function loadData({ year, url, pass }: {
     await prisma.cronologia.create({
       data: {
         id: year,
-        ciudad: data[0][28],
-        pais: data[1][28],
-        fecha: data[2][28],
+        ciudad: data[1][27],
+        pais: data[0][27],
+        fecha: data[2][27],
         paises: paises.length,
         concursantes: resultados.length,
         hombres: 0,

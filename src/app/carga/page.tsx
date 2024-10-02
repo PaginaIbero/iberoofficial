@@ -46,7 +46,7 @@ export default function Page() {
       <br />
       <button type="submit">Submit</button>
       <hr/>
-      {errorMsg}
+      {errorMsg.split('\n').map((line, index) => <p key={index}>{line}</p>)}
     </form>
   );
 };
