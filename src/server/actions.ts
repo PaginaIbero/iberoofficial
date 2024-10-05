@@ -98,8 +98,8 @@ export async function loadData({ year, url, pass }: {
               resultados.filter(r => r.pais === linea[15] && r.premio === 'BRONCE' as Medalla).length,
               resultados.filter(r => r.pais === linea[15] && r.premio === 'MENCION' as Medalla).length
             ],
-            nombreLider: linea[25],
-            nombreTutor: linea[26],
+            nombreLider: linea[26],
+            nombreTutor: linea[25],
             equipo: {
               create: equipo
             }
@@ -113,7 +113,7 @@ export async function loadData({ year, url, pass }: {
         ciudad: data[1][27],
         pais: data[0][27],
         fecha: data[2][27],
-        paises: paises.length,
+        paises: paises.filter(pais => resultados.some(r => r.pais === pais)).length,
         concursantes: resultados.length,
         hombres: 0,
         mujeres: 0, 
