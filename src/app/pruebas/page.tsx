@@ -2,8 +2,13 @@
 
 import { Cronologia } from "@prisma/client";
 import { trpc } from "../_trpc/client"
-import Table from "../ui/table"
 import Link from "next/link";
+
+/*
+ TODO:
+ 1) Separar tabla en otro archivo
+ 2) Mostrar sólo las pruebas disponibles (con un fetch o algo así)
+ */
 
 export default function Page() {
   const { data, isLoading } = trpc.cronologia.getAll.useQuery()

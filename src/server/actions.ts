@@ -13,6 +13,7 @@ export async function loadData({ year, url, pass }: {
   console.group('Carga de resultados por fecha | Año: ', year)
   response += 'Carga de resultados por fecha | Año: ' + year + '\n'
 
+  // TODO: Change for God's sake
   if (pass !== 'pass') {
     console.error('Contraseña incorrecta.')
     response += 'Contraseña incorrecta.'

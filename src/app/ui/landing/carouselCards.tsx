@@ -1,6 +1,6 @@
 'use client';
 
-import { trpc } from "../_trpc/client";
+import { trpc } from "../../_trpc/client";
 import Link from "next/link";
 
 export default function CarouselEdiciones() {

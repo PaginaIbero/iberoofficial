@@ -1,8 +1,8 @@
 'use client';
 
 import { Suspense } from "react";
-import CarouselEdiciones from "./ui/carouselCards";
-import CarrouselFotos from "./ui/carrouselFotos";
+import CarouselEdiciones from "./ui/landing/carouselCards";
+import CarrouselFotos from "./ui/landing/carrouselFotos";
 
 export default function Home() {
   return (
@@ -24,7 +24,7 @@ export default function Home() {
         Fotos
       </h1>
       {/* <p>Acá habrá muchas fotos...</p> */}
-        <CarrouselFotos />
+      <CarrouselFotos />
     </div>
   );
 }
