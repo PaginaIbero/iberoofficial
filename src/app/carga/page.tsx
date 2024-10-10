@@ -49,4 +49,4 @@ export default function Page() {
       {errorMsg.split('\n').map((line, index) => <p key={index}>{line}</p>)}
     </form>
   );
-};
+}
