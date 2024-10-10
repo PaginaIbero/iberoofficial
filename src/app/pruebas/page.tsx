@@ -33,7 +33,7 @@ export default function Page() {
   )
 }
 
-export function Row({ cronologia }: {
+function Row({ cronologia }: {
   cronologia: Cronologia
 }) {
   return (
