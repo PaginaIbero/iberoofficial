@@ -123,6 +123,11 @@ function Resultados({ id }: {
         Bronces ({data?.premios[2]}) |
         Menciones de honor ({data?.premios[3]})
       </li>
+      <li>
+        Copas Puerto Rico: {data?.copas_pr.length > 0 ? 
+          data?.copas_pr.join(', ') + "(" + data?.copas_pr.length + ")"
+          : 'Ninguna'}
+      </li>
     </ul>
   )
 }

@@ -8,6 +8,9 @@ export const cronologiaRouter = router({
       orderBy: {
         id: 'desc'
       },
+      include: {
+        copa_pr: true
+      }
     })
   }),
   getByID: publicProcedure.input(z.number()).query(async ({ input }) => {

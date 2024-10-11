@@ -90,6 +90,7 @@ export function AcumuladoAnoMobileTable() {
               <p className='text-center'>{cronologia.fecha}</p>
               <p className='text-center'>Cortes: {cronologia.cortes[0]} | {cronologia.cortes[1]} | {cronologia.cortes[2]}</p>
               <p className='text-center'>{cronologia.premios[0]} 🥇 | {cronologia.premios[1]} 🥈 | {cronologia.premios[2]} 🥉 | {cronologia.premios[3]} MH</p>
+              <p className='text-center'>Copa PR: {cronologia.copa_pr?.nombre || '-'} </p>
             </Link>
           </div>
         ))
@@ -118,6 +119,9 @@ export function AcumuladoPaisMobileTable() {
             </p>
             <p>
               Medallas: {item.premios[0]} 🥇 | {item.premios[1]} 🥈 | {item.premios[2]} 🥉 | {item.premios[3]} MH
+            </p>
+            <p>
+              Copas PR: {item.copas_pr}
             </p>
           </div>
         ))

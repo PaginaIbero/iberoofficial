@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
 import prisma from '@/lib/db'
+import { access } from "fs";
 
 export const participacionesRouter = router({
   getByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
@@ -41,9 +42,24 @@ export const participacionesRouter = router({
     })
   }),
   getAcumuladoPais: publicProcedure.query(async () => {
-    const paises = await prisma.paises.findMany();
+    const paises = await prisma.paises.findMany({
+      orderBy: {
+        nombre: 'asc'
+      }
+    });
     const data = []
     for (let p of paises) {
+      const cronologia = await prisma.cronologia.findMany({
+        where: {
+          copa_prId: p.id
+        },
+        orderBy: {
+          id: 'asc'
+        },
+        include: {
+          copa_pr: true
+        }
+      });
       const participaciones = await prisma.participaciones.findMany({
         where: {
           pais: {
@@ -63,14 +79,14 @@ export const participacionesRouter = router({
         pais: p.nombre,
         participaciones: participaciones.length,
         primera: participaciones[0].fecha,
-        anfitrion: [],
         concursantes: participaciones.reduce((acc, p) => acc + p.equipo.length, 0),
         premios: [
           participaciones.reduce((acc, p) => acc + p.premios[0], 0),
           participaciones.reduce((acc, p) => acc + p.premios[1], 0),
           participaciones.reduce((acc, p) => acc + p.premios[2], 0),
           participaciones.reduce((acc, p) => acc + p.premios[3], 0)
-        ]
+        ],
+        copas_pr: cronologia.length
       });
     }
     return data;
@@ -79,6 +95,14 @@ export const participacionesRouter = router({
     const p = await prisma.paises.findUnique({
       where: {
         id: input
+      }
+    });
+    const cronologia = await prisma.cronologia.findMany({
+      where: {
+        copa_prId: input
+      },
+      orderBy: {
+        id: 'asc'
       }
     });
     const participaciones = await prisma.participaciones.findMany({
@@ -106,7 +130,8 @@ export const participacionesRouter = router({
         participaciones.reduce((acc, p) => acc + p.premios[1], 0),
         participaciones.reduce((acc, p) => acc + p.premios[2], 0),
         participaciones.reduce((acc, p) => acc + p.premios[3], 0)
-      ]
+      ],
+      copas_pr: cronologia.map(c => c.id)
     }
   }),
 })

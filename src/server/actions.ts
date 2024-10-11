@@ -3,6 +3,46 @@
 import { Medalla } from "@prisma/client"
 import prisma from "@/lib/db"
 
+export async function loadPaises(link: string): Promise<string> {
+  let response = ''
+
+  console.group('Carga de países')
+  response += 'Carga de países\n'
+
+  try {
+    const raw = await fetch(link)
+    const text = await raw.text()
+    const data = text.split('\n').slice(1).map(line => line.split('\t'))
+
+    console.log('Líneas: ', data.length)
+    response += 'Líneas: ' + data.length + '\n'
+    console.log('Creando países: ')
+    response += 'Creando países: \n'
+
+    await prisma.paises.deleteMany({})
+
+    data.forEach(async linea => {
+      await prisma.paises.create({
+        data: {
+          id: linea[0],
+          nombre: linea[1],
+          contacto: linea[2],
+          sitio: linea[3]
+        }
+      })
+    })
+
+    console.groupEnd()
+    console.log('Datos cargados exitosamente')
+    response += 'Datos cargados exitosamente'
+    return response
+  } catch (e) {
+    console.error('Error en la carga de datos: ', e)
+    response += 'Error en la carga de datos: ' + e
+    return response
+  }
+}
+
 export async function loadData({ year, url, pass }: {
   year: number
   url: string
@@ -118,13 +158,15 @@ export async function loadData({ year, url, pass }: {
         concursantes: resultados.length,
         hombres: 0,
         mujeres: 0, 
-        cortes: data[0].slice(11, 14).map(c => parseInt(c)),
+        cortes: data[0].slice(11, 14).map(c => parseInt(c) || 0),
         premios: [
           resultados.filter(r => r.premio === 'ORO' as Medalla).length,
           resultados.filter(r => r.premio === 'PLATA' as Medalla).length,
           resultados.filter(r => r.premio === 'BRONCE' as Medalla).length,
           resultados.filter(r => r.premio === 'MENCION' as Medalla).length
-        ]
+        ],
+        copa_prId: data[4][27] || null,
+        website: data[3][27],
       }
     })
 

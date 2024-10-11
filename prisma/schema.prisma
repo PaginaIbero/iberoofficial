@@ -10,14 +10,17 @@ model Cronologia {
   id            Int     @id @unique
   ciudad        String  @default("-") 
   pais          String  @default("-")
-  fecha         String  @default("-") // Se refiere a la fecha en días y no al año, como en el resto de
-                                      // instancias de esta base de datos. Slds.
+  fecha         String  @default("-")
   paises        Int     @default(0)
   concursantes  Int     @default(0)
   hombres       Int     @default(0)
   mujeres       Int     @default(0)
   cortes        Int[]   @default([0, 0, 0])
   premios       Int[]   @default([0, 0, 0, 0])
+  max_score     Int     @default(0)
+  website       String  @default("-")
+  copa_prId     String?
+  copa_pr       Paises? @relation(fields: [copa_prId], references: [id])
 }
 
 enum Medalla {
@@ -33,7 +36,7 @@ model Resultados {
   fecha           Int     @default(0)
   nombreCompleto  String  @default("-")
   ranking         Int     @default(0)
-  participacionId String  @default("-")
+  participacionId String
   participacion   Participaciones @relation(fields: [participacionId], references: [id])
   pais            String  @default("-")
   num             Int     @default(0)
@@ -50,7 +53,7 @@ model Resultados {
 model Participaciones {
   id          String  @id @default(uuid())
   fecha       Int     @default(0)
-  paisId      String  @default("-")
+  paisId      String  
   pais        Paises  @relation(fields: [paisId], references: [id])
   ranking     Int
   prob1       Int @default(0)
@@ -72,6 +75,7 @@ model Paises {
   contacto  String  @default("-")
   sitio     String  @default("-")
   participaciones Participaciones[]
+  copas_pr  Cronologia[]
 }
 
 model Spreadsheet {

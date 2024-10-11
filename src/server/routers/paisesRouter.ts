@@ -9,7 +9,16 @@ export const paisesRouter = router({
         nombre: 'asc'
       },
     });
+
     const data = paises.map(async (p) => {
+      const cron = await prisma.cronologia.findMany({
+        where: {
+          pais: p.nombre
+        },
+        orderBy: {
+          fecha: 'asc'
+        }
+      });
       const part = await prisma.participaciones.findFirst({
         where: {
           pais: {
@@ -20,15 +29,17 @@ export const paisesRouter = router({
           fecha: 'asc'
         }
       });
+
       return {
         id: p.id,
         nombre: p.nombre,
         contacto: p.contacto,
         sitio: p.sitio,
-        anfitrion: [],
-        primera: part?.fecha,
+        anfitrion: cron.map(c => c.id),
+        primera: part?.fecha || '-',
       }
     })
+
     return Promise.all(data)
   }),
   getByID: publicProcedure.input(z.string()).query(async ({ input }) => {

@@ -1,5 +1,11 @@
 import { PrismaClient } from "@prisma/client";
 
+export type pais = {
+  id: string;
+  nombre: string;
+  contacto: string;
+}
+
 export type cronologia = {
   id: number;
   ciudad: string;
@@ -11,6 +17,8 @@ export type cronologia = {
   mujeres: number;
   cortes: number[];
   premios: number[];
+  copa_pr: pais | null;
+  website: string;
 }
 
 export type resultado = {

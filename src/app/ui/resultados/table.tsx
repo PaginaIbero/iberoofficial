@@ -79,7 +79,7 @@ export function AcumuladoAnoTable() {
           <th colSpan={3} className='p-1 border-x-2 border-white'>Concursantes</th>
           <th colSpan={3} className='p-1 border-x-2 border-white'>Cortes</th>
           <th colSpan={4} className='p-1 border-l-2 border-white'>Premios</th>
-          <th colSpan={6} className='p-1 border-l-2 border-white hidden lg:table-cell'>Eficiencia</th>
+          <th className='p-1 border-l-2 border-white'></th>
         </tr>
         <tr className='bg-blue-200'>
           <th className='w-[10%] p-1'>Año</th>
@@ -95,12 +95,7 @@ export function AcumuladoAnoTable() {
           <th className='w-[3%] p-1'>P</th>
           <th className='w-[3%] p-1'>B</th>
           <th className='w-[3%] p-1 border-r-2 border-white'>MH</th>
-          <th className='w-[3%] p-1 border-l-2 border-white hidden lg:table-cell'>P1</th>
-          <th className='w-[3%] p-1 hidden lg:table-cell'>P2</th>
-          <th className='w-[3%] p-1 hidden lg:table-cell'>P3</th>
-          <th className='w-[3%] p-1 hidden lg:table-cell'>P4</th>
-          <th className='w-[3%] p-1 hidden lg:table-cell'>P5</th>
-          <th className='w-[3%] p-1 hidden lg:table-cell'>P6</th>
+          <th className='w-[15%] p-1 border-l-2 border-white'>Copa Puerto Rico</th>
         </tr>
       </thead>
       <tbody>
@@ -137,12 +132,7 @@ function AcumuladoAnoTableBody({ content }: {
           <td className='py-3'>{item.premios ? item.premios[1] : 'n/a'}</td>
           <td className='py-3'>{item.premios ? item.premios[2] : 'n/a'}</td>
           <td className='py-3'>{item.premios ? item.premios[3] : 'n/a'}</td>
-          <td className='py-3 border-l-2 border-white hidden lg:table-cell'>0.0</td>
-          <td className='py-3 hidden lg:table-cell'>0.0</td>
-          <td className='py-3 hidden lg:table-cell'>0.0</td>
-          <td className='py-3 hidden lg:table-cell'>0.0</td>
-          <td className='py-3 hidden lg:table-cell'>0.0</td>
-          <td className='py-3 hidden lg:table-cell'>0.0</td>
+          <td className='py-3 border-l-2 border-white hidden lg:table-cell'>{item.copa_pr?.nombre}</td>
         </tr>
       ))}
     </>
@@ -155,7 +145,7 @@ export function AcumuladoPaisTable() {
   const { data, isLoading } = trpc.participaciones.getAcumuladoPais.useQuery()
   return (
     <Table 
-      headers={['País', 'Part.', '1ra part.', 'Total concursantes', 'O', 'P', 'B', 'MH']}
+      headers={['País', 'Part.', '1ra part.', '# concurs.', 'O', 'P', 'B', 'MH', 'Copas PR']}
       data={data?.map((item) => [
         item.pais,
         item.participaciones.toString(),
@@ -164,7 +154,8 @@ export function AcumuladoPaisTable() {
         item.premios[0].toString(),
         item.premios[1].toString(),
         item.premios[2].toString(),
-        item.premios[3].toString()
+        item.premios[3].toString(),
+        item.copas_pr.toString()
       ]) || [[]]}
       href={data?.map((item) => `/paises/${item.codigo}?section=equipo`) || []}
       isLoading={isLoading}
