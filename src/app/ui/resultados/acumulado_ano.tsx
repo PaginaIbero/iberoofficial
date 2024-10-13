@@ -1,71 +1,7 @@
-'use client';
-
-import { useRouter } from "next/navigation";
 import { trpc } from "@/app/_trpc/client";
-import { formatPremio } from "@/lib/formatStrings";
-import { cronologia, resultado } from "@/lib/types";
-import { TableBodySkeleton } from "@/app/ui/skeletons";
-import Table from "@/app/ui/table";
-
-export function IndividualesTable({ id }: {
-  id: number
-}) {
-  const { data, isLoading } = trpc.resultados.getByFecha.useQuery(Number(id))
-  return (
-    <Table
-      headers={['#', 'Código', 'Concursante', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'Total', 'Premio']}
-      data={data ? data.map((item: resultado) => [
-        item.ranking.toString(),
-        item.pais + item.num,
-        item.nombreCompleto,
-        item.prob1.toString(),
-        item.prob2.toString(),
-        item.prob3.toString(),
-        item.prob4.toString(),
-        item.prob5.toString(),
-        item.prob6.toString(),
-        item.total.toString(),
-        formatPremio(item.premio)
-      ]) : []}
-      isLoading={isLoading}
-    />
-  )
-}
-
-export function PorPaisTable({ id }: {
-  id: number
-}) {
-  const { data, isLoading } = trpc.participaciones.getByFecha.useQuery(Number(id))
-  return (
-    <Table
-      headers={['#', 'País', 'T', 'H', 'M', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'Total', 'O', 'P', 'B', 'MH', 'Jefe', 'Tutor']}
-      data={data ? data.map((item) => [
-        item.ranking.toString(),
-        item.pais.nombre,
-        item.equipo.length.toString(),
-        '0',
-        '0',
-        item.prob1.toString(),
-        item.prob2.toString(),
-        item.prob3.toString(),
-        item.prob4.toString(),
-        item.prob5.toString(),
-        item.prob6.toString(),
-        item.total.toString(),
-        item.premios[0].toString(),
-        item.premios[1].toString(),
-        item.premios[2].toString(),
-        item.premios[3].toString(),
-        item.nombreLider,
-        item.nombreTutor
-      ]) : []}
-      href={data?.map((item) => `/paises/${item.pais.id}?section=equipo`) || []}
-      isLoading={isLoading}
-    />
-  )
-}
-
-// Resultados acumulados por fecha
+import { TableBodySkeleton } from "../skeletons";
+import { cronologia } from "@/lib/types";
+import { useRouter } from "next/navigation";
 
 export function AcumuladoAnoTable() {
   const { data, isLoading } = trpc.cronologia.getAll.useQuery()
@@ -136,29 +72,5 @@ function AcumuladoAnoTableBody({ content }: {
         </tr>
       ))}
     </>
-  )
-}
-
-// Resultados acumulados por país
-
-export function AcumuladoPaisTable() {
-  const { data, isLoading } = trpc.participaciones.getAcumuladoPais.useQuery()
-  return (
-    <Table 
-      headers={['País', 'Part.', '1ra part.', '# concurs.', 'O', 'P', 'B', 'MH', 'Copas PR']}
-      data={data?.map((item) => [
-        item.pais,
-        item.participaciones.toString(),
-        item.primera.toString(),
-        item.concursantes.toString(),
-        item.premios[0].toString(),
-        item.premios[1].toString(),
-        item.premios[2].toString(),
-        item.premios[3].toString(),
-        item.copas_pr.toString()
-      ]) || [[]]}
-      href={data?.map((item) => `/paises/${item.codigo}?section=equipo`) || []}
-      isLoading={isLoading}
-    />
   )
 }

@@ -117,11 +117,7 @@ function Resultados({ id }: {
       <li>Primera participación: {data?.primera}</li>
       <li>Concursantes: {data?.concursantes}</li>
       <li>
-        Premios:
-        Oros ({data?.premios[0]}) |
-        Platas ({data?.premios[1]}) |
-        Bronces ({data?.premios[2]}) |
-        Menciones de honor ({data?.premios[3]})
+        Premios: {data?.premios[0]} 🥇 | {data?.premios[1]} 🥈 | {data?.premios[2]} 🥉 | {data?.premios[3]} MH
       </li>
       <li>
         Copas Puerto Rico: {data?.copas_pr.length > 0 ? 

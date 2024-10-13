@@ -17,7 +17,7 @@ export function YearCard({ id }: {
   id: number
 }) {
   return (
-    <div className='flex flex-col justify-center items-center bg-white h-36 md:h-48 md:w-1/4 p-5 md:gap-3 shadow'>
+    <div className='flex flex-col justify-center items-center bg-white h-36 md:w-1/4 p-5 shadow'>
       <h1 className='text-4xl font-semibold'>{id}</h1>
       <Link
         className='text-gray-800 hover:text-blue-500 rounded-md'
@@ -37,7 +37,7 @@ export function YearCard({ id }: {
 
 export function VerMasCard() {
   return (
-    <div className='flex flex-col justify-center items-center bg-white h-36 md:h-48 md:w-1/4 p-5 md:gap-3 shadow'>
+    <div className='flex flex-col justify-center items-center bg-white h-36 md:w-1/4 p-5 shadow'>
       <h1 className='text-4xl font-semibold'>
         <Link 
           className='text-gray-800 hover:text-blue-500 rounded-md'

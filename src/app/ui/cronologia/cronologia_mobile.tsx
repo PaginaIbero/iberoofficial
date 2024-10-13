@@ -19,10 +19,12 @@ export default function CronologiaMobileTable() {
               className='text-black hover:text-blue-800 transition duration-300 ease-in-out cursor-pointer'
             >
               <h1 className='text-4xl font-semibold text-center'>{cronologia.id}</h1>
-              <p className='text-center'>{cronologia.ciudad}</p>
+              <p className='text-center'>
+                <span className='font-bold'>{cronologia.ciudad}</span>, {cronologia.pais}
+              </p>
               <p className='text-center'>{cronologia.fecha}</p>
               <p className='text-center'>Concursantes: {cronologia.concursantes}</p>
-              <p className='text-center'>(H: {cronologia.hombres} | M: {cronologia.mujeres})</p>
+              {/*<p className='text-center'>(H: {cronologia.hombres} | M: {cronologia.mujeres})</p>*/}
             </Link>
           </div>
         ))

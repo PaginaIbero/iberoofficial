@@ -22,12 +22,46 @@ export default function Page() {
         Archivo de pruebas de la Olimpiada Iberoamericana de Matemática
       </p>
       <br/>
-      <div className='grid grid-cols-12 gap-y-1'>
+      <div className='hidden md:grid grid-cols-12 gap-y-1 '>
         {!isLoading ? 
           data?.map((cronologia, i) => (
             <Row cronologia={cronologia} key={i}/>
           )) : 
           <p className='text-center'>Cargando...</p>}
+      </div>
+      <div className='md:hidden'>
+          {!isLoading ?
+            data?.map((cronologia, i) => (
+              <div key={i}>
+                <p className='font-bold'>{cronologia.id}</p>
+                <Link
+                  className='hover:underline pointer-cursor text-blue-500'
+                  href={`/pruebas/${cronologia.id}-sp.pdf`}
+                >
+                  Español
+                </Link> |&nbsp;
+                <Link
+                  className='hover:underline pointer-cursor text-blue-500'
+                  href={`/pruebas/${cronologia.id}-pt.pdf`}
+                >
+                  Portugués
+                </Link> |&nbsp;
+                <Link
+                  className='hover:underline pointer-cursor text-blue-500'
+                  href={`/pruebas/${cronologia.id}-en.pdf`}
+                >
+                   Inglés
+                </Link> |&nbsp;
+                <Link
+                  className='hover:underline pointer-cursor text-blue-500'
+                  href={`/sl/${cronologia.id}.pdf`}
+                >
+                  Shortlist
+                </Link>
+              </div>
+            )) :
+            <p className='text-center'>Cargando...</p>
+          }
       </div>
     </div>
   )

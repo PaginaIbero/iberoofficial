@@ -2,8 +2,10 @@
 
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { AcumuladoAnoTable, AcumuladoPaisTable } from "@/app/ui/resultados/table";
-import { AcumuladoAnoMobileTable, AcumuladoPaisMobileTable } from "@/app/ui/resultados/mobile";
+import { AcumuladoAnoTable } from "@/app/ui/resultados/acumulado_ano";
+import { AcumuladoAnoMobileTable } from "@/app/ui/resultados/acumulado_ano_mobile";
+import { AcumuladoPaisTable } from "@/app/ui/resultados/acumulado_pais";
+import { AcumuladoPaisMobileTable } from "@/app/ui/resultados/acumulado_pais_mobile";
 import Chips from "@/app/ui/resultados/chips";
 
 export default function Page() {

@@ -1,4 +1,5 @@
 import { trpc } from "@/app/_trpc/client";
+import useScreenSize from "@/hooks/useScreenSize";
 import {
   Bar,
   BarChart,
@@ -69,8 +70,10 @@ export function PremiosPieChart({ dataPremios }: {
 export function DistribucionPuntajes({ id }: {
   id: number
 }) {
+  const screenSize = useScreenSize()
   const [cortes, ] = trpc.cronologia.getCortesByID.useSuspenseQuery(id)
   const [chartData, _] = trpc.resultados.getDistribucionPuntajesByFecha.useSuspenseQuery(id)
+
   return (
     <ResponsiveContainer width='100%' height={250}>
       <BarChart
@@ -78,7 +81,7 @@ export function DistribucionPuntajes({ id }: {
         height={300}
         data={chartData}
         margin={{right: 15}}
-        barCategoryGap={1}
+        barCategoryGap={screenSize.width < 640 ? 0 : 1}
       >
         <Legend/>
         <XAxis
@@ -111,10 +114,12 @@ export function DistribucionPuntajes({ id }: {
 export function DistribucionProblemas({ id }: {
   id: number
 }) {
+  const screenSize = useScreenSize()
   const [data, ] = trpc.cronologia.getGeneralInfoByID.useSuspenseQuery(id)
   const [chartData, ] = trpc.resultados.getProblemStatsByFecha.useSuspenseQuery(id)
+
   return (
-    <div className='grid xl:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-y-5 text-center items-center'>
+    <div className='grid xl:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-y-5 text-center items-center'>
       {[...Array(6)].map((_, probno) => {
         return (
           <div key={probno} className='flex flex-col w-full text-black content-center'>
@@ -126,6 +131,7 @@ export function DistribucionProblemas({ id }: {
               <BarChart 
                 data={chartData[probno]} 
                 margin={{right: 35}}
+                barCategoryGap={screenSize.width < 640 ? 0 : 1}
               >
                 <XAxis 
                   dataKey='name' 

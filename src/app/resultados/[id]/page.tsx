@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { trpc } from "@/app/_trpc/client"
 import Chips from "@/app/ui/resultados/chips";
-import { IndividualesMobileTable, PorPaisMobileTable }from "@/app/ui/resultados/mobile";
-import { IndividualesTable, PorPaisTable } from "@/app/ui/resultados/table";
+import { IndividualesMobileTable }from "@/app/ui/resultados/individuales_mobile";
+import { IndividualesTable } from "@/app/ui/resultados/individuales";
 import { DistribucionProblemas, DistribucionPuntajes } from "@/app/ui/resultados/charts";
 import { DistribucionProblemasSkeleton, DistribucionPuntajesSkeleton, InformacionGeneralSkeleton, TitleSkeleton } from "@/app/ui/skeletons";
+import { PorPaisTable } from "@/app/ui/resultados/por_pais";
+import PorPaisMobileTable from "@/app/ui/resultados/por_pais_mobile";
 
 export default function Page({ params }: {
   params: {
