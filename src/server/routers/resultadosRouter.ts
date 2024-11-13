@@ -54,6 +54,7 @@ export const resultadosRouter = router({
     return data.map((p) => [p.prob1, p.prob2, p.prob3, p.prob4, p.prob5, p.prob6])
   }),
   getDistribucionPuntajesByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
+    const puntajeMaximo = input < 2000 ? 10 : 7
     const dataPuntajes = await prisma.resultados.findMany({
       where: {
         fecha: input
@@ -77,15 +78,15 @@ export const resultadosRouter = router({
     })
     const puntajes = dataPuntajes.map((p) => [p.prob1, p.prob2, p.prob3, p.prob4, p.prob5, p.prob6])
     const cortes = dataCortes?.cortes || [0, 0, 0]
-    var chartData = [...Array(43)].map((_, index) => ({
+    var chartData = [...Array(puntajeMaximo * 6 + 1)].map((_, index) => ({
       name: index,
       no: 0, hm: 0, b: 0, s: 0, g: 0
     }))
     for (let p of puntajes) {
       const suma = p.reduce((a, b) => a + b, 0)
-      if (suma < cortes[2] && !p.includes(7))
+      if (suma < cortes[2] && !p.includes(puntajeMaximo))
         chartData[suma].no += 1
-      else if (suma < cortes[2] && p.includes(7))
+      else if (suma < cortes[2] && p.includes(puntajeMaximo))
         chartData[suma].hm += 1
       else if (suma < cortes[1])
         chartData[suma].b += 1
@@ -96,6 +97,7 @@ export const resultadosRouter = router({
     return chartData
   }),
   getProblemStatsByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
+    const puntajeMaximo = input < 2000 ? 10 : 7
     const data = await prisma.resultados.findMany({
       where: {
         fecha: input
@@ -111,7 +113,7 @@ export const resultadosRouter = router({
     })
     const puntajes = data.map((p) => [p.prob1, p.prob2, p.prob3, p.prob4, p.prob5, p.prob6])
     const chartData = [...Array(6)].map((_, probno) => {
-      var cantPorPuntos = [...Array(8)].map((_, index) => ({
+      var cantPorPuntos = [...Array(puntajeMaximo + 1)].map((_, index) => ({
         name: index,
         c: 0
       }))

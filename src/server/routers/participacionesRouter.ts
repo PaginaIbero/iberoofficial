@@ -42,54 +42,58 @@ export const participacionesRouter = router({
     })
   }),
   getAcumuladoPais: publicProcedure.query(async () => {
-    const paises = await prisma.paises.findMany({
-      orderBy: {
-        nombre: 'asc'
-      }
-    });
-    const data = []
-    for (let p of paises) {
-      const cronologia = await prisma.cronologia.findMany({
-        where: {
-          copa_prId: p.id
-        },
+    try {
+      const paises = await prisma.paises.findMany({
         orderBy: {
-          id: 'asc'
-        },
-        include: {
-          copa_pr: true
+          nombre: 'asc'
         }
       });
-      const participaciones = await prisma.participaciones.findMany({
-        where: {
-          pais: {
-            id: p.id
+      const data = []
+      for (let p of paises) {
+        const cronologia = await prisma.cronologia.findMany({
+          where: {
+            copa_prId: p.id
+          },
+          orderBy: {
+            id: 'asc'
+          },
+          include: {
+            copa_pr: true
           }
-        },
-        orderBy: {
-          fecha: 'asc'
-        },
-        include: {
-          pais: true,
-          equipo: true
-        }
-      });
-      data.push({
-        codigo: p.id,
-        pais: p.nombre,
-        participaciones: participaciones.length,
-        primera: participaciones[0].fecha,
-        concursantes: participaciones.reduce((acc, p) => acc + p.equipo.length, 0),
-        premios: [
-          participaciones.reduce((acc, p) => acc + p.premios[0], 0),
-          participaciones.reduce((acc, p) => acc + p.premios[1], 0),
-          participaciones.reduce((acc, p) => acc + p.premios[2], 0),
-          participaciones.reduce((acc, p) => acc + p.premios[3], 0)
-        ],
-        copas_pr: cronologia.length
-      });
+        });
+        const participaciones = await prisma.participaciones.findMany({
+          where: {
+            pais: {
+              id: p.id
+            }
+          },
+          orderBy: {
+            fecha: 'asc'
+          },
+          include: {
+            pais: true,
+            equipo: true
+          }
+        });
+        data.push({
+          codigo: p.id,
+          pais: p.nombre,
+          participaciones: participaciones.length,
+          primera: participaciones.length > 0 ? participaciones[0].fecha : 'N/A',
+          concursantes: participaciones.reduce((acc, p) => acc + p.equipo.length, 0),
+          premios: [
+            participaciones.reduce((acc, p) => acc + p.premios[0], 0),
+            participaciones.reduce((acc, p) => acc + p.premios[1], 0),
+            participaciones.reduce((acc, p) => acc + p.premios[2], 0),
+            participaciones.reduce((acc, p) => acc + p.premios[3], 0)
+          ],
+          copas_pr: cronologia.length
+        });
+      }
+      return data;
+    } catch (error) {
+      console.error(error);
     }
-    return data;
   }),
   getAcumuladoByPais: publicProcedure.input(z.string()).query(async ({ input }) => {
     const p = await prisma.paises.findUnique({

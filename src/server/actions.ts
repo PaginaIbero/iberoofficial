@@ -19,9 +19,9 @@ export async function loadPaises(link: string): Promise<string> {
     console.log('Creando países: ')
     response += 'Creando países: \n'
 
-    await prisma.paises.deleteMany({})
-
     data.forEach(async linea => {
+      if (await prisma.paises.findUnique({ where: { id: linea[0] } })) 
+        return
       await prisma.paises.create({
         data: {
           id: linea[0],

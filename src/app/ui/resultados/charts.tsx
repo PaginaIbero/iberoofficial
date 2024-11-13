@@ -74,6 +74,8 @@ export function DistribucionPuntajes({ id }: {
   const [cortes, ] = trpc.cronologia.getCortesByID.useSuspenseQuery(id)
   const [chartData, _] = trpc.resultados.getDistribucionPuntajesByFecha.useSuspenseQuery(id)
 
+  const puntajeMaximo = id < 2000 ? 60 : 42
+
   return (
     <ResponsiveContainer width='100%' height={250}>
       <BarChart
@@ -87,11 +89,11 @@ export function DistribucionPuntajes({ id }: {
         <XAxis
           dataKey='name'
           type='number'
-          domain={[0, 42]}
+          domain={[0, puntajeMaximo]}
           interval={0}
-          ticks={Array.from({ length: 43 }, (_, i) => i)}
+          ticks={Array.from({ length: puntajeMaximo + 1 }, (_, i) => i)}
           tickFormatter={(value) => {
-            if ([0, 42].includes(value) || cortes.includes(value))
+            if ([0, puntajeMaximo].includes(value) || cortes.includes(value))
               return String(value)
             else
               return ''
@@ -118,6 +120,8 @@ export function DistribucionProblemas({ id }: {
   const [data, ] = trpc.cronologia.getGeneralInfoByID.useSuspenseQuery(id)
   const [chartData, ] = trpc.resultados.getProblemStatsByFecha.useSuspenseQuery(id)
 
+  const puntajeMaximo = id < 2000 ? 10 : 7
+
   return (
     <div className='grid xl:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-y-5 text-center items-center'>
       {[...Array(6)].map((_, probno) => {
@@ -136,9 +140,9 @@ export function DistribucionProblemas({ id }: {
                 <XAxis 
                   dataKey='name' 
                   type='number' 
-                  domain={[0, 7]} 
+                  domain={[0, puntajeMaximo]} 
                   interval={0}
-                  ticks={[0, 1, 2, 3, 4, 5, 6, 7]}
+                  ticks={Array(puntajeMaximo + 1).fill(0).map((_, i) => i)}
                 />
                 <YAxis
                   type='number'
