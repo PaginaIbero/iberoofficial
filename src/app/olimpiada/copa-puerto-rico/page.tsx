@@ -1,7 +1,7 @@
 import { Section } from "@/app/ui/section";
 
 export default function Page() {
-  const today = new Date.now()
+  const today = Date.now()
   return (
     <main className="flex min-h-screen flex-col text-black">
       <h1 className='text-4xl font-semibold text-center'>Copa Puerto Rico</h1>
