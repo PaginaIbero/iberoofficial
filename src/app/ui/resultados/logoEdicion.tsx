@@ -1,100 +1,32 @@
 'use client'
+
 import { useState, useEffect } from "react";
 
 interface LogoEdicionProps {
   id: number;
 }
 
-const LogoEdicion = ({ id }: LogoEdicionProps) => {
-  const [logoSrc, setLogoSrc] = useState<string | null>(null)
+export default function LogoEdicion({ id }: LogoEdicionProps) {
+  const [logoSrc, setLogoSrc] = useState<string | null>(null);
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const loadLogo = async () => {
-      try {
-        setLoading(true)
-        // Lista de extensiones de imagen comunes para logos
-        const imageExtensions = ['png', 'jpg', 'jpeg', 'svg', 'webp']
-        let logoFound = false
-
-        // Intentar cargar logo específico del año
-        for (const ext of imageExtensions) {
-          try {
-            const logoPath = `/images/logos/${id}.${ext}`
-            // Crear una promesa para verificar si el logo existe
-            const logoExists = await new Promise<boolean>((resolve) => {
-              const img = new Image()
-              img.onload = () => resolve(true)
-              img.onerror = () => resolve(false)
-              img.src = logoPath
-            })
-
-            if (logoExists) {
-              setLogoSrc(logoPath)
-              logoFound = true
-              break
-            }
-          } catch (error) {
-            continue
-          }
-        }
-
-        // Si no encontramos logo específico, intentar con nombres alternativos
-        if (!logoFound) {
-          const alternativeNames = [
-            `logo_${id}`,
-            `logo${id}`,
-            `ibero_${id}`,
-            `olimpiada_${id}`
-          ]
-
-          for (const name of alternativeNames) {
-            for (const ext of imageExtensions) {
-              try {
-                const logoPath = `/images/logos/${name}.${ext}`
-                const logoExists = await new Promise<boolean>((resolve) => {
-                  const img = new Image()
-                  img.onload = () => resolve(true)
-                  img.onerror = () => resolve(false)
-                  img.src = logoPath
-                })
-
-                if (logoExists) {
-                  setLogoSrc(logoPath)
-                  logoFound = true
-                  break
-                }
-              } catch (error) {
-                continue
-              }
-            }
-            if (logoFound) break
-          }
-        }
-
-        // Si aún no encontramos logo, usar logo por defecto
-        if (!logoFound) {
-          // Verificar si existe un logo por defecto
-          const defaultLogoExists = await new Promise<boolean>((resolve) => {
-            const img = new Image()
-            img.onload = () => resolve(true)
-            img.onerror = () => resolve(false)
-            img.src = '/images/ibero_home.png'
-          })
-
-          if (defaultLogoExists) {
-            setLogoSrc('/images/ibero_home.png')
-          }
-        }
-      } catch (error) {
-        console.error('Error al cargar el logo:', error)
-      } finally {
-        setLoading(false)
+    const fetchFile = async (path: string) => {
+      const fileExists = await new Promise<boolean>((resolve) => {
+                          const img = new Image()
+                          img.onload = () => resolve(true)
+                          img.onerror = () => resolve(false)
+                          img.src = path
+                        });
+          
+      if (fileExists) {
+        setLogoSrc(path)
       }
     }
 
-    loadLogo()
-  }, [id])
+    fetchFile(`/logos/${id}.png`);
+    setLoading(false);
+  }, [id]);
 
   if (loading) {
     return (
@@ -105,7 +37,7 @@ const LogoEdicion = ({ id }: LogoEdicionProps) => {
   }
 
   if (!logoSrc) {
-    return null // No mostrar nada si no hay logo
+    return null
   }
 
   return (
@@ -119,5 +51,3 @@ const LogoEdicion = ({ id }: LogoEdicionProps) => {
     </div>
   )
 }
-
-export default LogoEdicion;

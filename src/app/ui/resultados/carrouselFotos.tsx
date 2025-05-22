@@ -20,13 +20,11 @@ const CarrouselFotos = ({ id }: CarrouselFotosProps) => {
   const [loading, setLoading] = useState(true)
   const plugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true }))
 
-  // Función para obtener las fotos del directorio específico
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        setLoading(true)
         // Lista de extensiones de imagen comunes
-        const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp']
+        const imageExtensions = ['jpg', 'png']
         const foundPhotos: Array<{
           src: string;
           alt: string;
@@ -36,7 +34,7 @@ const CarrouselFotos = ({ id }: CarrouselFotosProps) => {
 
         // Intentar cargar imágenes con diferentes extensiones
         // Usamos un enfoque de prueba y error ya que no podemos listar directorios desde el cliente
-        for (let i = 1; i <= 20; i++) { // Intentamos hasta 20 imágenes
+        for (let i = 1; i <= 4; i++) { // Intentamos hasta 20 imágenes
           for (const ext of imageExtensions) {
             try {
               const imagePath = `/images/${id}/${i}.${ext}`
@@ -63,62 +61,10 @@ const CarrouselFotos = ({ id }: CarrouselFotosProps) => {
             }
           }
         }
-
-        // Si no encontramos fotos específicas para este ID, usar fotos por defecto
-        if (foundPhotos.length === 0) {
-          const defaultPhotos = [
-            {
-              src: '/images/ibero_home.png',
-              alt: 'Olimpiada Iberoamericana de Matemática',
-              title: `Olimpiada ${id}`,
-              description: `Olimpiada Iberoamericana de Matemática ${id}`
-            }
-          ]
-          
-          // Intentar agregar algunas fotos específicas si existen
-          const specificPhotos = [
-            { path: '/images/arg_team_2022.jpg', condition: id === 2022 },
-            { path: '/images/prueba_2022.png', condition: id === 2022 },
-            { path: '/images/equipos_2024.png', condition: id === 2024 }
-          ]
-
-          for (const photo of specificPhotos) {
-            if (photo.condition) {
-              try {
-                const imageExists = await new Promise<boolean>((resolve) => {
-                  const img = new Image()
-                  img.onload = () => resolve(true)
-                  img.onerror = () => resolve(false)
-                  img.src = photo.path
-                })
-
-                if (imageExists) {
-                  defaultPhotos.push({
-                    src: photo.path,
-                    alt: `Foto de la edición ${id}`,
-                    title: `Olimpiada ${id}`,
-                    description: `Momento destacado de la Olimpiada Iberoamericana de Matemática ${id}`
-                  })
-                }
-              } catch (error) {
-                // Continuar sin esta foto
-              }
-            }
-          }
-
-          setFotos(defaultPhotos)
-        } else {
-          setFotos(foundPhotos)
-        }
       } catch (error) {
         console.error('Error al cargar las fotos:', error)
         // Foto por defecto en caso de error
-        setFotos([{
-          src: '/images/ibero_home.png',
-          alt: 'Olimpiada Iberoamericana de Matemática',
-          title: `Olimpiada ${id}`,
-          description: `Olimpiada Iberoamericana de Matemática ${id}`
-        }])
+        setFotos([]);
       } finally {
         setLoading(false)
       }
