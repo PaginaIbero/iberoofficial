@@ -82,14 +82,14 @@ export function DistribucionPuntajes({ id }: {
         width={20}
         height={300}
         data={chartData}
-        margin={{right: 15}}
+        margin={{right: 15, left: 30}}
         barCategoryGap={screenSize.width < 640 ? 0 : 1}
       >
         <Legend/>
         <XAxis
           dataKey='name'
           type='number'
-          domain={[0, puntajeMaximo]}
+          domain={[-0.5, puntajeMaximo]}
           interval={0}
           ticks={Array.from({ length: puntajeMaximo + 1 }, (_, i) => i)}
           tickFormatter={(value) => {
@@ -134,13 +134,13 @@ export function DistribucionProblemas({ id }: {
             <ResponsiveContainer width={'99%'} height={250}>
               <BarChart 
                 data={chartData[probno]} 
-                margin={{right: 35}}
+                margin={{right: 35, left: 40}}
                 barCategoryGap={screenSize.width < 640 ? 0 : 1}
               >
                 <XAxis 
                   dataKey='name' 
                   type='number' 
-                  domain={[0, puntajeMaximo]} 
+                  domain={[-0.5, puntajeMaximo]} 
                   interval={0}
                   ticks={Array(puntajeMaximo + 1).fill(0).map((_, i) => i)}
                 />
