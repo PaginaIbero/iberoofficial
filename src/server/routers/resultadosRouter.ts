@@ -54,7 +54,7 @@ export const resultadosRouter = router({
     return data.map((p) => [p.prob1, p.prob2, p.prob3, p.prob4, p.prob5, p.prob6])
   }),
   getDistribucionPuntajesByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
-    const puntajeMaximo = input < 2000 ? 10 : 7
+    const puntajeMaximo = input < 2000 ? 10 : 7 // CAMBIAR FOR GOD'S SAKE
     const dataPuntajes = await prisma.resultados.findMany({
       where: {
         fecha: input

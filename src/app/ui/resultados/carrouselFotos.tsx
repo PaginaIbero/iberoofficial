@@ -2,6 +2,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import Autoplay from 'embla-carousel-autoplay'
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, type CarouselApi } from '@/app/ui/landing/carousel';
+import { set } from "zod";
 
 interface CarrouselFotosProps {
   id: number;
@@ -32,13 +33,11 @@ const CarrouselFotos = ({ id }: CarrouselFotosProps) => {
           description: string;
         }> = []
 
-        // Intentar cargar imágenes con diferentes extensiones
-        // Usamos un enfoque de prueba y error ya que no podemos listar directorios desde el cliente
-        for (let i = 1; i <= 4; i++) { // Intentamos hasta 20 imágenes
+        for (let i = 1; i <= 4; i++) {
           for (const ext of imageExtensions) {
             try {
               const imagePath = `/images/${id}/${i}.${ext}`
-              // Crear una promesa para verificar si la imagen existe
+              
               const imageExists = await new Promise<boolean>((resolve) => {
                 const img = new Image()
                 img.onload = () => resolve(true)
@@ -53,24 +52,24 @@ const CarrouselFotos = ({ id }: CarrouselFotosProps) => {
                   title: `Olimpiada ${id}`,
                   description: `Momento destacado de la Olimpiada Iberoamericana de Matemática ${id}`
                 })
-                break // Si encontramos la imagen con esta extensión, no probamos otras
+                break
               }
             } catch (error) {
-              // Continuar con la siguiente extensión
               continue
             }
           }
         }
+
+        setFotos(foundPhotos);
       } catch (error) {
-        console.error('Error al cargar las fotos:', error)
-        // Foto por defecto en caso de error
+        console.error('Error al cargar las fotos:', error);
         setFotos([]);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     }
 
-    fetchPhotos()
+    fetchPhotos();
   }, [id])
 
   const scrollTo = useCallback((index: number) => {
