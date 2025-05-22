@@ -132,6 +132,32 @@ function InformacionGeneral({ id }: {
       <li>Sede: {data?.ciudad}, {data?.pais} ({data?.fecha})</li>
       <li>Países participantes: {data?.paises}</li>
       <li>Concursantes: {data?.concursantes}</li>
+      <li>Pruebas:&nbsp; 
+        <Link
+          className='hover:underline pointer-cursor text-blue-500'
+          href={`/pruebas/${id}-sp.pdf`}
+        >
+          Español
+        </Link> |&nbsp;
+        <Link
+          className='hover:underline pointer-cursor text-blue-500'
+          href={`/pruebas/${id}-pt.pdf`}
+        >
+          Portugués
+        </Link> |&nbsp;
+        <Link
+          className='hover:underline pointer-cursor text-blue-500'
+          href={`/pruebas/${id}-en.pdf`}
+        >
+          Inglés
+        </Link> |&nbsp;
+        <Link
+          className='hover:underline pointer-cursor text-blue-500'
+          href={`/sl/${id}.pdf`}
+        >
+          Shortlist
+        </Link>
+      </li>
     </ul>
   )
 }
