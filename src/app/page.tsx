@@ -20,11 +20,15 @@ export default function Home() {
       <Suspense fallback={'Cargando...'}>
         <CarouselEdiciones/>
       </Suspense>
-      <h1 className='text-3xl font-semibold mt-5 pb-5'>
-        Fotos
-      </h1>
-      {/* <p>Acá habrá muchas fotos...</p> */}
-      <CarrouselFotos />
+      <div className="mt-12 mb-8">
+        <h1 className='text-3xl font-semibold text-center mb-3'>
+          Galería de Fotos
+        </h1>
+        <p className='text-center text-gray-600 mb-8 max-w-2xl mx-auto'>
+          Momentos destacados de las diferentes ediciones de la Olimpiada Iberoamericana de Matemática
+        </p>
+        <CarrouselFotos />
+      </div>
     </div>
   );
 }
