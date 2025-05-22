@@ -21,10 +21,10 @@ export default function Home() {
         <CarouselEdiciones/>
       </Suspense>
       <div className="mt-12 mb-8">
-        <h1 className='text-3xl font-semibold text-center mb-3'>
+        <h1 className='text-3xl font-semibold'>
           Galería de Fotos
         </h1>
-        <p className='text-center text-gray-600 mb-8 max-w-2xl mx-auto'>
+        <p className='text-gray-600 mb-8 max-w-2xl'>
           Momentos destacados de las diferentes ediciones de la Olimpiada Iberoamericana de Matemática
         </p>
         <CarrouselFotos />

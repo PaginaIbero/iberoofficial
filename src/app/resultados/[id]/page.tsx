@@ -11,6 +11,8 @@ import { DistribucionProblemas, DistribucionPuntajes } from "@/app/ui/resultados
 import { DistribucionProblemasSkeleton, DistribucionPuntajesSkeleton, InformacionGeneralSkeleton, TitleSkeleton } from "@/app/ui/skeletons";
 import { PorPaisTable } from "@/app/ui/resultados/por_pais";
 import PorPaisMobileTable from "@/app/ui/resultados/por_pais_mobile";
+import CarrouselFotos from "@/app/ui/resultados/carrouselFotos";
+import LogoEdicion from "@/app/ui/resultados/logoEdicion";
 
 export default function Page({ params }: {
   params: {
@@ -19,12 +21,13 @@ export default function Page({ params }: {
 }) {
   const router = useRouter()
   const pathname = usePathname()
-  const searchParams = new URLSearchParams(useSearchParams())
+  const searchParams = useSearchParams()
   const [primerAnio, setPrimerAnio] = useState<number>(2023)
   const [ultimoAnio, setUltimoAnio] = useState<number>(2023)
   if (!['estadisticas', 'individuales', 'por-pais'].includes(searchParams.get('section') || '')) {
-    searchParams.set('section', 'estadisticas')
-    router.push(`${pathname}?${searchParams.toString()}`)
+    const newSearchParams = new URLSearchParams(searchParams.toString())
+    newSearchParams.set('section', 'estadisticas')
+    router.push(`${pathname}?${newSearchParams.toString()}`)
   }
   const {
     data: dataCronologia,
@@ -42,13 +45,13 @@ export default function Page({ params }: {
   return (
     <>
       {isLoadingCronologia ? <TitleSkeleton/> :
-        <div className='flex justify-center items-center gap-4'>
-              <Link 
-              href={`/resultados/${Number(params.id) - 1}?${searchParams}`}
-              className={`text-black hover:text-blue-800 transition-colors ${Number(params.id) !== primerAnio ? '' : 'invisible'}`}
-            >
-              ◄
-            </Link>
+        <div className='relative flex justify-center items-center gap-4'>
+          <Link 
+            href={`/resultados/${Number(params.id) - 1}?${searchParams}`}
+            className={`text-black hover:text-blue-800 transition-colors ${Number(params.id) !== primerAnio ? '' : 'invisible'}`}
+          >
+            ◄
+          </Link>
           <div className='flex flex-col'>
             <h1 className='text-2xl lg:text-4xl text-center text-black'>
               <span className='font-semibold'>{dataCronologia?.ciudad}</span>, {dataCronologia?.pais}
@@ -57,12 +60,16 @@ export default function Page({ params }: {
               {dataCronologia?.id}
             </h2>
           </div>
-            <Link 
-              href={`/resultados/${Number(params.id) + 1}?${searchParams}`}
-              className={`text-black hover:text-blue-800 transition-colors ${Number(params.id) !== ultimoAnio ? '' : 'invisible'}`}
-            >
-              ►
-            </Link>
+          <Link 
+            href={`/resultados/${Number(params.id) + 1}?${searchParams}`}
+            className={`text-black hover:text-blue-800 transition-colors ${Number(params.id) !== ultimoAnio ? '' : 'invisible'}`}
+          >
+            ►
+          </Link>
+          {/* Logo en la esquina superior derecha */}
+          <div className='absolute top-0 right-0'>
+            <LogoEdicion id={Number(params.id)} />
+          </div>
         </div>
       }
       <Chips chips={[{
@@ -119,6 +126,15 @@ function Estadisticas({ id }: {
       <Suspense fallback={<DistribucionProblemasSkeleton/>}>
         <DistribucionProblemas id={id}/>
       </Suspense>
+      <div className="mt-12 mb-8">
+        <h3 className='text-xl font-semibold text-black'>
+          Galería de Fotos
+        </h3>
+        <p className='text-gray-600 mb-8 max-w-2xl'>
+          Momentos destacados de la Olimpiada Iberoamericana de Matemática {id}
+        </p>
+        <CarrouselFotos id={id} />
+      </div>
     </>
   )
 }
