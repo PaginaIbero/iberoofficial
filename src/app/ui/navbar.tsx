@@ -24,7 +24,7 @@ export default function Navbar() {
     });
   }, [dropdownRef, mobileDropdownRef, menuRef]);
   return (
-    <nav className='fixed top-0 w-full bg-white z-10'>
+    <nav className='fixed top-0 w-full bg-blue-100 z-10'>
       <div className='flex items-center justify-between sm:px-24 px-10 py-2'>
         <h1 className='font-bold text-blue-800 text-xl md:text-2xl md:hover:text-yellow-500 transition-colors'>
           <Link href='/'>
@@ -42,7 +42,7 @@ export default function Navbar() {
             onMouseOut={(e) => setDropdown(false)}
             ref={dropdownRef}
           >
-            <div className='flex gap-1 h-full text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer'>
+            <div className='flex gap-1 h-full text-gray-800 hover:text-blue-800 transition-colors hover:cursor-pointer'>
               LA OLIMPIADA
               <ChevronDownIcon className='w-4' />
             </div>
@@ -52,21 +52,21 @@ export default function Navbar() {
               onMouseOver={() => setDropdown(true)}
             >
               <Link
-                className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='bg-white p-3 text-gray-800 hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/historia'}
               >
                 Historia
               </Link>
               <hr/>
               <Link
-                className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='bg-white p-3 text-gray-800 hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/reglamento'}
               >
                 Reglamento
               </Link>
               <hr />
               <Link
-                className='bg-white p-3 text-gray-400 hover:text-blue-800 hover:bg-blue-100 transition-colors'
+                className='bg-white p-3 text-gray-800 hover:text-blue-800 hover:bg-blue-100 transition-colors'
                 href={'/olimpiada/copa-puerto-rico'}
               >
                 Copa Puerto Rico
@@ -75,36 +75,36 @@ export default function Navbar() {
           </div>
           <Link
             href={'/cronologia'}
-            className='text-gray-400 hover:text-blue-800 transition-colors'
+            className='text-gray-800 hover:text-blue-800 transition-colors'
           >
             CRONOLOGÍA
           </Link>
           <Link
             href={'/resultados?section=por-año'}
-            className='text-gray-400 hover:text-blue-800 transition-colors'
+            className='text-gray-800 hover:text-blue-800 transition-colors'
           >
             RESULTADOS
           </Link>
           <Link
             href={'/paises'}
-            className='text-gray-400 hover:text-blue-800 transition-colors'
+            className='text-gray-800 hover:text-blue-800 transition-colors'
           >
             PAÍSES
           </Link>
           <Link
             href={'/pruebas'}
-            className='text-gray-400 hover:text-blue-800 transition-colors'
+            className='text-gray-800 hover:text-blue-800 transition-colors'
           >
             PRUEBAS
           </Link>
         </div>
         <div id="menu-hamburger" className="flex lg:hidden h-full">
           <CiMenuBurger 
-            className={`${menu ? 'hidden' : 'block'} w-8 h-8 text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer animate-fade-left`} 
+            className={`${menu ? 'hidden' : 'block'} w-8 h-8 text-gray-800 hover:text-blue-800 transition-colors hover:cursor-pointer animate-fade-left`} 
             onClick={() => setMenu(true)}
           />
           <AiOutlineClose 
-            className={`${menu ? 'block' : 'hidden'} w-8 h-8 text-gray-400 hover:text-blue-800 transition-colors hover:cursor-pointer animate-fade-left`} 
+            className={`${menu ? 'block' : 'hidden'} w-8 h-8 text-gray-800 hover:text-blue-800 transition-colors hover:cursor-pointer animate-fade-left`} 
             onClick={() => {
               setMenu(false);
               setDropdown(false);
@@ -122,7 +122,7 @@ export default function Navbar() {
             onClick={() => setDropdown(!dropdown)}
             ref={mobileDropdownRef}
           >
-            <div className='flex gap-1 py-3 text-gray-400'>
+            <div className='flex gap-1 py-3 text-gray-800'>
               LA OLIMPIADA
               <ChevronDownIcon className='w-4' />
             </div>
@@ -131,7 +131,7 @@ export default function Navbar() {
               className={`absolute flex flex-col top-6 w-96 mt-4 ml-5 bg-white ${dropdown ? 'block backdrop-blur-sm' : 'hidden'}`}
             >
               <Link
-                className='p-3 text-gray-400'
+                className='p-3 text-gray-800'
                 href={'/olimpiada/historia'}
                 onClick={() => setMenu(!menu)}
               >
@@ -139,7 +139,7 @@ export default function Navbar() {
               </Link>
               <hr/>
               <Link
-                className='p-3 text-gray-400'
+                className='p-3 text-gray-800'
                 href={'/olimpiada/reglamento'}
                 onClick={() => setMenu(!menu)}
               >
@@ -147,7 +147,7 @@ export default function Navbar() {
               </Link>
               <hr/>
               <Link
-                className='p-3 text-gray-400'
+                className='p-3 text-gray-800'
                 href={'/olimpiada/copa-puerto-rico'}
                 onClick={() => setMenu(!menu)}
               >
@@ -157,28 +157,28 @@ export default function Navbar() {
           </div>
           <Link
             href={'/cronologia'}
-            className='py-3 text-gray-400'
+            className='py-3 text-gray-800'
             onClick={() => setMenu(!menu)}
           >
             CRONOLOGÍA
           </Link>
           <Link
             href={'/resultados?section=por-año'}
-            className='py-3 text-gray-400'
+            className='py-3 text-gray-800'
             onClick={() => setMenu(!menu)}
           >
             RESULTADOS
           </Link>
           <Link
             href={'/paises'}
-            className='py-3 text-gray-400'
+            className='py-3 text-gray-800'
             onClick={() => setMenu(!menu)}
           >
             PAÍSES
           </Link>
           <Link
             href={'/pruebas'}
-            className='py-3 text-gray-400'
+            className='py-3 text-gray-800'
             onClick={() => setMenu(!menu)}
           >
             PRUEBAS
