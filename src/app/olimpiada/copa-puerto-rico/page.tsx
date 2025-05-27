@@ -1,7 +1,8 @@
-import { Section } from "@/app/ui/section";
+import { Section } from "@/app/ui/components/Section";
 
 export default function Page() {
-  let today = new Date(Date.now())
+  let today = new Date(Date.now());
+  
   return (
     <main className="flex min-h-screen flex-col text-black">
       <h1 className='text-4xl font-semibold text-center'>Copa Puerto Rico</h1>

@@ -1,15 +1,33 @@
-'use client'
+'use client';
+
 import { useRef, useState, useCallback, useEffect } from "react";
 import Autoplay from 'embla-carousel-autoplay'
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, type CarouselApi } from '@/app/ui/landing/carousel';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselPrevious, 
+  CarouselNext, 
+  type CarouselApi 
+} from '@/app/ui/landing/Carousel';
 
-const CarrouselFotos = () => {
+export default function PhotoGallery() {
+  return (
+    <section  className='pb-8'>
+      <h1 className='text-3xl font-semibold font-sans text-blue-500 pb-5'>
+        Galería de Fotos
+      </h1>
+      <PhotoCarousel />
+    </section>
+  );
+}
+
+function PhotoCarousel() {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null)
   const plugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true }))
   
-  // Array de fotos con información adicional
   const fotos = [
     {
       src: '/images/ibero_home.png',
@@ -225,5 +243,3 @@ const CarrouselFotos = () => {
     </div>
   )
 }
-
-export default CarrouselFotos;

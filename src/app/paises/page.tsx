@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { trpc } from "../_trpc/client";
-import Table from "../ui/table";
+import Table from "../ui/components/Table";
 
 export default function Page() {
   // trpc.cargaDatos.cargaPaises.useQuery()

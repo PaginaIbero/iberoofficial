@@ -1,5 +1,5 @@
 import { trpc } from "@/app/_trpc/client"
-import Table from "../table"
+import Table from "../components/Table"
 
 export function PorPaisTable({ id }: {
   id: number

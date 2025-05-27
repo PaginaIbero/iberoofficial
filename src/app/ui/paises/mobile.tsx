@@ -1,7 +1,7 @@
 import { trpc } from "@/app/_trpc/client";
 import { formatPremio } from "@/lib/formatStrings";
 import { participacion } from "@/lib/types";
-import Table from "../table";
+import Table from "../components/Table";
 
 export function PaisIndividualesMobileTable({ id }: {
   id: string

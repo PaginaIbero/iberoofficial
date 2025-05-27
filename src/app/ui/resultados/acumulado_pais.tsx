@@ -1,5 +1,5 @@
 import { trpc } from "@/app/_trpc/client"
-import Table from "@/app/ui/table"
+import Table from "@/app/ui/components/Table"
 
 export function AcumuladoPaisTable() {
   const { data, isLoading } = trpc.participaciones.getAcumuladoPais.useQuery()
