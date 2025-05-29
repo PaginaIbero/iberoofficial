@@ -1,17 +1,13 @@
 'use client';
 
-import { Cronologia } from "@prisma/client";
-import { trpc } from "../_trpc/client"
-import Link from "next/link";
-
-/*
- TODO:
- 1) Separar tabla en otro archivo
- 2) Mostrar sólo las pruebas disponibles (con un fetch o algo así)
- */
+import PapersGrid from '@/app/ui/pruebas/PapersGrid';
+import { trpc } from '../_trpc/client';
 
 export default function Page() {
-  const { data, isLoading } = trpc.cronologia.getAll.useQuery()
+  const { data, isLoading } = trpc.papers.getAvailablePapers.useQuery();
+
+  console.log(isLoading);
+  console.log(data);
 
   return (
     <div className='flex flex-col text-black'>
@@ -22,98 +18,7 @@ export default function Page() {
         Archivo de pruebas de la Olimpiada Iberoamericana de Matemática
       </p>
       <br/>
-      <div className='hidden md:grid grid-cols-12 gap-y-1 '>
-        {!isLoading ? 
-          data?.map((cronologia, i) => (
-            <Row cronologia={cronologia} key={i}/>
-          )) : 
-          <p className='text-center'>Cargando...</p>}
-      </div>
-      <div className='md:hidden'>
-          {!isLoading ?
-            data?.map((cronologia, i) => (
-              <div key={i}>
-                <p className='font-bold'>{cronologia.id}</p>
-                <Link
-                  className='hover:underline pointer-cursor text-blue-500'
-                  href={`/pruebas/${cronologia.id}-sp.pdf`}
-                >
-                  Español
-                </Link> |&nbsp;
-                <Link
-                  className='hover:underline pointer-cursor text-blue-500'
-                  href={`/pruebas/${cronologia.id}-pt.pdf`}
-                >
-                  Portugués
-                </Link> |&nbsp;
-                <Link
-                  className='hover:underline pointer-cursor text-blue-500'
-                  href={`/pruebas/${cronologia.id}-en.pdf`}
-                >
-                   Inglés
-                </Link> |&nbsp;
-                <Link
-                  className='hover:underline pointer-cursor text-blue-500'
-                  href={`/sl/${cronologia.id}.pdf`}
-                >
-                  Shortlist
-                </Link>
-              </div>
-            )) :
-            <p className='text-center'>Cargando...</p>
-          }
-      </div>
+      {!isLoading && <PapersGrid papers={data || []} />}
     </div>
-  )
-}
-
-function Row({ cronologia }: {
-  cronologia: Cronologia
-}) {
-  return (
-    <>
-      <div className='col-span-1'>
-        <h2 className='font-semibold'>
-          {cronologia.id}
-        </h2>
-      </div>
-      <div className='col-span-3'>
-        <p className=''>
-          {cronologia.ciudad}, {cronologia.pais}
-        </p>
-      </div>
-      <div className='col-span-2'>
-        <Link 
-          className='hover:underline cursor-pointer text-blue-500'
-          href={`/pruebas/${cronologia.id}-sp.pdf`}
-        >
-          Español
-        </Link>
-      </div>
-      <div className='col-span-2'>
-        <Link
-          className='hover:underline cursor-pointer text-blue-500' 
-          href={`/pruebas/${cronologia.id}-pt.pdf`}
-        >
-          Portugués
-        </Link>
-      </div>
-      <div className='col-span-2'>
-        <Link
-          className='hover:underline cursor-pointer text-blue-500'
-          href={`/pruebas/${cronologia.id}-en.pdf`}
-        >
-          Inglés
-        </Link>
-      </div>
-      <div className='col-span-2'>
-        <Link
-          className='hover:underline cursor-pointer text-blue-500'
-          href={`/sl/${cronologia.id}.pdf`}
-        >
-          Shortlist
-        </Link>
-      </div>
-    </>
   )
 }
