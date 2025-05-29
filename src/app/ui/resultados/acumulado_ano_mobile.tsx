@@ -19,11 +19,11 @@ export function AcumuladoAnoMobileTable() {
             >
               <h1 className='text-4xl font-semibold text-center'>{cronologia.id}</h1>
               <p className='text-center'>
-                <span className='font-bold'>{cronologia.ciudad}</span>, {cronologia.pais}
+                <span className='font-bold'>{cronologia.ciudad !== '' && cronologia.pais !== '' ? `${cronologia.ciudad}, ${cronologia.pais}` : cronologia.pais !== '' ? cronologia.pais : '-'}</span>
               </p>
-              <p className='text-center'>{cronologia.fecha}</p>
-              <p className='text-center'>Cortes: {cronologia.cortes[0]} | {cronologia.cortes[1]} | {cronologia.cortes[2]}</p>
-              <p className='text-center'>{cronologia.premios[0]} 🥇 | {cronologia.premios[1]} 🥈 | {cronologia.premios[2]} 🥉 | {cronologia.premios[3]} MH</p>
+              <p className='text-center'>{cronologia.fecha !== '' ? cronologia.fecha : '-'}</p>
+              <p className='text-center'>Cortes: {cronologia.cortes[0] !== 0 ? cronologia.cortes[0] : '-'} | {cronologia.cortes[1] !== 0 ? cronologia.cortes[1] : '-'} | {cronologia.cortes[2] !== 0 ? cronologia.cortes[2] : '-'}</p>
+              <p className='text-center'>{cronologia.premios[0] !== 0 ? cronologia.premios[0] : '-'} 🥇 | {cronologia.premios[1] !== 0 ? cronologia.premios[1] : '-'} 🥈 | {cronologia.premios[2] !== 0 ? cronologia.premios[2] : '-'} 🥉 | {cronologia.premios[3] !== 0 ? cronologia.premios[3] : '-'} MH</p>
               <p className='text-center'>Copa PR: <span className='font-bold'>{cronologia.copa_pr?.nombre || '-'}</span>
               </p>
             </Link>
