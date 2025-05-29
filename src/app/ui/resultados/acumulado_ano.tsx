@@ -56,18 +56,18 @@ function AcumuladoAnoTableBody({ content }: {
           }}
         >
           <td className='py-3'>{item.id}</td>
-          <td className='py-3'>{item.pais}</td>
-          <td className='py-3'>{item.paises}</td>
-          <td className='py-3 border-l-2 border-white'>{item.concursantes}</td>
-          <td className='py-3'>{item.hombres}</td>
-          <td className='py-3'>{item.mujeres}</td>
-          <td className='py-3 border-l-2 border-white'>{item.cortes ? item.cortes[0] : 'n/a'}</td>
-          <td className='py-3'>{item.cortes ? item.cortes[1] : 'n/a'}</td>
-          <td className='py-3'>{item.cortes ? item.cortes[2] : 'n/a'}</td>
-          <td className='py-3 border-l-2 border-white'>{item.premios ? item.premios[0] : 'n/a'}</td>
-          <td className='py-3'>{item.premios ? item.premios[1] : 'n/a'}</td>
-          <td className='py-3'>{item.premios ? item.premios[2] : 'n/a'}</td>
-          <td className='py-3'>{item.premios ? item.premios[3] : 'n/a'}</td>
+          <td className='py-3'>{item.pais !== '-' ? item.pais : '-'}</td>
+          <td className='py-3'>{item.paises !== 0 ? item.paises : '-'}</td>
+          <td className='py-3 border-l-2 border-white'>{item.concursantes !== 0 ? item.concursantes : '-'}</td>
+          <td className='py-3'>{item.concursantes !== 0 ? item.hombres : '-'}</td>
+          <td className='py-3'>{item.concursantes !== 0 ? item.mujeres : '-'}</td>
+          <td className='py-3 border-l-2 border-white'>{item.concursantes !== 0 ? item.cortes[0] : '-'}</td>
+          <td className='py-3'>{item.concursantes !== 0 ? item.cortes[1] : '-'}</td>
+          <td className='py-3'>{item.concursantes !== 0 ? item.cortes[2] : '-'}</td>
+          <td className='py-3 border-l-2 border-white'>{item.concursantes !== 0 ? item.premios[0] : '-'}</td>
+          <td className='py-3'>{item.concursantes !== 0 ? item.premios[1] : '-'}</td>
+          <td className='py-3'>{item.concursantes !== 0 ? item.premios[2] : '-'}</td>
+          <td className='py-3'>{item.concursantes !== 0 ? item.premios[3] : '-'}</td>
           <td className='py-3 border-l-2 border-white hidden lg:table-cell'>{item.copa_pr?.nombre}</td>
         </tr>
       ))}
