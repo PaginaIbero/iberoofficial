@@ -123,7 +123,7 @@ export function DistribucionProblemas({ id }: {
   const puntajeMaximo = id < 2000 ? 10 : 7
 
   return (
-    <div className='grid xl:grid-cols-6 md:grid-cols-3 grid-cols-2 gap-y-5 text-center items-center'>
+    <div className='grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-y-5 text-center items-center'>
       {[...Array(6)].map((_, probno) => {
         return (
           <div key={probno} className='flex flex-col w-full text-black content-center'>
