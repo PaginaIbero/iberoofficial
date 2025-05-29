@@ -45,6 +45,7 @@ export default function Page({ params }: {
   return (
     <>
       {isLoadingCronologia ? <TitleSkeleton/> :
+      <>
         <div className='relative flex justify-center items-center gap-4'>
           <Link 
             href={`/resultados/${Number(params.id) - 1}?${searchParams}`}
@@ -54,7 +55,7 @@ export default function Page({ params }: {
           </Link>
           <div className='flex flex-col'>
             <h1 className='text-2xl lg:text-4xl text-center text-black'>
-              <span className='font-semibold'>{dataCronologia?.ciudad}</span>, {dataCronologia?.pais}
+              <span className='font-semibold'>{dataCronologia ? `${dataCronologia?.ciudad}, ${dataCronologia?.pais}` : '-'}</span>
             </h1>
             <h2 className='text-2xl lg:text-4xl text-center text-black'>
               {dataCronologia?.id}
@@ -67,38 +68,56 @@ export default function Page({ params }: {
             ►
           </Link>
           {/* Logo en la esquina superior derecha */}
-          <div className='absolute top-0 right-0'>
+          <div className='hidden md:block absolute top-0 right-0'>
             <LogoEdicion id={Number(params.id)} />
           </div>
         </div>
+        <div className='md:hidden flex justify-center items-center my-3'>
+          <LogoEdicion id={Number(params.id)} />
+        </div>
+      </>
       }
-      <Chips chips={[{
-        text: 'Estadísticas',
-        href: 'estadisticas'
-      }, {
-        text: 'Individuales',
-        href: 'individuales'
-      }, {
-        text: 'Por país',
-        href: 'por-pais'
-      }]}/>
+      {(dataCronologia?.concursantes === null || dataCronologia?.concursantes === undefined || dataCronologia?.concursantes === 0) && isLoadingCronologia === false ? (
+        <div className="flex justify-center items-center my-3">
+          <p className="text-black">No tenemos información de esta edición. Para contribuir, enviar un mail a <a href="mailto:iberoofficial@gmail.com" className="text-blue-600 hover:text-blue-800">iberoofficial@gmail.com</a></p>
+        </div>
+        )
+      : (
+        <>
+          <Chips chips={[{
+            text: 'Estadísticas',
+            href: 'estadisticas'
+          }, {
+            text: 'Individuales',
+            href: 'individuales'
+          }, {
+            text: 'Por país',
+            href: 'por-pais'
+          }]}/>
       {searchParams.get('section') === 'estadisticas' && <Estadisticas id={Number(params.id)}/>}
-      {searchParams.get('section') === 'individuales' && <>
-        <div className='hidden md:block'>
-          <IndividualesTable id={Number(params.id)}/>
-        </div>
-        <div className='block md:hidden'>
-          <IndividualesMobileTable id={Number(params.id)}/>
-        </div>
-      </>}
-      {searchParams.get('section') === 'por-pais' && <>
-        <div className='hidden md:block'>
-          <PorPaisTable id={Number(params.id)}/>
-        </div>
-        <div className='block md:hidden'>
-          <PorPaisMobileTable id={Number(params.id)}/>
-        </div>
-      </>}
+      {searchParams.get('section') === 'individuales' && 
+        <>
+          <div className='hidden md:block'>
+            <IndividualesTable id={Number(params.id)}/>
+          </div>
+          <div className='block md:hidden'>
+            <IndividualesMobileTable id={Number(params.id)}/>
+          </div>
+        </>
+      }
+      {searchParams.get('section') === 'por-pais' && 
+        <>
+          <div className='hidden md:block'>
+            <PorPaisTable id={Number(params.id)}/>
+          </div>
+          <div className='block md:hidden'>
+            <PorPaisMobileTable id={Number(params.id)}/>
+          </div>
+        </>
+      }
+      </>
+      )
+      }
     </>
   )
 }
