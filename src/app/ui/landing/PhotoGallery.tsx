@@ -9,7 +9,7 @@ import {
   CarouselPrevious, 
   CarouselNext, 
   type CarouselApi 
-} from '@/app/ui/landing/Carousel';
+} from '@/app/ui/landing/carousel';
 
 export default function PhotoGallery() {
   return (
