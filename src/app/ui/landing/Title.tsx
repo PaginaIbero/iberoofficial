@@ -1,4 +1,4 @@
-export default function Header() {
+export default function Title() {
   return (
     <header className='pb-8'>
       <h1 className='text-4xl font-semibold font-sans text-center text-blue-500 pb-5'>
