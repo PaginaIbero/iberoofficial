@@ -1,7 +1,7 @@
 'use client'
 import { useRef, useState, useCallback, useEffect } from "react";
 import Autoplay from 'embla-carousel-autoplay'
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, type CarouselApi } from '@/app/ui/landing/carousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, type CarouselApi } from '@/app/ui/landing/Carousel';
 
 export default function PhotoCarousel() {
   const [api, setApi] = useState<CarouselApi>()
