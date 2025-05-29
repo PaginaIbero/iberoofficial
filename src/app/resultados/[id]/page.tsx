@@ -45,6 +45,7 @@ export default function Page({ params }: {
   return (
     <>
       {isLoadingCronologia ? <TitleSkeleton/> :
+      <>
         <div className='relative flex justify-center items-center gap-4'>
           <Link 
             href={`/resultados/${Number(params.id) - 1}?${searchParams}`}
@@ -67,10 +68,14 @@ export default function Page({ params }: {
             ►
           </Link>
           {/* Logo en la esquina superior derecha */}
-          <div className='absolute top-0 right-0'>
+          <div className='hidden md:block absolute top-0 right-0'>
             <LogoEdicion id={Number(params.id)} />
           </div>
         </div>
+        <div className='md:hidden flex justify-center items-center my-3'>
+          <LogoEdicion id={Number(params.id)} />
+        </div>
+      </>
       }
       <Chips chips={[{
         text: 'Estadísticas',
