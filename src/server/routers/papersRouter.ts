@@ -20,10 +20,10 @@ export const papersRouter = router({
         'id': edition.id,
         'ciudad': edition.ciudad,
         'pais': edition.pais,
-        'available': await Promise.all(['es', 'pt', 'en'].map(async (lang) => {
+        'available': await Promise.all(['sp', 'pt', 'en', 'sl'].map(async (lang) => {
           const fileName = `${edition.id}-${lang}.pdf`;
-          const response = await fetch(fileName, { method: 'GET' });
-          return response.ok;
+          const filePath = path.join(process.cwd(), 'public', 'pruebas', fileName);
+          return fs.existsSync(filePath);
         })),
       });
     }
