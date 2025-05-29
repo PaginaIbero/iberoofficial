@@ -79,7 +79,7 @@ function Row({ cronologia }: {
       </div>
       <div className='col-span-3'>
         <p className=''>
-          {cronologia.ciudad}, {cronologia.pais}
+          {cronologia.ciudad !== '-' && cronologia.pais !== '-' ? `${cronologia.ciudad}, ${cronologia.pais}` : cronologia.pais !== '-' ? cronologia.pais : cronologia.ciudad !== '-' ? cronologia.ciudad : '-'}
         </p>
       </div>
       <div className='col-span-2'>
