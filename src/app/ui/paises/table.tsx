@@ -1,6 +1,6 @@
 import { trpc } from "@/app/_trpc/client";
 import { formatPremio } from "@/lib/formatStrings";
-import Table from "../table";
+import Table from "../components/Table";
 
 export function PaisIndividualesTable({ id }: {
   id: string

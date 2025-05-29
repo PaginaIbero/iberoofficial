@@ -3,15 +3,17 @@
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { CiMenuBurger } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
+import { CiMenuBurger } from "react-icons/ci";
 
-export default function Navbar() {
+export default function Header() {
   const [menu, setMenu] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+  
   const menuRef = useRef<HTMLDivElement | null>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const mobileDropdownRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     document.addEventListener("mousedown", (event: MouseEvent) => {
       console.log(dropdownRef.current?.contains(event.target as Node))
@@ -23,6 +25,7 @@ export default function Navbar() {
       }
     });
   }, [dropdownRef, mobileDropdownRef, menuRef]);
+  
   return (
     <nav className='fixed top-0 w-full bg-blue-100 z-10'>
       <div className='flex items-center justify-between sm:px-24 px-10 py-2'>

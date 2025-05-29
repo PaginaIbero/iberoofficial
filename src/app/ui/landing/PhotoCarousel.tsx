@@ -2,75 +2,40 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import Autoplay from 'embla-carousel-autoplay'
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, type CarouselApi } from '@/app/ui/landing/Carousel';
-import { set } from "zod";
 
-interface CarrouselFotosProps {
-  id: number;
-}
-
-const CarrouselFotos = ({ id }: CarrouselFotosProps) => {
+export default function PhotoCarousel() {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null)
-  const [fotos, setFotos] = useState<Array<{
-    src: string;
-    alt: string;
-    title: string;
-    description: string;
-  }>>([])
-  const [loading, setLoading] = useState(true)
   const plugin = useRef(Autoplay({ delay: 4000, stopOnInteraction: true }))
-
-  useEffect(() => {
-    const fetchPhotos = async () => {
-      try {
-        // Lista de extensiones de imagen comunes
-        const imageExtensions = ['jpg', 'png']
-        const foundPhotos: Array<{
-          src: string;
-          alt: string;
-          title: string;
-          description: string;
-        }> = []
-
-        for (let i = 1; i <= 4; i++) {
-          for (const ext of imageExtensions) {
-            try {
-              const imagePath = `/images/${id}/${i}.${ext}`
-              
-              const imageExists = await new Promise<boolean>((resolve) => {
-                const img = new Image()
-                img.onload = () => resolve(true)
-                img.onerror = () => resolve(false)
-                img.src = imagePath
-              })
-
-              if (imageExists) {
-                foundPhotos.push({
-                  src: imagePath,
-                  alt: `Foto ${i} de la edición ${id}`,
-                  title: `Olimpiada ${id}`,
-                  description: `Momento destacado de la Olimpiada Iberoamericana de Matemática ${id}`
-                })
-                break
-              }
-            } catch (error) {
-              continue
-            }
-          }
-        }
-
-        setFotos(foundPhotos);
-      } catch (error) {
-        console.error('Error al cargar las fotos:', error);
-        setFotos([]);
-      } finally {
-        setLoading(false);
-      }
+  
+  // Array de fotos con información adicional
+  const fotos = [
+    {
+      src: '/images/ibero_home.png',
+      alt: 'Olimpiada Iberoamericana de Matemática',
+      title: 'Olimpiada Iberoamericana de Matemática',
+      description: 'Competencia anual que reúne a los mejores talentos matemáticos de Iberoamérica'
+    },
+    {
+      src: '/images/arg_team_2022.jpg',
+      alt: 'Equipo Argentino 2022',
+      title: 'Equipo Argentino 2022',
+      description: 'El equipo argentino en la Olimpiada Iberoamericana de Matemática 2022'
+    },
+    {
+      src: '/images/prueba_2022.png',
+      alt: 'Prueba 2022',
+      title: 'Prueba 2022',
+      description: 'Estudiantes rindiendo la prueba de la Olimpiada Iberoamericana de Matemática 2022'
+    },
+    {
+      src: '/images/equipos_2024.png',
+      alt: 'Equipos 2024',
+      title: 'Países participantes 2024',
+      description: 'Equipos de todo el mundo en la Olimpiada Iberoamericana de Matemática 2024'
     }
-
-    fetchPhotos();
-  }, [id])
+  ];
 
   const scrollTo = useCallback((index: number) => {
     api?.scrollTo(index)
@@ -112,26 +77,6 @@ const CarrouselFotos = ({ id }: CarrouselFotosProps) => {
       document.body.style.overflow = 'unset'
     }
   }, [selectedPhoto])
-
-  if (loading) {
-    return (
-      <div className="w-full max-w-6xl mx-auto px-4">
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-        </div>
-      </div>
-    )
-  }
-
-  if (fotos.length === 0) {
-    return (
-      <div className="w-full max-w-6xl mx-auto px-4">
-        <div className="text-center text-gray-500 py-8">
-          No se encontraron fotos para esta edición.
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4">
@@ -185,6 +130,22 @@ const CarrouselFotos = ({ id }: CarrouselFotosProps) => {
         <CarouselNext className="right-2 bg-white/90 hover:bg-white border-gray-200 text-gray-800 shadow-lg" />
       </Carousel>
       
+      {/* Indicadores de puntos funcionales 
+      <div className="flex justify-center mt-6 space-x-2">
+        {fotos.map((_, index) => (
+          <button
+            key={index}
+            className={`w-3 h-3 rounded-full transition-all duration-200 ${
+              index === current 
+                ? 'bg-blue-600 scale-110' 
+                : 'bg-gray-300 hover:bg-gray-500'
+            }`}
+            onClick={() => scrollTo(index)}
+            aria-label={`Ir a la foto ${index + 1}`}
+          />
+        ))}
+      </div>
+      */}
       {/* Modal/Lightbox para ver foto en grande */}
       {selectedPhoto !== null && (
         <div 
@@ -264,5 +225,3 @@ const CarrouselFotos = ({ id }: CarrouselFotosProps) => {
     </div>
   )
 }
-
-export default CarrouselFotos;

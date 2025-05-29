@@ -1,4 +1,4 @@
-import { Section } from "@/app/ui/section";
+import { Section } from "@/app/ui/components/Section";
 
 
 export default function Page() {
