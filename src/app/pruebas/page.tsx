@@ -6,9 +6,6 @@ import { trpc } from '../_trpc/client';
 export default function Page() {
   const { data, isLoading } = trpc.papers.getAvailablePapers.useQuery();
 
-  console.log(isLoading);
-  console.log(data);
-
   return (
     <div className='flex flex-col text-black'>
       <h1 className='text-4xl font-semibold text-center'>
