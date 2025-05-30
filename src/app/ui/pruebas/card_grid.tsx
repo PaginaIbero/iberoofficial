@@ -13,7 +13,7 @@ export default function CardGrid() {
           <Card
             key={item.id}
             title={item.id.toString()}
-            subtitle={item.ciudad + ', ' + item.pais}
+            subtitle={item.ciudad !== '-' && item.pais !== '-' ? `${item.ciudad}, ${item.pais}` : item.pais !== '-' ? item.pais : 'N/A'}
           />
         ))}
       </div>
