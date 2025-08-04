@@ -3,14 +3,14 @@
 import { trpc } from "@/app/_trpc/client";
 import { cronologia } from "@/lib/types";
 import { useRouter } from "next/navigation";
-import { CronologiaMobileTableSkeleton } from "@/app/ui/skeletons";
+import { CronologyCardGridSkeleton } from "@/app/ui/cronologia/CronologyCardGridSkeleton";
 
 export default function CronologyCardGrid() {
   const { data, isLoading } = trpc.cronologia.getAll.useQuery();
   const router = useRouter();
 
   if (isLoading) {
-    return <CronologiaMobileTableSkeleton />;
+    return <CronologyCardGridSkeleton />;
   }
 
   return (
