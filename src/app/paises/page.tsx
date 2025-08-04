@@ -10,12 +10,14 @@ export default function Page() {
   const { data, isLoading } = trpc.paises.getAll.useQuery();
   return (
     <div className="flex flex-col text-black">
-      <h1 className='text-4xl font-semibold text-center'>
-        Países
-      </h1>
-      <p className='text-center mb-5'>
-        Lista de países participantes de la Olimpiada Iberoamericana de Matemática
-      </p>
+      <header className='pb-8'>
+        <h1 className='text-4xl font-semibold font-sans text-center text-blue-500 pb-5'>
+          Países
+        </h1>
+        <p className='text-center text-gray-700 px-4'>
+          Lista de países participantes de la Olimpiada Iberoamericana de Matemática
+        </p>
+      </header>
       <div className='hidden md:block'>
         <br/>
         <Table 

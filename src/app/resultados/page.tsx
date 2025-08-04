@@ -20,12 +20,14 @@ function Content() {
   const searchParams = new URLSearchParams(useSearchParams());
   return (
     <div className="flex flex-col text-black">
-      <h1 className='text-4xl font-semibold text-center'>
-        Resultados
-      </h1>
-      <p className='text-center mb-5'>
-        Resultados de las instancias de la Olimpiada Iberoamericana de Matemática
-      </p>
+      <header className='pb-8'>
+        <h1 className='text-4xl font-semibold font-sans text-center text-blue-500 pb-5'>
+          Resultados
+        </h1>
+        <p className='text-center text-gray-700 px-4'>
+          Resultados de las instancias de la Olimpiada Iberoamericana de Matemática
+        </p>
+      </header>
       <Chips chips={[{
         text: 'Por año',
         href: 'por-año'

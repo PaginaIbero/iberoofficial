@@ -5,10 +5,12 @@ export default function Page() {
   
   return (
     <main className="flex min-h-screen flex-col text-black">
-      <h1 className='text-4xl font-semibold text-center'>Copa Puerto Rico</h1>
-      <p className='text-center'>
-        La Copa Puerto Rico se otorga anualmente al país de mejor progreso relativo en la OIM.
-      </p>
+      <header className='pb-8'>
+        <h1 className='text-4xl font-semibold font-sans text-center text-blue-500 pb-5'>Copa Puerto Rico</h1>
+        <p className='text-center text-gray-700 px-4'>
+          La Copa Puerto Rico se otorga anualmente al país de mejor progreso relativo en la OIM.
+        </p>
+      </header>
       <br/>
       <Section title='Artículo 1'>
         <p className='my-2'>
