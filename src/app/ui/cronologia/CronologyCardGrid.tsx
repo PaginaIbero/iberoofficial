@@ -40,7 +40,7 @@ export default function CronologyCardGrid() {
 
             {/* Date */}
             <div className="text-center mb-3">
-              <p className="text-sm text-gray-500">{item.fecha}</p>
+              <p className="text-sm text-gray-500">{item.fecha || "-"}</p>
             </div>
 
             {/* Stats */}
@@ -53,14 +53,6 @@ export default function CronologyCardGrid() {
                 <span className="text-sm text-gray-600">Concursantes:</span>
                 <span className="font-semibold">{item.concursantes}</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Hombres:</span>
-                <span className="font-semibold">{item.hombres}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Mujeres:</span>
-                <span className="font-semibold">{item.mujeres}</span>
-              </div>
             </div>
 
             {/* Awards - Only show on larger screens */}
@@ -69,18 +61,18 @@ export default function CronologyCardGrid() {
                 <div>
                   <span className="text-gray-500">Cortes:</span>
                   <div className="flex space-x-1 mt-1">
-                    <span className="bg-yellow-100 text-yellow-800 px-1 rounded">O: {item.cortes?.[0] || 'n/a'}</span>
-                    <span className="bg-gray-100 text-gray-800 px-1 rounded">P: {item.cortes?.[1] || 'n/a'}</span>
-                    <span className="bg-orange-100 text-orange-800 px-1 rounded">B: {item.cortes?.[2] || 'n/a'}</span>
+                    <span className="bg-yellow-100 text-yellow-800 px-1 rounded">O: {item.cortes?.[0] || '-'}</span>
+                    <span className="bg-gray-100 text-gray-800 px-1 rounded">P: {item.cortes?.[1] || '-'}</span>
+                    <span className="bg-orange-100 text-orange-800 px-1 rounded">B: {item.cortes?.[2] || '-'}</span>
                   </div>
                 </div>
                 <div>
                   <span className="text-gray-500">Premios:</span>
                   <div className="flex space-x-1 mt-1">
-                    <span className="bg-yellow-100 text-yellow-800 px-1 rounded">O: {item.premios?.[0] || 'n/a'}</span>
-                    <span className="bg-gray-100 text-gray-800 px-1 rounded">P: {item.premios?.[1] || 'n/a'}</span>
-                    <span className="bg-orange-100 text-orange-800 px-1 rounded">B: {item.premios?.[2] || 'n/a'}</span>
-                    <span className="bg-blue-100 text-blue-800 px-1 rounded">MH: {item.premios?.[3] || 'n/a'}</span>
+                    <span className="bg-yellow-100 text-yellow-800 px-1 rounded">O: {item.premios?.[0] || '-'}</span>
+                    <span className="bg-gray-100 text-gray-800 px-1 rounded">P: {item.premios?.[1] || '-'}</span>
+                    <span className="bg-orange-100 text-orange-800 px-1 rounded">B: {item.premios?.[2] || '-'}</span>
+                    <span className="bg-blue-100 text-blue-800 px-1 rounded">MH: {item.premios?.[3] || '-'}</span>
                   </div>
                 </div>
               </div>
