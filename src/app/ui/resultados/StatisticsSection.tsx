@@ -1,8 +1,8 @@
 'use client';
 
 import Link from "next/link";
-import { DistribucionProblemas, DistribucionPuntajes } from "@/app/ui/resultados/Charts";
-import LogoEdicion from "@/app/ui/resultados/LogoEdicion";
+import { DistribucionProblemas, DistribucionPuntajes } from "@/app/ui/resultados/charts";
+import LogoEdicion from "@/app/ui/resultados/logoEdicion";
 
 interface StatisticsSectionProps {
   id: number;

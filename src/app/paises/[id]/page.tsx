@@ -1,4 +1,4 @@
-import CountryDetailsCardGrid from "@/app/ui/paises/CountryDetailsCardGrid";
+import CountryDetailsCardGrid from "@/app/ui/paises/CountryDashboard";
 
 export default function Page({ params: { id } }: {
   params: {
