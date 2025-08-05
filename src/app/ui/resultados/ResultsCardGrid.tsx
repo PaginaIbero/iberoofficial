@@ -5,6 +5,7 @@ import { cronologia } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ResultsCardGridSkeleton } from "@/app/ui/resultados/ResultsCardGridSkeleton";
+import Chips from "@/app/ui/components/Chips";
 
 export default function ResultsCardGrid() {
   const [view, setView] = useState<'years' | 'countries'>('years');
@@ -15,6 +16,15 @@ export default function ResultsCardGrid() {
 
   const isLoading = view === 'years' ? yearsLoading : countriesLoading;
 
+  const chipOptions = [
+    { id: 'years', label: 'Por Año', value: 'years' },
+    { id: 'countries', label: 'Por País', value: 'countries' }
+  ];
+
+  const handleViewChange = (value: string) => {
+    setView(value as 'years' | 'countries');
+  };
+
   if (isLoading) {
     return <ResultsCardGridSkeleton />
   }
@@ -22,34 +32,18 @@ export default function ResultsCardGrid() {
   return (
     <div className="space-y-6">
       {/* View Toggle */}
-      <div className="flex justify-center space-x-4">
-        <button
-          onClick={() => setView('years')}
-          className={`px-6 py-2 rounded-lg font-medium transition-colors ${
-            view === 'years'
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          }`}
-        >
-          Por Año
-        </button>
-        <button
-          onClick={() => setView('countries')}
-          className={`px-6 py-2 rounded-lg font-medium transition-colors ${
-            view === 'countries'
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          }`}
-        >
-          Por País
-        </button>
-      </div>
+      <Chips
+        options={chipOptions}
+        defaultValue={view}
+        onChange={handleViewChange}
+        className="flex justify-center"
+      />
 
       {/* Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
         {view === 'years' ? (
           // Years View
-          yearsData?.map((item: cronologia) => (
+          yearsData?.map((item) => (
             <div
               key={item.id}
               className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-200 hover:border-blue-300"

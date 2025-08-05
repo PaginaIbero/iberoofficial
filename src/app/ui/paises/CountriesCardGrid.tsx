@@ -1,6 +1,7 @@
 'use client';
 
 import { trpc } from "@/app/_trpc/client";
+import { pais } from "@/lib/types";
 import { useRouter } from "next/navigation";
 
 export default function CountriesCardGrid() {
@@ -32,7 +33,7 @@ export default function CountriesCardGrid() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-4">
       {data?.map((pais) => (
         <div
           key={pais.id}
@@ -55,9 +56,9 @@ export default function CountriesCardGrid() {
 
             {/* Stats */}
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between overflow-hidden">
                 <span className="text-sm text-gray-600">Contacto:</span>
-                <span className="font-semibold text-sm">{pais.contacto || 'N/A'}</span>
+                <span className="font-semibold text-sm text-right">{pais.contacto || 'N/A'}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600">Sitio OM:</span>
