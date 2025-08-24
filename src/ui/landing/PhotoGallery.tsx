@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useCallback, useEffect } from "react";
+import Image from 'next/image'
 import Autoplay from 'embla-carousel-autoplay'
 import { 
   Carousel, 
@@ -117,7 +118,7 @@ function PhotoCarousel() {
                   onClick={() => setSelectedPhoto(index)}
                 >
                   <div className="aspect-4/3 overflow-hidden">
-                    <img 
+                    <Image 
                       src={foto.src} 
                       alt={foto.alt} 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
@@ -187,7 +188,7 @@ function PhotoCarousel() {
               className="relative max-w-full max-h-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <Image
                 src={fotos[selectedPhoto].src}
                 alt={fotos[selectedPhoto].alt}
                 className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
