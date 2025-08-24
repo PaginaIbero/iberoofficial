@@ -116,7 +116,7 @@ function PhotoCarousel() {
                   className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 cursor-pointer"
                   onClick={() => setSelectedPhoto(index)}
                 >
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="aspect-4/3 overflow-hidden">
                     <img 
                       src={foto.src} 
                       alt={foto.alt} 
@@ -125,7 +125,7 @@ function PhotoCarousel() {
                   </div>
                   
                   {/* Overlay con gradiente */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
                   {/* Información de la foto */}
                   <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -194,7 +194,7 @@ function PhotoCarousel() {
               />
               
               {/* Información de la foto en el modal */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 rounded-b-lg">
+              <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-6 rounded-b-lg">
                 <h3 className="text-white text-xl font-semibold mb-2">
                   {fotos[selectedPhoto].title}
                 </h3>
