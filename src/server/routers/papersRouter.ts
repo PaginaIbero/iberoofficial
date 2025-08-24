@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 import { router, publicProcedure } from "../trpc";
-import { PapersProps } from "@/app/ui/pruebas/PapersGrid";
+import { PapersProps } from "@/ui/pruebas/PapersGrid";
 import prisma from '@/lib/db';
 
 export const papersRouter = router({
