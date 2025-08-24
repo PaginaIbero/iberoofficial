@@ -1,11 +1,10 @@
 'use client';
 
 import { trpc } from "@/app/_trpc/client";
-import { cronologia } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ResultsCardGridSkeleton } from "@/app/ui/resultados/ResultsCardGridSkeleton";
-import Chips from "@/app/ui/components/Chips";
+import { ResultsCardGridSkeleton } from "@/ui/resultados/ResultsCardGridSkeleton";
+import Chips from "@/ui/components/Chips";
 
 export default function ResultsCardGrid() {
   const [view, setView] = useState<'years' | 'countries'>('years');

@@ -1,7 +1,6 @@
 'use client';
 
 import { trpc } from "@/app/_trpc/client";
-import { pais } from "@/lib/types";
 import { useRouter } from "next/navigation";
 
 export default function CountriesCardGrid() {

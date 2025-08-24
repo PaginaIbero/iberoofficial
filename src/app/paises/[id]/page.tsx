@@ -1,13 +1,13 @@
-import CountryDetailsCardGrid from "@/app/ui/paises/CountryDashboard";
+import CountryDetailsCardGrid from "@/ui/paises/CountryDashboard";
 
-export default function Page({ params: { id } }: {
+export default async function Page({ params }: {
   params: {
     id: string
   }
 }) {
   return (
     <div className="flex flex-col text-black">
-      <CountryDetailsCardGrid id={id} />
+      <CountryDetailsCardGrid id={params.id} />
     </div>
   )
 }

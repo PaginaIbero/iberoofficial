@@ -2,29 +2,28 @@
 
 import { trpc } from "@/app/_trpc/client";
 import { useState } from "react";
-import Chips from "@/app/ui/components/Chips";
-import StatisticsSection from "@/app/ui/resultados/StatisticsSection";
-import IndividualResultsSection from "@/app/ui/resultados/IndividualResultsSection";
-import TeamResultsSection from "./TeamResultsSection";
+import Chips from "@/ui/components/Chips";
+import CountryStatisticsSection from "@/ui/paises/CountryStatisticsSection";
+import CountryIndividualResultsSection from "@/ui/paises/CountryIndividualResultsSection";
+import CountryTeamResultsSection from "@/ui/paises/CountryTeamResultsSection";
 
-export default function IndividualResultsCardGrid({ id }: { id: number }) {
-  const [view, setView] = useState<'stats' | 'individual' | 'countries'>('stats');
+export default function CountryDetailsCardGrid({ id }: { id: string }) {
+  const [view, setView] = useState<'stats' | 'individual' | 'team'>('stats');
 
-  const { data: cronologiaData, isLoading: cronologiaLoading } = trpc.cronologia.getByID.useQuery(id);
-  const { data: generalInfoData, isLoading: generalInfoLoading } = trpc.cronologia.getGeneralInfoByID.useQuery(id);
-  const { data: individualResultsData, isLoading: individualResultsLoading } = trpc.resultados.getByFecha.useQuery(id);
-  const { data: teamResultsData, isLoading: teamResultsLoading } = trpc.participaciones.getByFecha.useQuery(id);
+  const { data: countryData, isLoading: countryLoading } = trpc.paises.getByID.useQuery(id);
+  const { data: resultsData, isLoading: resultsLoading } = trpc.participaciones.getByPais.useQuery(id);
+  const { data: acumuladoData, isLoading: acumuladoLoading } = trpc.participaciones.getAcumuladoByPais.useQuery(id);
 
-  const isLoading = cronologiaLoading || generalInfoLoading || individualResultsLoading || teamResultsLoading;
+  const isLoading = countryLoading || resultsLoading || acumuladoLoading;
 
   const chipOptions = [
     { id: 'stats', label: 'Estadísticas', value: 'stats' },
     { id: 'individual', label: 'Individuales', value: 'individual' },
-    { id: 'countries', label: 'Países', value: 'countries' }
+    { id: 'team', label: 'Por Equipo', value: 'team' }
   ];
 
   const handleViewChange = (value: string) => {
-    setView(value as 'stats' | 'individual');
+    setView(value as 'stats' | 'individual' | 'team');
   };
 
   if (isLoading) {
@@ -35,7 +34,7 @@ export default function IndividualResultsCardGrid({ id }: { id: number }) {
           <div className="h-10 w-24 bg-gray-300 rounded-lg animate-pulse"></div>
           <div className="h-10 w-24 bg-gray-300 rounded-lg animate-pulse"></div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 p-4">
           {[...Array(6)].map((_, i) => (
             <div key={i} className="bg-white rounded-lg shadow-md animate-pulse">
               <div className="bg-gray-300 h-16 rounded-t-lg"></div>
@@ -60,6 +59,8 @@ export default function IndividualResultsCardGrid({ id }: { id: number }) {
 
   return (
     <div className="space-y-6">
+      <h1 className='text-center font-bold text-4xl'>{countryData?.nombre}</h1>
+
       {/* View Toggle */}
       <Chips
         options={chipOptions}
@@ -68,16 +69,20 @@ export default function IndividualResultsCardGrid({ id }: { id: number }) {
         className="flex justify-center"
       />
 
+      {/* Content */}
       {view === 'stats' && (
-        <StatisticsSection id={id} generalInfoData={generalInfoData} />
+        <CountryStatisticsSection 
+          countryData={countryData} 
+          acumuladoData={acumuladoData} 
+        />
       )}
 
       {view === 'individual' && (
-        <IndividualResultsSection individualResultsData={individualResultsData || []} />
+        <CountryIndividualResultsSection resultsData={resultsData || []} />
       )}
-      
-      {view === 'countries' && (
-        <TeamResultsSection teamResultsData={teamResultsData || []} /> 
+
+      {view === 'team' && (
+        <CountryTeamResultsSection resultsData={resultsData || []} />
       )}
     </div>
   );

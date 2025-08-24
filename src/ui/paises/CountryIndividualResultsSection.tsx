@@ -1,6 +1,6 @@
 'use client';
 
-import ResponsiveTable from "@/app/ui/components/ResponsiveTable";
+import ResponsiveTable from "@/ui/components/ResponsiveTable";
 
 interface CountryIndividualResultsSectionProps {
   resultsData: any[];

@@ -4,6 +4,9 @@ export type pais = {
   id: string;
   nombre: string;
   contacto: string;
+  sitio: string;
+  primera: number;
+  anfitrion: number[];
 }
 
 export type cronologia = {

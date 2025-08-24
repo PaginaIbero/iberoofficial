@@ -1,4 +1,4 @@
-import { Section } from "@/app/ui/components/Section";
+import { Section } from "@/ui/components/Section";
 
 export default function Page() {
   let today = new Date(Date.now());

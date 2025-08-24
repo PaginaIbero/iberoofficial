@@ -1,6 +1,6 @@
 'use client';
 
-import PapersGrid from '@/app/ui/pruebas/PapersGrid';
+import PapersGrid from '@/ui/pruebas/PapersGrid';
 import { trpc } from '../_trpc/client';
 
 export default function Page() {

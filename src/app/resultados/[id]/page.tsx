@@ -1,4 +1,4 @@
-import IndividualResultsCardGrid from "@/app/ui/resultados/YearResultsDashboard";
+import IndividualResultsCardGrid from "@/ui/resultados/YearResultsDashboard";
 
 export default function Page({ params }: {
   params: {

@@ -1,4 +1,4 @@
-import ResultsCardGrid from "@/app/ui/resultados/ResultsCardGrid";
+import ResultsCardGrid from "@/ui/resultados/ResultsCardGrid";
 
 export default function Page() {
   return (

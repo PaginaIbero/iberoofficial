@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { trpc } from "@/app/_trpc/client";
 import Link from "next/link";
 
+// TODO: Remove use of trpc here, just pass the values
+
 export default function PastEditions() {
   return (
     <section  className='pb-8'>

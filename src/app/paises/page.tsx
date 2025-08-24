@@ -1,4 +1,4 @@
-import CountriesCardGrid from "@/app/ui/paises/CountriesCardGrid";
+import CountriesCardGrid from "@/ui/paises/CountriesCardGrid";
 
 export default function Page() {
   return (

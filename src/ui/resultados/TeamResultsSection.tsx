@@ -1,14 +1,15 @@
 'use client';
 
-import ResponsiveTable from "@/app/ui/components/ResponsiveTable";
+import ResponsiveTable from "@/ui/components/ResponsiveTable";
+import { pais } from "@/lib/types";
 
-interface CountryTeamResultsSectionProps {
-  resultsData: any[];
+interface TeamResultsSectionProps {
+  teamResultsData: any[];
 }
 
-export default function CountryTeamResultsSection({ resultsData }: CountryTeamResultsSectionProps) {
+export default function TeamResultsSection({ teamResultsData: resultsData }: TeamResultsSectionProps) {
   const columns = [
-    { key: 'fecha', label: 'Año' },
+    { key: 'pais', label: 'País', className: 'font-semibold', render: (value: pais) => `${value.nombre}` },
     { key: 'ranking', label: 'Ranking', className: 'font-semibold', render: (value: number) => `#${value}` },
     { key: 'prob1', label: 'P1' },
     { key: 'prob2', label: 'P2' },
@@ -26,7 +27,7 @@ export default function CountryTeamResultsSection({ resultsData }: CountryTeamRe
 
   const mobileRender = (row: any) => (
     <div className="flex flex-col text-left">
-      <p className="font-semibold">{row.fecha}</p>
+      <p className="text font-semibold">{row.pais.nombre}</p>
       <p className="text-sm">Ranking: #{row.ranking}</p>
       <p className="text-sm">
         <span>{row.prob1}</span> +&nbsp;
