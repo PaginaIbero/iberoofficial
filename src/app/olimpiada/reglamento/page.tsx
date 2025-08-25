@@ -1,11 +1,14 @@
-import { Section } from "@/app/ui/components/Section";
-
+import { Section } from "@/ui/components/Section";
 
 export default function Page() {
   return (
     <main className="flex min-h-screen flex-col text-black">
-      <h1 className='text-4xl font-semibold text-center'>Reglamento</h1>
-      <h1 className='text-center'>Reglamento permanente de la Olimpiada Iberoamericana de Matemática</h1>
+      <header className='pb-8'>
+        <h1 className='text-4xl font-semibold font-sans text-center text-blue-500 pb-5'>Reglamento</h1>
+        <p className='text-center text-gray-700 px-4'>
+          Reglamento permanente de la Olimpiada Iberoamericana de Matemática
+        </p>
+      </header>
       <br/>
       <Section title='Aspectos generales'>
         <p className='my-2'>

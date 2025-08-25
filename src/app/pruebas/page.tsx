@@ -1,6 +1,6 @@
 'use client';
 
-import PapersGrid from '@/app/ui/pruebas/PapersGrid';
+import PapersGrid from '@/ui/pruebas/PapersGrid';
 import { trpc } from '../_trpc/client';
 
 export default function Page() {
@@ -8,12 +8,14 @@ export default function Page() {
 
   return (
     <div className='flex flex-col text-black'>
-      <h1 className='text-4xl font-semibold text-center'>
-        Pruebas
-      </h1>
-      <p className='text-center'>
-        Archivo de pruebas de la Olimpiada Iberoamericana de Matemática
-      </p>
+      <header className='pb-8'>
+        <h1 className='text-4xl font-semibold font-sans text-center text-blue-500 pb-5'>
+          Pruebas
+        </h1>
+        <p className='text-center text-gray-700 px-4'>
+          Archivo de pruebas de la Olimpiada Iberoamericana de Matemática
+        </p>
+      </header>
       <br/>
       {!isLoading && <PapersGrid papers={data || []} />}
     </div>

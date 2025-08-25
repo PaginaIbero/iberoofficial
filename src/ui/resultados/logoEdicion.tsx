@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import Image from 'next/image'
 
 interface LogoEdicionProps {
   id: number;
@@ -13,7 +14,7 @@ export default function LogoEdicion({ id }: LogoEdicionProps) {
   useEffect(() => {
     const fetchFile = async (path: string) => {
       const fileExists = await new Promise<boolean>((resolve) => {
-                          const img = new Image()
+                          const img = new window.Image()
                           img.onload = () => resolve(true)
                           img.onerror = () => resolve(false)
                           img.src = path
@@ -42,8 +43,10 @@ export default function LogoEdicion({ id }: LogoEdicionProps) {
 
   return (
     <div className="w-16 h-16 lg:w-20 lg:h-20 flex items-center justify-center">
-      <img
+      <Image
         src={logoSrc}
+        width={500}
+        height={500}
         alt={`Logo Olimpiada ${id}`}
         className="max-w-full max-h-full object-contain drop-shadow-md hover:scale-105 transition-transform duration-200"
         title={`Logo de la Olimpiada Iberoamericana de Matemática ${id}`}
