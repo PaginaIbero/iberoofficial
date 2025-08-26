@@ -73,7 +73,10 @@ export default function IndividualResultsCardGrid({ id }: { id: number }) {
       )}
 
       {view === 'individual' && (
-        <IndividualResultsSection individualResultsData={individualResultsData || []} />
+        <IndividualResultsSection individualResultsData={individualResultsData?.map(result => ({
+          ...result,
+          premio: result.premio === 'NADA' ? '' : result.premio
+        })) || []} />
       )}
       
       {view === 'countries' && (
