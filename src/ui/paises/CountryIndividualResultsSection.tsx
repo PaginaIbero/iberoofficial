@@ -59,8 +59,8 @@ export default function CountryIndividualResultsSection({ resultsData }: Country
       columns={columns}
       data={flattenedData}
       mobileTitle="Información del Participante"
-      headerClassName="bg-purple-200"
-      rowClassName="bg-purple-50"
+      headerClassName="bg-blue-200"
+      rowClassName="bg-blue-50"
       mobileRender={mobileRender}
     />
   );
