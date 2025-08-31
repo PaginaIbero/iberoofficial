@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
 import prisma from '@/lib/db'
-import { access } from "fs";
 
 export const participacionesRouter = router({
   getByFecha: publicProcedure.input(z.number()).query(async ({ input }) => {
@@ -43,30 +42,20 @@ export const participacionesRouter = router({
   }),
   getAcumuladoPais: publicProcedure.query(async () => {
     try {
-      const paises = await prisma.paises.findMany({
-        orderBy: {
-          nombre: 'asc'
-        }
-      });
-      const data = []
-      for (let p of paises) {
-        const cronologia = await prisma.cronologia.findMany({
-          where: {
-            copa_prId: p.id
-          },
+      // Fetch all data in parallel with proper includes
+      const [paises, allCronologia, allParticipaciones] = await Promise.all([
+        prisma.paises.findMany({
           orderBy: {
-            id: 'asc'
-          },
-          include: {
-            copa_pr: true
+            nombre: 'asc'
           }
-        });
-        const participaciones = await prisma.participaciones.findMany({
-          where: {
-            pais: {
-              id: p.id
-            }
-          },
+        }),
+        prisma.cronologia.findMany({
+          select: {
+            id: true,
+            copa_prId: true
+          }
+        }),
+        prisma.participaciones.findMany({
           orderBy: {
             fecha: 'asc'
           },
@@ -74,8 +63,31 @@ export const participacionesRouter = router({
             pais: true,
             equipo: true
           }
-        });
-        data.push({
+        })
+      ]);
+
+      // Create lookup maps for faster processing
+      const cronologiaMap = allCronologia.reduce((acc, cron) => {
+        if (!acc[cron.copa_prId]) {
+          acc[cron.copa_prId] = [];
+        }
+        acc[cron.copa_prId].push(cron.id);
+        return acc;
+      }, {} as Record<string, number[]>);
+
+      const participacionesMap = allParticipaciones.reduce((acc, part) => {
+        if (!acc[part.paisId]) {
+          acc[part.paisId] = [];
+        }
+        acc[part.paisId].push(part);
+        return acc;
+      }, {} as Record<string, typeof allParticipaciones>);
+
+      return paises.map((p) => {
+        const participaciones = participacionesMap[p.id] || [];
+        const cronologia = cronologiaMap[p.id] || [];
+        
+        return {
           codigo: p.id,
           pais: p.nombre,
           participaciones: participaciones.length,
@@ -88,11 +100,11 @@ export const participacionesRouter = router({
             participaciones.reduce((acc, p) => acc + p.premios[3], 0)
           ],
           copas_pr: cronologia.length
-        });
-      }
-      return data;
+        };
+      });
     } catch (error) {
       console.error(error);
+      return [];
     }
   }),
   getAcumuladoByPais: publicProcedure.input(z.string()).query(async ({ input }) => {
