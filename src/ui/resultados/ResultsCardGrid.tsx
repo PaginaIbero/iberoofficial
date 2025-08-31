@@ -129,7 +129,7 @@ export default function ResultsCardGrid() {
               }}
             >
               {/* Header with country */}
-              <div className="bg-green-400 text-white p-4 rounded-t-lg">
+              <div className="bg-blue-400 text-white p-4 rounded-t-lg">
                 <h2 className="text-xl font-bold text-center">{item.pais}</h2>
               </div>
 
