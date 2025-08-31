@@ -39,7 +39,7 @@ export default function PapersGrid({ papers }: { papers: PapersProps[] }) {
           <span key={i} className='md:col-span-2'>
             {paper.id} - {paper.ciudad !== '-' && paper.pais !== '-' ? `${paper.ciudad}, ${paper.pais}` : paper.pais !== '-' ? paper.pais : 'N/A'}
           </span>
-          <div key={i} className='flex flex-row gap-4 md:contents w-full'>
+          <div key={i} className='flex flex-row flex-wrap md:contents w-full'>
             {Object.keys(languages).map((lang, j) => (
               <div key={j} className='md:col-span-1'>
                 <Link
