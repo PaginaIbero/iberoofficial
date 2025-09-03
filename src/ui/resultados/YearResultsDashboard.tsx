@@ -10,12 +10,11 @@ import TeamResultsSection from "./TeamResultsSection";
 export default function IndividualResultsCardGrid({ id }: { id: number }) {
   const [view, setView] = useState<'stats' | 'individual' | 'countries'>('stats');
 
-  const { data: cronologiaData, isLoading: cronologiaLoading } = trpc.cronologia.getByID.useQuery(id);
   const { data: generalInfoData, isLoading: generalInfoLoading } = trpc.cronologia.getGeneralInfoByID.useQuery(id);
   const { data: individualResultsData, isLoading: individualResultsLoading } = trpc.resultados.getByFecha.useQuery(id);
   const { data: teamResultsData, isLoading: teamResultsLoading } = trpc.participaciones.getByFecha.useQuery(id);
 
-  const isLoading = cronologiaLoading || generalInfoLoading || individualResultsLoading || teamResultsLoading;
+  const isLoading = generalInfoLoading || individualResultsLoading || teamResultsLoading;
 
   const chipOptions = [
     { id: 'stats', label: 'Estadísticas', value: 'stats' },

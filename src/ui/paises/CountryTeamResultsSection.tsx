@@ -48,8 +48,8 @@ export default function CountryTeamResultsSection({ resultsData }: CountryTeamRe
       columns={columns}
       data={resultsData || []}
       mobileTitle="Información del Equipo"
-      headerClassName="bg-indigo-200"
-      rowClassName="bg-indigo-50"
+      headerClassName="bg-blue-200"
+      rowClassName="bg-blue-50"
       mobileRender={mobileRender}
     />
   );

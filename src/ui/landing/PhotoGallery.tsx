@@ -121,6 +121,8 @@ function PhotoCarousel() {
                     <Image 
                       src={foto.src} 
                       alt={foto.alt} 
+                      width={1000}
+                      height={1000}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                     />
                   </div>
@@ -191,6 +193,8 @@ function PhotoCarousel() {
               <Image
                 src={fotos[selectedPhoto].src}
                 alt={fotos[selectedPhoto].alt}
+                width={1000}
+                height={1000}
                 className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
               />
               
