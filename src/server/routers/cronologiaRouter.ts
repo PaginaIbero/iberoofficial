@@ -13,6 +13,24 @@ export const cronologiaRouter = router({
       }
     })
   }),
+  getAvailableYears: publicProcedure.query(async () => {
+    return await prisma.cronologia.findMany({
+      where: {
+        concursantes: {
+          gt: 0
+        }
+      },
+      select: {
+        id: true,
+        fecha: true,
+        ciudad: true,
+        pais: true
+      },
+      orderBy: {
+        id: 'asc'
+      }
+    })
+  }),
   getByID: publicProcedure.input(z.number()).query(async ({ input }) => {
     return await prisma.cronologia.findFirst({
       where: {
