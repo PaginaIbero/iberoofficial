@@ -6,6 +6,7 @@ import Chips from "@/ui/components/Chips";
 import StatisticsSection from "@/ui/resultados/StatisticsSection";
 import IndividualResultsSection from "@/ui/resultados/IndividualResultsSection";
 import TeamResultsSection from "./TeamResultsSection";
+import YearNavigation from "./YearNavigation";
 
 export default function IndividualResultsCardGrid({ id }: { id: number }) {
   const [view, setView] = useState<'stats' | 'individual' | 'countries'>('stats');
@@ -59,6 +60,9 @@ export default function IndividualResultsCardGrid({ id }: { id: number }) {
 
   return (
     <div className="space-y-6">
+      {/* Year Navigation */}
+      <YearNavigation currentYearId={id} />
+      
       {/* View Toggle */}
       <Chips
         options={chipOptions}
@@ -83,4 +87,4 @@ export default function IndividualResultsCardGrid({ id }: { id: number }) {
       )}
     </div>
   );
-} 
+}
