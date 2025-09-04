@@ -24,6 +24,7 @@ export default function YearNavigation({ currentYearId }: YearNavigationProps) {
   const previousYear = currentIndex > 0 ? availableYears[currentIndex - 1] : null;
   const nextYear = currentIndex < availableYears.length - 1 ? availableYears[currentIndex + 1] : null;
   const currentYear = availableYears[currentIndex];
+  const isInAvailableYears = availableYears.some(year => year.id === currentYearId);
 
   const handlePreviousYear = () => {
     if (previousYear) {
@@ -49,7 +50,7 @@ export default function YearNavigation({ currentYearId }: YearNavigationProps) {
   };
 
   return (
-    <div className="flex items-center justify-center space-x-4 py-4">
+    <div className={`flex items-center justify-center space-x-4 py-4 ${isInAvailableYears ? '' : 'hidden'}`}>
       <button
         onClick={handlePreviousYear}
         disabled={!previousYear}
