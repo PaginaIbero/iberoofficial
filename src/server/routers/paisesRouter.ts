@@ -8,39 +8,41 @@ export const paisesRouter = router({
       orderBy: {
         nombre: 'asc'
       },
+      include: {
+        participaciones: {
+          orderBy: {
+            fecha: 'asc'
+          },
+          take: 1
+        }
+      }
     });
 
-    const data = paises.map(async (p) => {
-      const cron = await prisma.cronologia.findMany({
-        where: {
-          pais: p.nombre
-        },
-        orderBy: {
-          fecha: 'asc'
-        }
-      });
-      const part = await prisma.participaciones.findFirst({
-        where: {
-          pais: {
-            id: p.id
-          }
-        },
-        orderBy: {
-          fecha: 'asc'
-        }
-      });
-
-      return {
-        id: p.id,
-        nombre: p.nombre,
-        contacto: p.contacto,
-        sitio: p.sitio,
-        anfitrion: cron.map(c => c.id),
-        primera: part?.fecha || '-',
+    // Get all cronologia data in a single query
+    const allCronologia = await prisma.cronologia.findMany({
+      select: {
+        id: true,
+        pais: true
       }
-    })
+    });
 
-    return Promise.all(data)
+    // Create a map for faster lookup
+    const cronologiaMap = allCronologia.reduce((acc, cron) => {
+      if (!acc[cron.pais]) {
+        acc[cron.pais] = [];
+      }
+      acc[cron.pais].push(cron.id);
+      return acc;
+    }, {} as Record<string, number[]>);
+
+    return paises.map((p) => ({
+      id: p.id,
+      nombre: p.nombre,
+      contacto: p.contacto,
+      sitio: p.sitio,
+      anfitrion: cronologiaMap[p.nombre] || [],
+      primera: p.participaciones[0]?.fecha || '-',
+    }));
   }),
   getByID: publicProcedure.input(z.string()).query(async ({ input }) => {
     return await prisma.paises.findUnique({
